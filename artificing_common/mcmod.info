@@ -1,0 +1,20 @@
+[
+{
+  "modid": "artificing",
+  "name": "Artificing",
+  "description": "Adds a system to choose which enchants you want using a fun interface.",
+  "version": "alpha 0.1",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "ChrisClark13"
+  ],
+  "credits": "By ChrisClark13, credits to everyone in #Direwolf20 for the help!",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent": "",
+  "dependencies": [
+  ]
+}
+]
