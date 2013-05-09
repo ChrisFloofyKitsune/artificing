@@ -260,8 +260,8 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
 
 	@Override
 	public String getSlotSignature(ItemStack itemStack) {
-		return  " # \n" +
-			    "#X#\n" +
-				" # ";
+		return  "# #\n" +
+			    " X \n" +
+		        "# #";
 	}
 }

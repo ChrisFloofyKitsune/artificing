@@ -37,7 +37,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
 		final int GRID_X = 32;
 		final int GRID_Y = 17;
 
-		ArrayList<Slot> gridSlots = artificingTable.grid.createSlotsForContainer(this, GRID_X, GRID_Y);
+		ArrayList<Slot> gridSlots = artificingTable.grid.createSlotsForContainer(this, GRID_X, GRID_Y, 8, 8);
 		
 		for (Slot slot : gridSlots) {
 			addSlotToContainer(slot);
@@ -79,7 +79,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
 
         if (slot != null) {
             if (slot instanceof SlotMultiSlotItem) {
-                slot = ((SlotMultiSlotItem) slot).getLinkedSlot();
+                slot = ((SlotMultiSlotItem) slot).getParentSlot();
             }
             if (slot.getHasStack()) {
                 ItemStack itemStack = slot.getStack();

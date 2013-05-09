@@ -41,15 +41,4 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
-
-	
-	//Overrided to prevent issues with selecting multiple slots
-	@Override
-	protected boolean isPointInRegion(int left, int top, int width, int height,
-			int pointX, int pointY) {
-		pointX -= this.guiLeft;
-		pointY -= this.guiTop;
-		return pointX >= left && pointX < left + width && pointY >= top
-				&& pointY < top + height;
-	}
 }

@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 
 public class SlotArtificingGrid extends SlotMultiSlotItem {
 
-	public SlotArtificingGrid(ContainerMultiSlotItem container, MultiSlotItemGridSlot gridSlot, int slotId, int displayX,
-			int displayY) {
-		super(container, gridSlot, slotId, displayX, displayY);
+	public SlotArtificingGrid(ContainerMultiSlotItem container, MultiSlotItemGridSlot gridSlot, int displayX,
+			int displayY, int slotWidth, int slotHeight) {
+		super(container, gridSlot, displayX, displayY, slotWidth, slotHeight);
 		// TODO Auto-generated constructor stub
 	}
 

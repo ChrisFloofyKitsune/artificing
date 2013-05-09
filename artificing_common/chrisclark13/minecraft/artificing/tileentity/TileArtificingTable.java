@@ -17,7 +17,7 @@ public class TileArtificingTable extends TileEntity implements IInventory {
 
 	public TileArtificingTable() {
 		inventory = new ItemStack[INVENTORY_SIZE];
-		grid = new InventoryArtificingGrid(this, 7, 7);
+		grid = new InventoryArtificingGrid(this, 14, 14);
 	}
 
 	@Override
