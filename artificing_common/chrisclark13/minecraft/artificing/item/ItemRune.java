@@ -135,7 +135,7 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
                 if (data.enchantmentobj.getMaxLevel() == 5) {
                     return runeBaseQualityArray[level - 1];
                 } else {
-                    return runeBaseQualityArray[Math.round(((float) level) / data.enchantmentobj.getMaxLevel() * 5f) - 1];
+                    return runeBaseQualityArray[MathHelper.ceiling_float_int(((float) level) / data.enchantmentobj.getMaxLevel() * 5f) - 1];
                 }
                 
             }
@@ -255,13 +255,21 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
 
 	@Override
 	public String getImagePath(ItemStack itemStack) {
-		return "/mods/artificing/textures/items/multislot/runeBase.png";
+	    return RuneHelper.getEnchantmentImagePath(this.getEnchantmentData(itemStack));
 	}
 
 	@Override
 	public String getSlotSignature(ItemStack itemStack) {
-		return  "# #\n" +
-			    " X \n" +
-		        "# #";
+		return RuneHelper.getEnchantmentSignatureString(this.getEnchantmentData(itemStack));
+	}
+	
+	@Override
+	public int getImageColor(ItemStack itemStack) {
+	    NBTTagCompound tag = this.getEnchantmentTag(itemStack);
+        if (tag != null) {
+            return RuneHelper.getEnchantmentColor(Enchantment.enchantmentsList[tag.getShort(TAG_ENCHANTMENT_ID)].getName());
+        } else {
+            return RuneHelper.getDefaultColor();
+        }
 	}
 }

@@ -43,7 +43,7 @@ public class Artificing {
             
             ModItems.init();
             
-            RuneHelper.initColors();
+            RuneHelper.init();
         }
         
         @Init
