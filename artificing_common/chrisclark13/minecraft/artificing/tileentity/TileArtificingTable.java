@@ -3,14 +3,18 @@ package chrisclark13.minecraft.artificing.tileentity;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
-public class TileArtificingTable extends TileEntity implements IInventory {
+public class TileArtificingTable extends TileEntity implements ISidedInventory {
 
 	private final int INVENTORY_SIZE = 2;
+	private final int INPUT_SLOT_INDEX = 0;
+	private final int OUTPUT_SLOT_INDEX = 1;
 
 	private ItemStack[] inventory;
 	public InventoryArtificingGrid grid;
@@ -164,4 +168,34 @@ public class TileArtificingTable extends TileEntity implements IInventory {
 		
 		grid.writeToNBT(tagCompound);
 	}
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        switch (ForgeDirection.getOrientation(side)) {
+            case UP:
+                return new int[] {INPUT_SLOT_INDEX};
+            case DOWN:
+                return new int[] {OUTPUT_SLOT_INDEX};
+            default:
+                return new int[] {};
+        }
+    }
+
+    @Override
+    public boolean canInsertItem(int id, ItemStack itemstack, int side) {
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean canExtractItem(int id, ItemStack itemstack, int side) {
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

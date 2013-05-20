@@ -125,6 +125,67 @@ public class RuneHelper {
         MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor.5", Textures.MSI_LOC + "runeArmor5.png",
                 "###\n" + " # \n" + "#X#\n" + " # \n" + "###");
         
+        // Armor_Head
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_head.1", Textures.MSI_LOC + "runeArmorHead1.png",
+                "X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_head.2", Textures.MSI_LOC + "runeArmorHead2.png",
+                "#\n" +"X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_head.3", Textures.MSI_LOC + "runeArmorHead3.png",
+                " # \n" + "#X#\n" + "##");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_head.4", Textures.MSI_LOC + "runeArmorHead4.png",
+                "###\n" + " X \n" + "###\n" + " # ");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_head.5", Textures.MSI_LOC + "runeArmorHead5.png",
+                "###\n" + " # \n" + "#X#\n" + " # \n" + "###");
+        
+        // Armor_Torso
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_torso.1", Textures.MSI_LOC + "runeArmorTorso1.png",
+                "X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_torso.2", Textures.MSI_LOC + "runeArmorTorso2.png",
+                "#\n" +"X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_torso.3", Textures.MSI_LOC + "runeArmorTorso3.png",
+                " # \n" + "#X#\n" + "##");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_torso.4", Textures.MSI_LOC + "runeArmorTorso4.png",
+                "###\n" + " X \n" + "###\n" + " # ");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_torso.5", Textures.MSI_LOC + "runeArmorTorso5.png",
+                "###\n" + " # \n" + "#X#\n" + " # \n" + "###");
+        
+        // Armor_Legs
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_legs.1", Textures.MSI_LOC + "runeArmorLegs1.png",
+                "X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_legs.2", Textures.MSI_LOC + "runeArmorLegs2.png",
+                "#\n" +"X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_legs.3", Textures.MSI_LOC + "runeArmorLegs3.png",
+                " # \n" + "#X#\n" + "##");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_legs.4", Textures.MSI_LOC + "runeArmorLegs4.png",
+                "###\n" + " X \n" + "###\n" + " # ");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_legs.5", Textures.MSI_LOC + "runeArmorLegs5.png",
+                "###\n" + " # \n" + "#X#\n" + " # \n" + "###");
+        
+        // Armor_Feet
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_feet.1", Textures.MSI_LOC + "runeArmorFeet1.png",
+                "X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_feet.2", Textures.MSI_LOC + "runeArmorFeet2.png",
+                "#\n" +"X\n" + "#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_feet.3", Textures.MSI_LOC + "runeArmorFeet3.png",
+                " # \n" + "#X#\n" + "##");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_feet.4", Textures.MSI_LOC + "runeArmorFeet4.png",
+                "###\n" + " X \n" + "###\n" + " # ");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.armor_feet.5", Textures.MSI_LOC + "runeArmorFeet5.png",
+                "###\n" + " # \n" + "#X#\n" + " # \n" + "###");
+        
+        
+        // Tool/Digger
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.digger.1", Textures.MSI_LOC + "runeTool1.png",
+                "X#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.digger.2", Textures.MSI_LOC + "runeTool2.png",
+                " #\n" +"#X");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.digger.3", Textures.MSI_LOC + "runeTool3.png",
+                "#X#\n" + "# #");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.digger.4", Textures.MSI_LOC + "runeTool4.png",
+                "###\n" +"#X#\n" + "###");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.digger.5", Textures.MSI_LOC + "runeTool5.png",
+                " # \n" + "####\n" + "#X#\n" + "####\n");
+        
         // Weapon
         MultiSlotItemRegistry.registerUnlocalizedName("enchantment.weapon.1", Textures.MSI_LOC + "runeWeapon1.png",
                 "X#");
@@ -136,65 +197,56 @@ public class RuneHelper {
                 "##  \n" + " #X#\n" + " ###");
         MultiSlotItemRegistry.registerUnlocalizedName("enchantment.weapon.5", Textures.MSI_LOC + "runeWeapon5.png",
                 "## # \n" + "##X##\n" + "# ###");
+        
+        // Bow
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.bow.1", Textures.MSI_LOC + "runeBow1.png",
+                "X#");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.bow.2", Textures.MSI_LOC + "runeBow2.png",
+                "X#\n" + "# ");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.bow.3", Textures.MSI_LOC + "runeBow3.png",
+                "#X##\n" + "   #");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.bow.4", Textures.MSI_LOC + "runeBow4.png",
+                "##  \n" + " #X#\n" + " ###");
+        MultiSlotItemRegistry.registerUnlocalizedName("enchantment.bow.5", Textures.MSI_LOC + "runeBow5.png",
+                "## # \n" + "##X##\n" + "# ###");
     }
 
     public static String getEnchantmentImagePath(EnchantmentData data) {
-
-        
-
-        if (data != null) {
-            int level = MathHelper.clamp_int(data.enchantmentLevel, 1,
-                    data.enchantmentobj.getMaxLevel());
-            String name = data.enchantmentobj.getName() + "." + level;
-            
-            // Check for unique enchantment entry
-            if (MultiSlotItemRegistry.hasEntry(name)) {
-                return MultiSlotItemRegistry.getImagePath(name);
-                // Check for general entry
-            } else {
-                // Don't want a locale change to break the code
-                name = "enchantment." + data.enchantmentobj.type.name().toLowerCase(Locale.US)
-                        + "." + level;
-                if (MultiSlotItemRegistry.hasEntry(name)) {
-                    return MultiSlotItemRegistry.getImagePath(name);
-                }
-            }
-            
-            return MultiSlotItemRegistry.getImagePath(ENCHANTMENT_DEFAULT + "."
-                    + ((level > 5) ? 5 : level));
-        }
-        
-        return MultiSlotItemRegistry.getImagePath(ENCHANTMENT_DEFAULT + ".1");
+        return MultiSlotItemRegistry.getImagePath(getEnchantmentMSIName(data));
     }
 
     public static String getEnchantmentSignatureString(EnchantmentData data) {
-
-        
-
+        return MultiSlotItemRegistry.getSignatureString(getEnchantmentMSIName(data)); 
+    }
+    
+    public static String getEnchantmentMSIName(EnchantmentData data) {
         if (data != null) {
             
             int level = MathHelper.clamp_int(data.enchantmentLevel, 1,
                     data.enchantmentobj.getMaxLevel());
+            
+            if (data.enchantmentobj.getMaxLevel() < 5) {
+                level = MathHelper.ceiling_float_int(((float) level) / data.enchantmentobj.getMaxLevel() * 4f);
+            }
+            
             String name = data.enchantmentobj.getName() + "." + level;
             
             // Check for unique enchantment entry
             if (MultiSlotItemRegistry.hasEntry(name)) {
-                return MultiSlotItemRegistry.getSignatureString(name);
+                return name;
                 // Check for general entry
             } else {
                 // Don't want a locale change to break the code
                 name = "enchantment." + data.enchantmentobj.type.name().toLowerCase(Locale.US)
                         + "." + level;
                 if (MultiSlotItemRegistry.hasEntry(name)) {
-                    return MultiSlotItemRegistry.getSignatureString(name);
+                    return name;
                 }
             }
-            return MultiSlotItemRegistry.getSignatureString(ENCHANTMENT_DEFAULT + "."
-                    + ((level > 5) ? 5 : level));
+            return ENCHANTMENT_DEFAULT + "." + ((level > 5) ? 5 : level);
         }
         
-        return MultiSlotItemRegistry.getSignatureString(ENCHANTMENT_DEFAULT + ".1");
-        
+        return ENCHANTMENT_DEFAULT + ".1";
     }
 
     @SuppressWarnings("rawtypes")
@@ -204,7 +256,7 @@ public class RuneHelper {
         for (Enchantment enchantment : Enchantment.enchantmentsList) {
             if (enchantment != null) {
                 for (int level = enchantment.getMinLevel(); level <= enchantment.getMaxLevel(); level++) {
-                    itemStacks.add(ModItems.rune.getItemStackWithEnchantment(enchantment, level));
+                    itemStacks.add(ModItems.rune.getRuneWithEnchantment(enchantment, level));
                 }
             }
         }

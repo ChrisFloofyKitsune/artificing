@@ -1,5 +1,8 @@
 package chrisclark13.minecraft.artificing.item;
 
+import java.util.List;
+import java.util.Locale;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
@@ -9,6 +12,7 @@ import chrisclark13.minecraft.multislotitems.IMultiSlotItem;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
@@ -110,13 +114,13 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
         return null;
     }
     
-    public ItemStack getItemStackWithEnchantment(EnchantmentData data) {
+    public ItemStack getRuneWithEnchantment(EnchantmentData data) {
         ItemStack itemStack = new ItemStack(this.itemID, 1, 0);
         this.setEnchantmentData(itemStack, data);
         return itemStack;
     }
     
-    public ItemStack getItemStackWithEnchantment(Enchantment enchantment, int level) {
+    public ItemStack getRuneWithEnchantment(Enchantment enchantment, int level) {
         ItemStack itemStack = new ItemStack(this.itemID, 1, 0);
         this.setEnchantmentData(itemStack, enchantment, level);
         return itemStack;
@@ -245,6 +249,24 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
         }
         
         return super.getItemDisplayName(itemStack);
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemStack, EntityPlayer player,
+            List list, boolean debug) {
+        super.addInformation(itemStack, player, list, debug);
+        
+        if (debug) {
+            EnchantmentData data = getEnchantmentData(itemStack);
+            if (data != null) {
+                list.add("Name: " + data.enchantmentobj.getName());
+                list.add("Type: " + data.enchantmentobj.type.name());
+            }
+            list.add("MSI: " + RuneHelper.getEnchantmentMSIName(data));
+        }
+        
     }
     
     @Override

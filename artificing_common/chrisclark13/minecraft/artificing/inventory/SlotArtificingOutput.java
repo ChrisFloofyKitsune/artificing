@@ -16,4 +16,6 @@ public class SlotArtificingOutput extends Slot {
 	public boolean isItemValid(ItemStack par1ItemStack) {
 		return false;
 	}
+	
+	
 }
