@@ -28,7 +28,6 @@ public class BlockArtificingTable extends BlockContainer {
     
     public BlockArtificingTable(int id) {
         super(id, Material.rock);
-        this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.8125f, 1.0f);
         this.setLightOpacity(0);
         this.setUnlocalizedName(Strings.ARTIFICING_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
