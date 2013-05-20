@@ -21,27 +21,15 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class BlockArtificingTable extends BlockContainer {
+public class BlockArtificingTable extends BlockArtificingGeneral {
 
     public Icon iconTop;
     public Icon iconBottom;
     
     public BlockArtificingTable(int id) {
         super(id, Material.rock);
-        this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.8125f, 1.0f);
-        this.setLightOpacity(0);
         this.setUnlocalizedName(Strings.ARTIFICING_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
-    }
-    
-    @Override
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-    
-    @Override
-    public boolean isOpaqueCube() {
-        return false;
     }
     
     @Override
