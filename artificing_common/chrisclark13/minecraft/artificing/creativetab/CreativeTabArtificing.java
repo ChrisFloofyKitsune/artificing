@@ -3,6 +3,7 @@ package chrisclark13.minecraft.artificing.creativetab;
 import java.util.List;
 
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
+import chrisclark13.minecraft.artificing.lib.BlockIds;
 import chrisclark13.minecraft.artificing.lib.ItemIds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,7 +17,7 @@ public class CreativeTabArtificing extends CreativeTabs {
     @Override
     @SideOnly(Side.CLIENT)
     public int getTabIconItemIndex() {
-        return ItemIds.RUNE;
+        return BlockIds.ARTIFICING_TABLE_ID;
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -75,4 +75,6 @@ public class TileArtificingGeneral extends TileEntity {
             nbtTagCompound.setString("CustomName", customName);
         }
     }
+    
+    
 }

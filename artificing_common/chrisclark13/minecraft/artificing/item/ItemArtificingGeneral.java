@@ -13,7 +13,7 @@ public class ItemArtificingGeneral extends Item {
         super(id - Reference.SHIFTED_ID_RANGE_CORRECTION);
         this.setMaxDamage(0);
         this.setNoRepair();
-        this.setCreativeTab(Artificing.tabArtificing);
+        //this.setCreativeTab(Artificing.tabArtificing);
     }
     
     @Override

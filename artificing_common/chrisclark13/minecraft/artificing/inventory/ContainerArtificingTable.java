@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.common.collect.ObjectArrays;
 
+import chrisclark13.minecraft.artificing.item.ItemRune;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.multislotitems.inventory.ContainerMultiSlotItem;
 import chrisclark13.minecraft.multislotitems.inventory.InventoryMultiSlotItemGrid;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerMerchant;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ContainerArtificingTable extends ContainerMultiSlotItem {
@@ -81,6 +83,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
             if (slot instanceof SlotMultiSlotItem) {
                 slot = ((SlotMultiSlotItem) slot).getParentSlot();
             }
+            
             if (slot.getHasStack()) {
                 ItemStack itemStack = slot.getStack();
                 newItemStack = itemStack.copy();
@@ -89,9 +92,12 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
                     if (!this.mergeItemStack(itemStack, artificingTable.getSizeInventory(),
                             inventorySlots.size(), true))
                         return null;
-                } else if (!this.mergeItemStack(itemStack, 0, artificingTable.getSizeInventory(), false))
-                    return null;
-
+                } else {
+                    int startIndex = (slot.getStack().getItem() instanceof ItemRune) ? artificingTable.INVENTORY_SIZE : 0;
+                    if (!this.mergeItemStack(itemStack, startIndex, artificingTable.getSizeInventory(), false)) {
+                        return null;
+                    }
+                }
                 if (itemStack.stackSize == 0) {
                     slot.putStack((ItemStack) null);
                 }

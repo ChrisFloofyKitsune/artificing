@@ -1,6 +1,6 @@
 package chrisclark13.minecraft.artificing.core.handler;
 
-import chrisclark13.minecraft.artificing.client.gui.inventory.GuiArtificingTable;
+import chrisclark13.minecraft.artificing.client.gui.GuiArtificingTable;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import net.minecraft.entity.player.EntityPlayer;
