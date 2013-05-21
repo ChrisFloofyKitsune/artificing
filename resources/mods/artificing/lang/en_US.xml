@@ -5,5 +5,5 @@
 	<entry key="tile.artificingTable.name">Artificing Table</entry>
 	<entry key="item.rune.name">Enchantment Rune</entry>
 	<entry key="item.rune.append">Rune</entry>
-	<entry key="itemGroup.artificing">Artificing</entry>
+	<entry key="itemGroup.Artificing">Artificing</entry>
 </properties>

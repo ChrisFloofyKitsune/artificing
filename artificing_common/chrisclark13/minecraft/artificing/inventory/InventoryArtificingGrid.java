@@ -8,11 +8,11 @@ import chrisclark13.minecraft.multislotitems.inventory.SlotMultiSlotItem;
 
 public class InventoryArtificingGrid extends InventoryMultiSlotItemGrid {
 
-	TileArtificingTable parent;
-	public InventoryArtificingGrid(TileArtificingTable parent, int width, int height) {
+	private TileArtificingTable artificingTable;
+	public InventoryArtificingGrid(TileArtificingTable artificingTable, int width, int height) {
 		super(width, height);
 		
-		this.parent = parent;
+		this.artificingTable = artificingTable;
 	}
 	
 	@Override

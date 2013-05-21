@@ -2,7 +2,6 @@ package chrisclark13.minecraft.artificing.block;
 
 import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingGeneral;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -25,7 +24,7 @@ public abstract class BlockArtificingGeneral extends BlockContainer {
         
         int direction = 0;
         int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-
+        
         if (facing == 0) {
             direction = ForgeDirection.NORTH.ordinal();
         }

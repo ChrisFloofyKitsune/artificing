@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
@@ -31,7 +32,7 @@ import net.minecraft.util.MathHelper;
  * 
  */
 public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
-
+    
     private static final String TAG_ENCHANTMENT_LEVEL = "lvl";
     private static final String TAG_ENCHANTMENT_ID = "id";
     public static final String TAG_ENCHANTMENT = "enchantment";

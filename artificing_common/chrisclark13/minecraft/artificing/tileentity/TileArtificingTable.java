@@ -1,5 +1,7 @@
 package chrisclark13.minecraft.artificing.tileentity;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -7,14 +9,18 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileArtificingTable extends TileEntity implements ISidedInventory {
+public class TileArtificingTable extends TileArtificingGeneral implements ISidedInventory {
 
-	private final int INVENTORY_SIZE = 2;
-	private final int INPUT_SLOT_INDEX = 0;
-	private final int OUTPUT_SLOT_INDEX = 1;
+	public final int INVENTORY_SIZE = 2;
+	public final int INPUT_SLOT_INDEX = 0;
+	public final int OUTPUT_SLOT_INDEX = 1;
 
 	private ItemStack[] inventory;
 	public InventoryArtificingGrid grid;
@@ -197,5 +203,22 @@ public class TileArtificingTable extends TileEntity implements ISidedInventory {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+        return INFINITE_EXTENT_AABB;
+        //return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+    }
+    
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        this.writeToNBT(nbtTag);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+    }
+
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
+        readFromNBT(packet.customParam1);
     }
 }
