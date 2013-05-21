@@ -36,7 +36,9 @@ public class Strings {
     
     //TileEntity id names
     public static final String TE_ARTIFICING_TABLE_NAME = "tileArtificingTable";
+    public static final String TE_RESEARCH_TABLE_NAME = "tileResearchTable";
     
     //Container names
     public static final String CONTAINER_ARTIFICING_TABLE_NAME = "container." + ARTIFICING_TABLE_NAME;
+    public static final String CONTAINER_RESEARCH_TABLE_NAME = "container." + RESEARCH_TABLE_NAME;
 }

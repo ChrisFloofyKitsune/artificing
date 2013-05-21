@@ -36,7 +36,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine
-                .bindTexture("/mods/artificing/textures/gui/artificingTable.png");
+                .bindTexture("/mods/artificing/textures/gui/artificingTable.png"); //temp
         // this.mc.renderEngine.bindTexture(texture);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;

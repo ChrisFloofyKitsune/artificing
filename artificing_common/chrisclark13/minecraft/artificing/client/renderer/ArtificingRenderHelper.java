@@ -77,7 +77,7 @@ public class ArtificingRenderHelper {
         if (customRenderer != null)
         {
             mc.renderEngine.bindTexture(itemStack.getItemSpriteNumber() == 0 ? "/terrain.png" : "/gui/items.png");
-            ForgeHooksClient.renderEquippedItem(ItemRenderType.EQUIPPED, customRenderer, renderBlocksInstance, mc.thePlayer, itemStack);
+//            ForgeHooksClient.renderEquippedItem(ItemRenderType.EQUIPPED, customRenderer, renderBlocksInstance, mc.thePlayer, itemStack);
         }
         else if (block != null && itemStack.getItemSpriteNumber() == 0 && RenderBlocks.renderItemIn3d(Block.blocksList[itemStack.itemID].getRenderType()))
         {

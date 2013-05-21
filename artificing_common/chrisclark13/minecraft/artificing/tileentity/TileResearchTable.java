@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
 
-public class TileResearchTable extends TileEntity implements ISidedInventory {
+public class TileResearchTable extends TileArtificingGeneral implements ISidedInventory {
 
     private final int   INVENTORY_SIZE = 12;
     private ItemStack[] inventory;

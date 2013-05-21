@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +20,8 @@ import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.block.*;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
+import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
+import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
 
 
 public class BlockResearchTable extends BlockArtificingGeneral {
@@ -31,6 +34,20 @@ public class BlockResearchTable extends BlockArtificingGeneral {
         super(id, Material.rock);
         this.setUnlocalizedName(Strings.RESEARCH_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
+    }
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z,
+                    EntityPlayer player, int idk, float what, float these, float are) {
+            TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+            
+            //Null check and Sneaking check
+            if (tileEntity == null || player.isSneaking()) {
+                    return false;
+            }
+            
+            //Open GUI
+            player.openGui(Artificing.instance, 2, world, x, y, z);
+            return true;
     }
 
     @Override
@@ -100,7 +117,7 @@ public class BlockResearchTable extends BlockArtificingGeneral {
     @Override
     public TileEntity createNewTileEntity(World world) {
 
-        return null;
+        return new TileResearchTable();
     }
 
 }
