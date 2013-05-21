@@ -7,6 +7,7 @@ public class Strings {
     
     //Block names
     public static final String ARTIFICING_TABLE_NAME = "artificingTable";
+    public static final String RESEARCH_TABLE_NAME = "researchTable";
     
     //Block Icon Names
     public static final String ARTIFICING_TABLE_ICON_SIDE = "artificingTableSide";
