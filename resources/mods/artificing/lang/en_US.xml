@@ -3,6 +3,7 @@
 <properties version="1.0">
 	<comment>English (en_US) Localization File</comment>
 	<entry key="tile.artificingTable.name">Artificing Table</entry>
+	<entry key="tile.researchTable.name">Research Table</entry>
 	<entry key="item.rune.name">Enchantment Rune</entry>
 	<entry key="item.rune.append">Rune</entry>
 	<entry key="itemGroup.Artificing">Artificing</entry>
