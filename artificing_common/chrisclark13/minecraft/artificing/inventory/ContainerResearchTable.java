@@ -21,7 +21,7 @@ public class ContainerResearchTable extends Container {
 
     protected TileResearchTable researchTable;
 
-    public ContainerResearchTable(InventoryPlayer inventoryPlayer, TileResearchTable mixingTable) {
+    public ContainerResearchTable(InventoryPlayer inventoryPlayer, TileResearchTable researchTable) {
 
         for (int inventoryRowIndex = 0; inventoryRowIndex < 3; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < 9; ++inventoryColumnIndex) {

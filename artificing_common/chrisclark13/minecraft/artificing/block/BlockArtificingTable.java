@@ -3,6 +3,7 @@ package chrisclark13.minecraft.artificing.block;
 import java.util.Random;
 
 import chrisclark13.minecraft.artificing.Artificing;
+import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
@@ -57,7 +58,7 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
             }
             
             //Open GUI
-            player.openGui(Artificing.instance, 0, world, x, y, z);
+            player.openGui(Artificing.instance, GuiIds.ARTIFICING_TABLE, world, x, y, z);
             return true;
     }
 

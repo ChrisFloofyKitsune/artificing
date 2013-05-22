@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.block.*;
+import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
@@ -46,7 +47,7 @@ public class BlockResearchTable extends BlockArtificingGeneral {
             }
             
             //Open GUI
-            player.openGui(Artificing.instance, 2, world, x, y, z);
+            player.openGui(Artificing.instance, GuiIds.RESEARCH_TABLE, world, x, y, z);
             return true;
     }
 

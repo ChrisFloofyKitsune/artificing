@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import chrisclark13.minecraft.artificing.item.ModItems;
+import chrisclark13.minecraft.artificing.lib.Homestuck;
 import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.multislotitems.MultiSlotItemRegistry;
 
@@ -31,7 +32,32 @@ public class RuneHelper {
     public static void initColors() {
         enchantmentColors = new HashMap<String, Integer>();
 
-        // TODO Set up loading from a config file made for just this purpose
+        // References ho!
+        setEnchantmentColor(ENCHANTMENT_DEFAULT, 0x00CC13);
+        setEnchantmentColor("enchantment.damage.all", Homestuck.GREY);
+        setEnchantmentColor("enchantment.damage.undead", Homestuck.GOLD);
+        setEnchantmentColor("enchantment.damage.arthropods", Homestuck.COBALT);
+        setEnchantmentColor("enchantment.knockback", Homestuck.BRONZE);
+        setEnchantmentColor("enchantment.fire", Homestuck.RED);
+        setEnchantmentColor("enchantment.protect.all", Homestuck.GREY);
+        setEnchantmentColor("enchantment.protect.fire", Homestuck.RED);
+        setEnchantmentColor("enchantment.protect.fall", Homestuck.BRONZE);
+        setEnchantmentColor("enchantment.protect.explosion", Homestuck.PURPLE);
+        setEnchantmentColor("enchantment.protect.projectile", Homestuck.INDIGO);
+        setEnchantmentColor("enchantment.oxygen", Homestuck.FUCHSIA);
+        setEnchantmentColor("enchantment.waterWorker", Homestuck.VIOLET);
+        setEnchantmentColor("enchantment.digging", Homestuck.OLIVE);
+        setEnchantmentColor("enchantment.untouching", Homestuck.COBALT);
+        setEnchantmentColor("enchantment.durability", Homestuck.GREY);
+        setEnchantmentColor("enchantment.lootBonus", Homestuck.TEAL);
+        setEnchantmentColor("enchantment.lootBonusDigger", Homestuck.TEAL);
+        setEnchantmentColor("enchantment.arrowDamage", Homestuck.GREY);
+        setEnchantmentColor("enchantment.arrowFire", Homestuck.RED);
+        setEnchantmentColor("enchantment.arrowKnockback", Homestuck.BRONZE);
+        setEnchantmentColor("enchantment.arrowInfinite", Homestuck.GOLD);
+        setEnchantmentColor("enchantment.thorns", Homestuck.JADE);
+
+        /*
         setEnchantmentColor(ENCHANTMENT_DEFAULT, 0x00CC13);
         setEnchantmentColor("enchantment.damage.all", 0xBBBBBB);
         setEnchantmentColor("enchantment.damage.undead", 0xFFFF00);
@@ -55,7 +81,8 @@ public class RuneHelper {
         setEnchantmentColor("enchantment.arrowKnockback", 0xFF6600);
         setEnchantmentColor("enchantment.arrowInfinite", 0x119988);
         setEnchantmentColor("enchantment.thorns", 0x996633);
-
+        */
+        
         /*
          * enchantment.damage.all=Sharpness enchantment.damage.undead=Smite
          * enchantment.damage.arthropods=Bane of Arthropods

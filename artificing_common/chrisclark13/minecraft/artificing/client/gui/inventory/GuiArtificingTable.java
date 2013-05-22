@@ -1,4 +1,4 @@
-package chrisclark13.minecraft.artificing.client.gui;
+package chrisclark13.minecraft.artificing.client.gui.inventory;
 
 import java.util.List;
 

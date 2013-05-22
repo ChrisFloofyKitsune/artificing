@@ -1,8 +1,11 @@
 package chrisclark13.minecraft.artificing.tileentity;
 
+import java.util.Random;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -21,13 +24,21 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	public final int INVENTORY_SIZE = 2;
 	public final int INPUT_SLOT_INDEX = 0;
 	public final int OUTPUT_SLOT_INDEX = 1;
-
+	
 	private ItemStack[] inventory;
 	public InventoryArtificingGrid grid;
 
+	/**
+	 * Used in TileArtificingTableRender to control the animations
+	 */
+	public int tickCount;
+	
 	public TileArtificingTable() {
 		inventory = new ItemStack[INVENTORY_SIZE];
 		grid = new InventoryArtificingGrid(this, 7, 7);
+		
+		//Desyncs the animations between multiple tile entities
+		tickCount = new Random().nextInt(40);
 	}
 
 	@Override
@@ -203,6 +214,11 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public void updateEntity() {
+        ++tickCount;
     }
     
     @Override
