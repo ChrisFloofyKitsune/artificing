@@ -38,37 +38,37 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
 				StatCollector.translateToLocal("container.inventory"), 8,
 				ySize - 96 + 2, 0x404040);
 		
-		List<ItemGroup> list = ItemGroup.createItemGroupsFromGrid(containerArtificing.getGrid(), new RuneItemGroupComparer());
-		
-		for (int i = 0; i < list.size(); i++) {
-		    ItemGroup group = list.get(i);
-		    int colorIndex = i % 15;
-		    
-		    for (int y = 0; y < group.getGrid().getHeight(); y++) {
-		        for (int x = 0; x < group.getGrid().getWidth(); x++) {
-		            int posX = 32 + x * 16;
-	                int posY = 17 + y * 16;
-	                
-	                if (group.isFilledAtPosition(x, y)) {
-	                    int color = packColorFrom3Floats(EntitySheep.fleeceColorTable[colorIndex]);
-	                    color = color & 0x77FFFFFF;
-	                    
-	                    GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	                    drawRect(posX, posY, posX + 16, posY + 16, color);
-	                }
-	                
-	                int lineX1 = 32 + group.getLeft() * 16;
-	                int lineY1 = 17 + group.getTop() * 16;
-	                int lineX2 = lineX1 + group.getWidth() * 16 - 1;
-	                int lineY2 = lineY1 + group.getHeight() * 16 - 1;
-	                
-	                drawHorizontalLine(lineX1, lineX2, lineY1, 0xFF00CC13);
-	                drawHorizontalLine(lineX1, lineX2, lineY2, 0xFF00CC13);
-	                drawVerticalLine(lineX1, lineY1, lineY2, 0xFF00CC13);
-	                drawVerticalLine(lineX2, lineY1, lineY2, 0xFF00CC13);
-		        }
-		    }
-		}
+//		List<ItemGroup> list = ItemGroup.createItemGroupsFromGrid(containerArtificing.getGrid(), new RuneItemGroupComparer());
+//		
+//		for (int i = 0; i < list.size(); i++) {
+//		    ItemGroup group = list.get(i);
+//		    int colorIndex = i % 15;
+//		    
+//		    for (int y = 0; y < group.getGrid().getHeight(); y++) {
+//		        for (int x = 0; x < group.getGrid().getWidth(); x++) {
+//		            int posX = 32 + x * 16;
+//	                int posY = 17 + y * 16;
+//	                
+//	                if (group.isFilledAtPosition(x, y)) {
+//	                    int color = packColorFrom3Floats(EntitySheep.fleeceColorTable[colorIndex]);
+//	                    color = color & 0x77FFFFFF;
+//	                    
+//	                    GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//	                    drawRect(posX, posY, posX + 16, posY + 16, color);
+//	                }
+//	                
+//	                int lineX1 = 32 + group.getLeft() * 16;
+//	                int lineY1 = 17 + group.getTop() * 16;
+//	                int lineX2 = lineX1 + group.getWidth() * 16 - 1;
+//	                int lineY2 = lineY1 + group.getHeight() * 16 - 1;
+//	                
+//	                drawHorizontalLine(lineX1, lineX2, lineY1, 0xFF00CC13);
+//	                drawHorizontalLine(lineX1, lineX2, lineY2, 0xFF00CC13);
+//	                drawVerticalLine(lineX1, lineY1, lineY2, 0xFF00CC13);
+//	                drawVerticalLine(lineX2, lineY1, lineY2, 0xFF00CC13);
+//		        }
+//		    }
+//		}
 	}
 
 	@Override

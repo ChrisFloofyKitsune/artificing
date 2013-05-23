@@ -33,8 +33,8 @@ import net.minecraft.util.MathHelper;
  */
 public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
     
-    private static final String TAG_ENCHANTMENT_LEVEL = "lvl";
-    private static final String TAG_ENCHANTMENT_ID = "id";
+    public static final String TAG_ENCHANTMENT_LEVEL = "lvl";
+    public static final String TAG_ENCHANTMENT_ID = "id";
     public static final String TAG_ENCHANTMENT = "enchantment";
     
     public static Icon runeBase;

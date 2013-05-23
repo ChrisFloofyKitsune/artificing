@@ -19,4 +19,6 @@ public class Homestuck {
     public static final int VIOLET = 0x6A006A;
     public static final int DARK_FUCHSIA = 0x77003C;
     public static final int FUCHSIA = 0x99004D;
+    
+    public static final String[] TROLL_NAMES = {"karkat"};
 }

@@ -22,4 +22,10 @@ public class InventoryArtificingGrid extends InventoryMultiSlotItemGrid {
 	    // TODO Auto-generated method stub
 	    return new SlotArtificingGrid(container, gridSlot, displayX, displayY, slotWidth, slotHeight);
 	}
+	
+	@Override
+	public void onInventoryChanged() {
+	    super.onInventoryChanged();
+	    artificingTable.onInventoryChanged();
+	}
 }

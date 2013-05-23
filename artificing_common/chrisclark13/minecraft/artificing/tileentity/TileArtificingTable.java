@@ -1,11 +1,15 @@
 package chrisclark13.minecraft.artificing.tileentity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
+import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -21,24 +25,38 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileArtificingTable extends TileArtificingGeneral implements ISidedInventory {
 
-	public final int INVENTORY_SIZE = 2;
-	public final int INPUT_SLOT_INDEX = 0;
-	public final int OUTPUT_SLOT_INDEX = 1;
+	public final static int INVENTORY_SIZE = 2;
+	public final static int INPUT_SLOT_INDEX = 0;
+	public final static int OUTPUT_SLOT_INDEX = 1;
 	
 	private ItemStack[] inventory;
 	public InventoryArtificingGrid grid;
 
+	private static final Random RAND = new Random();
+	
 	/**
 	 * Used in TileArtificingTableRender to control the animations
 	 */
 	public int tickCount;
+	
+	public ArrayList<Integer> colors;
+	public ArrayList<Character> characters;
+	private static final int MAX_CHAR_LIST_LENGTH = 36;
+	private boolean hasUpdatedAtLeastOnce = false;
+	
+	private ArtificingCraftingManager manager;
 	
 	public TileArtificingTable() {
 		inventory = new ItemStack[INVENTORY_SIZE];
 		grid = new InventoryArtificingGrid(this, 7, 7);
 		
 		//Desyncs the animations between multiple tile entities
-		tickCount = new Random().nextInt(40);
+		tickCount = RAND.nextInt(40);
+		
+		colors = new ArrayList<>();
+		characters = new ArrayList<>();
+		
+		manager = new ArtificingCraftingManager(grid);
 	}
 
 	@Override
@@ -114,6 +132,26 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 		this.onInventoryChanged();
 	}
 
+	@Override
+	public void onInventoryChanged() {
+	    
+	    manager.updateEnchantments(getStackInSlot(INPUT_SLOT_INDEX));
+	    
+	    inventory[OUTPUT_SLOT_INDEX] = manager.getResult();
+	    
+	    colors.clear();
+	    for (EnchantmentData data : manager.getEnchantments()) {
+	        colors.add(RuneHelper.getEnchantmentColor(data.enchantmentobj));
+	    }
+	    
+	    characters.clear();
+	    for (int i = 0; i < MAX_CHAR_LIST_LENGTH; i++) {
+	        characters.add((char) ('a' + RAND.nextInt(26)));
+	    }
+	    
+	    super.onInventoryChanged();
+	}
+	
 	@Override
 	public String getInvName() {
 		return "artificing.artificingTable";
@@ -218,6 +256,11 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     @Override
     public void updateEntity() {
+        if (!hasUpdatedAtLeastOnce) {
+            this.onInventoryChanged();
+            hasUpdatedAtLeastOnce = true;
+        }
+        
         ++tickCount;
     }
     

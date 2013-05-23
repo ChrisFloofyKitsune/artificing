@@ -41,4 +41,12 @@ public class Strings {
     //Container names
     public static final String CONTAINER_ARTIFICING_TABLE_NAME = "container." + ARTIFICING_TABLE_NAME;
     public static final String CONTAINER_RESEARCH_TABLE_NAME = "container." + RESEARCH_TABLE_NAME;
+    
+    //Errors
+    public static final String ERROR_NO_INPUT = "artificing.error.noInput";
+    public static final String ARTIFICING_ERROR_UNENCHANTABLE = "artificing.error.unenchantable";
+    public static final String ARTIFICING_ERROR_LEVELS = "artificing.error.levels";
+    public static final String ARTIFICING_ERROR_DUPLICATE = "artificing.error.duplicate";
+    public static final String ARTIFICING_ERROR_NO_RUNES = "artificing.error.noRunes";
+    public static final String ARTIFICING_ERROR_INVALID = "artificing.error.invalidEnchantments";
 }

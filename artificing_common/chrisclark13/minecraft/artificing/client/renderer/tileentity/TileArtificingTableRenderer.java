@@ -8,13 +8,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.client.renderer.ArtificingRenderHelper;
 import chrisclark13.minecraft.artificing.client.renderer.RuneRenderer;
-import chrisclark13.minecraft.artificing.item.crafting.ArtificingManager;
+import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
@@ -66,21 +67,21 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslatef(0.5F, 0, 0.5F);
             // This line actually rotates the renderer.
             
-            int angle = 0;
+            int _angle = 0;
             ForgeDirection direction = ForgeDirection.getOrientation(table.getBlockMetadata());
             if (direction != null) {
                 if (direction == ForgeDirection.NORTH) {
-                    angle = 180;
+                    _angle = 180;
                 } else if (direction == ForgeDirection.SOUTH) {
-                    angle = 0;
+                    _angle = 0;
                 } else if (direction == ForgeDirection.WEST) {
-                    angle = -90;
+                    _angle = -90;
                 } else if (direction == ForgeDirection.EAST) {
-                    angle = 90;
+                    _angle = 90;
                 }
             }
             
-            GL11.glRotatef(angle, 0F, 1F, 0F);
+            GL11.glRotatef(_angle, 0F, 1F, 0F);
             GL11.glTranslatef(-0.5F, 0, -0.5F);
             // bindTextureByName("yourTexturePath");
             
@@ -98,7 +99,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 
                 float sinTimer = MathHelper.sin((float) (((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * 2 * Math.PI));
                 float cosTimer = MathHelper.cos((float) (((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * 2 * Math.PI));
-                float hover = (sinTimer + 1) / 4F / 16F + (1F / 16F);
+                float hover = (sinTimer) / 64F + (2F / 16F);
                 float xTilt = cosTimer * TILT_DEGREES;
                 float yTilt = sinTimer * TILT_DEGREES;
                 float zTilt = sinTimer * TILT_DEGREES;
@@ -111,11 +112,17 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glRotatef(zTilt, 0, 0, 1);
                 GL11.glTranslatef(-0.5F, -0.5F, -(1F / 32F));
                 
-                if (table.getStackInSlot(table.INPUT_SLOT_INDEX) != null) {
-                    ArtificingRenderHelper.render3DItemStackForDisplay(table.getStackInSlot(table.INPUT_SLOT_INDEX));
+                if (table.getStackInSlot(TileArtificingTable.INPUT_SLOT_INDEX) != null) {
+                    ArtificingRenderHelper.render3DItemStackForDisplay(table.getStackInSlot(TileArtificingTable.INPUT_SLOT_INDEX));
                 }
             }
             GL11.glPopMatrix();
+            
+            tessellator.setColorOpaque_F(1f, 1f, 1f);
+            short short1 = 240;
+            short short2 = 240;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F,
+                    (float) short2 / 1.0F);
             
             GL11.glPushMatrix();
             {
@@ -135,12 +142,48 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
             }
             GL11.glPopMatrix();
             
-//            GL11.glPushMatrix();
-//            {
-//                GL11.glTranslatef(0, 0, 2F / 256F);
-//                RuneRenderer.renderRunes("test", 0x000000);
-//            }
-//            GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            {
+                final float ANIM_PERIOD = 13F * 20F;
+                final float RADIUS = 0.75f;
+                
+                float rotation = ((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * -360;
+                
+                GL11.glDisable(GL11.GL_CULL_FACE);
+                
+                GL11.glTranslatef(0, 0, 2F / 16F);
+                float angleIncrement = 360 / table.characters.size();
+                
+                for (int i = 0; i < table.characters.size(); i++) {
+                    
+                    
+                    int color;
+                    if (table.colors.isEmpty()) {
+                        color = 0x000000;
+                    } else {
+                        color = table.colors.get((i / 6) % Math.min(table.colors.size(), 6));
+                    }
+                    
+                    GL11.glPushMatrix();
+                    {
+                        GL11.glTranslatef(0.5f, 0.5f, 0);
+                        GL11.glRotatef(angleIncrement * i + rotation, 0, 0, 1);
+                        GL11.glTranslatef(0, -RADIUS / 2f, 0);
+                        
+                        GL11.glScalef(2F / 26F, 2F / 16F, 1);
+                        
+                        final float X_OFFSET = (float) RuneRenderer.RUNE_WIDTH / (float) RuneRenderer.RUNE_HEIGHT;
+                        
+                        RuneRenderer.renderRune(table.characters.get(i), -X_OFFSET, -0.5f, color);
+                    }
+                    GL11.glPopMatrix();
+                }
+                
+                //RuneRenderer.renderRunes("test", 0x000000);
+            
+                GL11.glEnable(GL11.GL_CULL_FACE);
+            }
+            GL11.glPopMatrix();
             
         }
         GL11.glPopMatrix();

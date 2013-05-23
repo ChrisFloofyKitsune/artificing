@@ -33,7 +33,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
 		final int OUTPUT_Y = 65;
 
 		addSlotToContainer(new Slot(artificingTable, 0, INPUT_X, INPUT_Y));
-		addSlotToContainer(new SlotArtificingOutput(artificingTable, 1,
+		addSlotToContainer(new SlotArtificingOutput(artificingTable, artificingTable.grid, 1,
 				OUTPUT_X, OUTPUT_Y));
 
 		final int GRID_X = 32;
@@ -93,7 +93,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
                             inventorySlots.size(), true))
                         return null;
                 } else {
-                    int startIndex = (slot.getStack().getItem() instanceof ItemRune) ? artificingTable.INVENTORY_SIZE : 0;
+                    int startIndex = (slot.getStack().getItem() instanceof ItemRune) ? TileArtificingTable.INVENTORY_SIZE : 0;
                     if (!this.mergeItemStack(itemStack, startIndex, artificingTable.getSizeInventory(), false)) {
                         return null;
                     }

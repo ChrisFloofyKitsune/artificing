@@ -80,6 +80,10 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                     ItemStack item = inventory.getStackInSlot(i);
 
+                    if (i == TileArtificingTable.OUTPUT_SLOT_INDEX) {
+                        continue;
+                    }
+                    
                     if (item != null && item.stackSize > 0) {
                             float rx = rand.nextFloat() * 0.8F + 0.1F;
                             float ry = rand.nextFloat() * 0.8F + 0.1F;
