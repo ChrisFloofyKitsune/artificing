@@ -190,7 +190,7 @@ public class ArtificingRenderHelper {
      * Renders an Image with thickness
      * 
      * Image is rendered with the bottom left of the item at 0,0,0 and the top
-     * right of it at 1.0, 1.0, 0 </br> The thickness extends the image on the
+     * right of it at 1.0, 1.0, 0 </br> Thickness extends the image on the
      * positive Z axis.
      */
     public static void render3DImage(Tessellator tessellator, float uMin, float vMin, float uMax,

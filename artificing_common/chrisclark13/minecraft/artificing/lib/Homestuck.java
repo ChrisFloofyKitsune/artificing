@@ -20,5 +20,9 @@ public class Homestuck {
     public static final int DARK_FUCHSIA = 0x77003C;
     public static final int FUCHSIA = 0x99004D;
     
-    public static final String[] TROLL_NAMES = {"karkat"};
+    public static final String[] TROLL_NAMES = { "karkat", "kankri", "vantas", "aradia", "damara",
+            "medigo", "tavros", "rufioh", "nitram", "sollux", "mituna", "captor", "nepeta",
+            "meulin", "leijon", "kanaya", "porrim", "maryam", "terezi", "latula", "pyrope",
+            "vriska", "aranea", "serket", "equius", "horuss", "zahhak", "gamzee", "kurloz",
+            "makara", "eridan", "cronus", "ampora", "feferi", "meenah", "peixes" };
 }

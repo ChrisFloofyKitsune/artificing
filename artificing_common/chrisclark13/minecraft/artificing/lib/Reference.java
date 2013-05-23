@@ -8,4 +8,7 @@ public class Reference {
     public static final String CLIENT_PROXY_CLASS = "chrisclark13.minecraft.artificing.core.proxy.ClientProxy";
 
     public static final int SHIFTED_ID_RANGE_CORRECTION = 256;
+    
+    public static final int TICKS_IN_SECOND = 20;
+    public static final int MILLS_IN_SECOND = 1000;
 }

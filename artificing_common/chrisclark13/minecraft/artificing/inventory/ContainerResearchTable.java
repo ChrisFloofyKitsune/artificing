@@ -19,10 +19,12 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerResearchTable extends Container {
 
-    protected TileResearchTable researchTable;
+    public TileResearchTable researchTable;
 
     public ContainerResearchTable(InventoryPlayer inventoryPlayer, TileResearchTable researchTable) {
 
+        this.researchTable = researchTable;
+        
         for (int inventoryRowIndex = 0; inventoryRowIndex < 3; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < 9; ++inventoryColumnIndex) {
                 this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex
