@@ -30,11 +30,11 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
     
     // This method is called when minecraft renders a tile entity
     @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double d, double d1, double d2, float f) {
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTicks) {
         GL11.glPushMatrix();
         // This will move our renderer so that it will be on proper place in the
         // world
-        GL11.glTranslatef((float) d, (float) d1, (float) d2);
+        GL11.glTranslatef((float) x, (float) y, (float) z);
         TileArtificingTable artificingTable = (TileArtificingTable) tileEntity;
         /*
          * Note that true tile entity coordinates (tileEntity.xCoord, etc) do
@@ -42,7 +42,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
          * coordinates] - [player coordinates (camera coordinates)]
          */
         renderTable(artificingTable, ModBlocks.artificingTable, tileEntity.worldObj, tileEntity.xCoord, tileEntity.yCoord,
-                tileEntity.zCoord, f);
+                tileEntity.zCoord, partialTicks);
         
         GL11.glPopMatrix();
     }
@@ -99,7 +99,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 
                 float sinTimer = MathHelper.sin((float) (((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * 2 * Math.PI));
                 float cosTimer = MathHelper.cos((float) (((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * 2 * Math.PI));
-                float hover = (sinTimer) / 64F + (2F / 16F);
+                float hover = (sinTimer) / 64F + (2.5F / 16F);
                 float xTilt = cosTimer * TILT_DEGREES;
                 float yTilt = sinTimer * TILT_DEGREES;
                 float zTilt = sinTimer * TILT_DEGREES;
@@ -128,7 +128,9 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
             {
                 final float ANIM_PERIOD = 13F * 20F;
                 
-                GL11.glTranslatef(2f / 16F, 2F / 16F, 1F / 256F);
+                GL11.glDisable(GL11.GL_CULL_FACE);
+                
+                GL11.glTranslatef(2f / 16F, 2F / 16F, 0.5F / 16F);
                 GL11.glScalef(0.75F, 0.75F, 0.75F);
                 
                 float rotation = ((animTimer % ANIM_PERIOD) / ANIM_PERIOD) * 360;
@@ -137,8 +139,33 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glRotatef(rotation, 0, 0, 1);
                 GL11.glTranslatef(-0.5F, -0.5f, 0);
                 
+                float r = 0;
+                float g = 0;
+                float b = 0;
+                if (!table.colors.isEmpty()) {
+                    for (int color : table.colors) {
+                        r += ((color >> 16) & 0xFF) / 256F;
+                        g += ((color >> 8) & 0xFF) / 256F;
+                        b += (color & 0xFF) / 256F;
+                    }
+                    
+                    r /= table.colors.size();
+                    g /= table.colors.size();
+                    b /= table.colors.size();
+                }
+                
+                final float BRIGHTEN_FACTOR = 1.25f;
+                
+                r = Math.min(r * BRIGHTEN_FACTOR, 1);
+                g = Math.min(g * BRIGHTEN_FACTOR, 1);
+                b = Math.min(b * BRIGHTEN_FACTOR, 1);
+                
+                GL11.glColor3f(r, g, b);
+                
                 bindTextureByName("/mods/artificing/textures/blocks/star.png");
                 ArtificingRenderHelper.drawImage(0, 0, 1, 1);
+                
+                GL11.glEnable(GL11.GL_CULL_FACE);
             }
             GL11.glPopMatrix();
             
@@ -151,11 +178,10 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 
                 GL11.glDisable(GL11.GL_CULL_FACE);
                 
-                GL11.glTranslatef(0, 0, 2F / 16F);
-                float angleIncrement = 360 / table.characters.size();
+                GL11.glTranslatef(0, 0, 1.5F / 16F);
+                float angleIncrement = -360 / table.characters.size();
                 
                 for (int i = 0; i < table.characters.size(); i++) {
-                    
                     
                     int color;
                     if (table.colors.isEmpty()) {
@@ -170,9 +196,9 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                         GL11.glRotatef(angleIncrement * i + rotation, 0, 0, 1);
                         GL11.glTranslatef(0, -RADIUS / 2f, 0);
                         
-                        GL11.glScalef(2F / 26F, 2F / 16F, 1);
+                        GL11.glScalef(2F / 16F, 2F / 16F, 1);
                         
-                        final float X_OFFSET = (float) RuneRenderer.RUNE_WIDTH / (float) RuneRenderer.RUNE_HEIGHT;
+                        final float X_OFFSET = ((float) RuneRenderer.RUNE_WIDTH / (float) RuneRenderer.RUNE_HEIGHT) / 2F;
                         
                         RuneRenderer.renderRune(table.characters.get(i), -X_OFFSET, -0.5f, color);
                     }

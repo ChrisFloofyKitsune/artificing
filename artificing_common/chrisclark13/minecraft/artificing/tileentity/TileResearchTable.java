@@ -14,9 +14,15 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
     private final int   INVENTORY_SIZE = 12;
     private ItemStack[] inventory;
 
+    /**
+     * Used in timing animations
+     */
+    public int tickCount;
+    
     public TileResearchTable() {
 
         inventory = new ItemStack[INVENTORY_SIZE];
+        tickCount = 0;
     }
 
     @Override
@@ -179,6 +185,11 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public void updateEntity() {
+        tickCount++;
     }
 }
 

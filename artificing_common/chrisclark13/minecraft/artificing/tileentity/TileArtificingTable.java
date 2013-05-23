@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
+import chrisclark13.minecraft.artificing.lib.Homestuck;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +42,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	
 	public ArrayList<Integer> colors;
 	public ArrayList<Character> characters;
-	private static final int MAX_CHAR_LIST_LENGTH = 36;
+	private static final int NUMBER_NAMES = 6;
 	private boolean hasUpdatedAtLeastOnce = false;
 	
 	private ArtificingCraftingManager manager;
@@ -145,8 +146,11 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	    }
 	    
 	    characters.clear();
-	    for (int i = 0; i < MAX_CHAR_LIST_LENGTH; i++) {
-	        characters.add((char) ('a' + RAND.nextInt(26)));
+	    for (int i = 0; i < NUMBER_NAMES; i++) {
+	        String name = Homestuck.TROLL_NAMES[RAND.nextInt(Homestuck.TROLL_NAMES.length)];
+	        for (int j = 0; j < name.length(); j++) {
+	            characters.add(name.charAt(j));
+	        }
 	    }
 	    
 	    super.onInventoryChanged();
