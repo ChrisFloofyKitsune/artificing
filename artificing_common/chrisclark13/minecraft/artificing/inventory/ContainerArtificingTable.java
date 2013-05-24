@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 public class ContainerArtificingTable extends ContainerMultiSlotItem {
 
 	protected TileArtificingTable artificingTable;
-
+	
 	public ContainerArtificingTable(InventoryPlayer inventoryPlayer,
 			TileArtificingTable artificingTable) {
 		super(artificingTable.grid);

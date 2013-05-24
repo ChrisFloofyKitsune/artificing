@@ -14,6 +14,12 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
     private final int   INVENTORY_SIZE = 12;
     private ItemStack[] inventory;
 
+    public final int INNER_SLOT_START = 1;
+    public final int INNER_SLOT_END = 3;
+    
+    public final int OUTER_SLOT_START = 4;
+    public final int OUTER_SLOT_END = 6;
+    
     /**
      * Used in timing animations
      */
@@ -124,7 +130,7 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
     @Override
     public boolean isStackValidForSlot(int i, ItemStack itemstack) {
 
-        return (i == 0);
+        return true;
     }
 
     @Override
@@ -165,7 +171,13 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
     @Override
     public int[] getAccessibleSlotsFromSide(int var1) {
         
-        return null;
+        int slots[] = new int[inventory.length];
+        
+        for (int i = 0; i < slots.length; i++) {
+            slots[i] = i;
+        }
+        
+        return slots;
     }
 
     @Override
