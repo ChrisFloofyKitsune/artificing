@@ -12,5 +12,5 @@
 	<entry key="artificing.error.levels">Not enough %s Runes for Level %s.</entry>
 	<entry key="artificing.error.duplicate">Some %s enchantments are not touching each other.</entry>
 	<entry key="artificing.error.noRunes">Please insert some Runes into the grid.</entry>
-	<entry key="artificing.error.invalidEnchantment">%s cannot be applied to %s.</entry>
+	<entry key="artificing.error.invalidEnchantments">%s cannot be applied to %s.</entry>
 </properties>
