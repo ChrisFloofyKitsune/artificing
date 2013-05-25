@@ -64,6 +64,9 @@ public class GuiResearchTable extends GuiMultiSlotItem {
             return;
         }
         
+        this.zLevel = 100.0F;
+        itemRenderer.zLevel = 100.0F;
+        
         GL11.glPushMatrix();
         int index;
         
@@ -105,6 +108,8 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         }
         GL11.glPopMatrix();
         
+        this.zLevel = 0F;
+        itemRenderer.zLevel = 0F;
     }
     
     @Override

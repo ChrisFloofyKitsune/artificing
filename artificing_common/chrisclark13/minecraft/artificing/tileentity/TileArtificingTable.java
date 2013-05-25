@@ -45,7 +45,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	private static final int NUMBER_NAMES = 6;
 	private boolean hasUpdatedAtLeastOnce = false;
 	
-	private ArtificingCraftingManager manager;
+	public ArtificingCraftingManager manager;
 	
 	public TileArtificingTable() {
 		inventory = new ItemStack[INVENTORY_SIZE];

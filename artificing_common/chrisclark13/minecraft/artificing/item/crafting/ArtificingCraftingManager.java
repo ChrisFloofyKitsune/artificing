@@ -51,7 +51,6 @@ public class ArtificingCraftingManager {
         levelsNeeded = 0;
     }
     
-    @SuppressWarnings("unchecked")
     public void updateEnchantments(ItemStack itemStack) {
         error = false;
         errorMessages.clear();
@@ -62,7 +61,7 @@ public class ArtificingCraftingManager {
         
         if (itemStack == null) {
             error = true;
-            errorMessages.add(LocalizationHelper.getLocalizedString(Strings.ERROR_NO_INPUT));
+            addErrorMessage(LocalizationHelper.getLocalizedString(Strings.ERROR_NO_INPUT));
         }
         
         // List of enchantments already on the ItemStack
@@ -70,13 +69,13 @@ public class ArtificingCraftingManager {
         if (itemStack != null) {
             enchList = RuneHelper.getEnchantments(itemStack);
             
-            if (!itemStack.isItemEnchantable() && enchList == null) {
+            if (!itemStack.isItemEnchantable() && enchList.isEmpty()) {
                 error = true;
-                errorMessages.add(LocalizationHelper
+                addErrorMessage(LocalizationHelper
                         .getLocalizedString(Strings.ARTIFICING_ERROR_UNENCHANTABLE));
             }
         } else {
-            enchList = Collections.EMPTY_LIST;
+            enchList = Collections.emptyList();
         }
         
         itemGroups = ItemGroup.createItemGroupsFromGrid(grid, runeComparer);
@@ -115,18 +114,19 @@ public class ArtificingCraftingManager {
                             StatCollector.translateToLocal(ench.getName()),
                             StatCollector.translateToLocal("enchantment.level."
                                     + MathHelper.ceiling_double_int(level)));
-                    errorMessages.add(s);
+                    addErrorMessage(s);
+                    data = new EnchantmentData(ench, MathHelper.floor_double(level));
+                    enchantments.add(data);
                 } else {
                     data = new EnchantmentData(ench, MathHelper.floor_double(level));
-                    if (!listContainsEnchantment(ench)) {
-                        enchantments.add(data);
-                    } else {
+                    if (listContainsEnchantment(ench)) {
                         error = true;
                         String s = LocalizationHelper
                                 .getLocalizedString(Strings.ARTIFICING_ERROR_DUPLICATE);
                         s = String.format(s, StatCollector.translateToLocal(ench.getName()));
-                        errorMessages.add(s);
+                        addErrorMessage(s);
                     }
+                    enchantments.add(data);
                 }
             }
         }
@@ -150,10 +150,11 @@ public class ArtificingCraftingManager {
                 if (!data.enchantmentobj.canApply(itemStack)) {
                     error = true;
                     String s = LocalizationHelper
-                            .getLocalizedString(Strings.ARTIFICING_ERROR_DUPLICATE);
+                            .getLocalizedString(Strings.ARTIFICING_ERROR_INVALID);
                     s = String.format(s,
                             StatCollector.translateToLocal(data.enchantmentobj.getName()),
                             itemStack.getDisplayName());
+                   addErrorMessage(s);
                 }
             }
         }
@@ -195,8 +196,18 @@ public class ArtificingCraftingManager {
         return false;
     }
     
+    private void addErrorMessage(String error) {
+        if (!errorMessages.contains(error)) {
+            errorMessages.add(error);
+        }
+    }
+    
     public boolean hasErrors() {
         return error;
+    }
+    
+    public LinkedList<String> getErrorMessages() {
+        return errorMessages;
     }
     
     public ItemStack getResult() {
