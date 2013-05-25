@@ -48,7 +48,7 @@ public class ItemStartingBook extends ItemArtificingGeneral {
             
             list.clear();
             list.add("Book of Artificing");
-            list.add("Author: Cyntain (IIV) of Minecraftia");
+            list.add("Author: Cyntain the first");
             list.add("");
             list.add("This book gives information about how to get");
             list.add("started with Artificing; including recipes,");
