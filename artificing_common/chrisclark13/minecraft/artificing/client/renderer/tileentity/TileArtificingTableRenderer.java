@@ -9,6 +9,7 @@ import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.client.renderer.ArtificingRenderHelper;
 import chrisclark13.minecraft.artificing.client.renderer.RuneRenderer;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
+import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 
 import net.minecraft.block.Block;
@@ -162,7 +163,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 
                 GL11.glColor3f(r, g, b);
                 
-                bindTextureByName("/mods/artificing/textures/blocks/star.png");
+                bindTextureByName(Textures.STAR);
                 ArtificingRenderHelper.drawImage(0, 0, 1, 1);
                 
                 GL11.glEnable(GL11.GL_CULL_FACE);
