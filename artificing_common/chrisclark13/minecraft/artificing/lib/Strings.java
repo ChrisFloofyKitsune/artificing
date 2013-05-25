@@ -4,6 +4,7 @@ public class Strings {
     //Item names
     public static final String RUNE_NAME = "rune";
     public static final String RUNE_NAME_APPEND = "item.rune.append";
+    public static final String BOOK_NAME = "startingBook";
     
     //Block names
     public static final String ARTIFICING_TABLE_NAME = "artificingTable";
