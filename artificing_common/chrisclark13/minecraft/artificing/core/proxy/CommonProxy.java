@@ -11,4 +11,8 @@ public class CommonProxy {
 		GameRegistry.registerTileEntity(TileArtificingTable.class, Strings.TE_ARTIFICING_TABLE_NAME);
 		GameRegistry.registerTileEntity(TileResearchTable.class, Strings.TE_RESEARCH_TABLE_NAME);
 	}
+	
+	public void initRendering() {
+	    
+	}
 }

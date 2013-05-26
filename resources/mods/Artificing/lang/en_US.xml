@@ -5,7 +5,8 @@
 	<entry key="tile.artificingTable.name">Artificing Table</entry>
 	<entry key="tile.researchTable.name">Research Table</entry>
 	<entry key="item.rune.name">Enchantment Rune</entry>
-	<entry key="item.startingBook.name">Tome of Artificing</entry>
+	<entry key="item.guideBookStarting.name">Book of Artificing</entry>
+    <entry key="item.guideBookRunes.name">Book of Runes</entry>
 	<entry key="item.rune.append">Rune</entry>
 	<entry key="itemGroup.Artificing">Artificing</entry>
 	<entry key="artificing.error.noInput">Please insert an Item into the Input Slot.</entry>
