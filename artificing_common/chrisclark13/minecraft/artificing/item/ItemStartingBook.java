@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +14,7 @@ import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.lib.GuiIds;
+import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -47,7 +49,7 @@ public class ItemStartingBook extends ItemArtificingGeneral {
         if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             
             list.clear();
-            list.add("Book of Artificing");
+            list.add(LocalizationHelper.getLocalizedString(this.getUnlocalizedName()));
             list.add("Author: Cyntain (IIV) of Minecraftia");
             list.add("");
             list.add("This book gives information about how to get");
@@ -61,6 +63,6 @@ public class ItemStartingBook extends ItemArtificingGeneral {
     @Override
     public void registerIcons(IconRegister iconregister) {
 
-        this.itemIcon = iconregister.registerIcon("Artificing" + ":" + "bookStarting");
+        this.itemIcon = iconregister.registerIcon(Reference.MOD_ID + ":" + "bookStarting");
     }
 }
