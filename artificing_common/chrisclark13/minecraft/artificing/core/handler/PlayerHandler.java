@@ -37,9 +37,9 @@ public class PlayerHandler implements IPlayerTracker {
         stats.book = tags.getCompoundTag("Artificing").getBoolean("startingbook");
         if (!stats.book) {
             tags.getCompoundTag("Artificing").setBoolean("startingbook", true);
-            ItemStack book = new ItemStack(ModItems.startingBook);
-            if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(ModItems.startingBook))) {
-                spawnItemAtPlayer(entityplayer, new ItemStack(ModItems.startingBook));
+            ItemStack book = new ItemStack(ModItems.guideBook);
+            if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(ModItems.guideBook))) {
+                spawnItemAtPlayer(entityplayer, new ItemStack(ModItems.guideBook, 1, 0));
                 //System.out.println("Attempt to give the book");
             }
         }
