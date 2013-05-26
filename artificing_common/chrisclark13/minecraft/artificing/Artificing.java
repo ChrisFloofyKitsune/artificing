@@ -62,6 +62,7 @@ public class Artificing {
 
         // Register TileEntities
         proxy.registerTileEntities();
+        proxy.initRendering();
         playerTracker = new PlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);

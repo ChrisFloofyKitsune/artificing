@@ -20,6 +20,7 @@ import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.block.*;
 import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.lib.Reference;
+import chrisclark13.minecraft.artificing.lib.RenderIds;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
@@ -27,15 +28,23 @@ import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
 
 public class BlockResearchTable extends BlockArtificingGeneral {
 
-    public Icon          iconTop, iconBottom;
-    public static String FACES[] = { "Side" , "Top" , "Bottom" };
-
     public BlockResearchTable(int id) {
 
         super(id, Material.rock);
         this.setUnlocalizedName(Strings.RESEARCH_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
     }
+    
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+    
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+    
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z,
                     EntityPlayer player, int idk, float what, float these, float are) {
@@ -51,24 +60,12 @@ public class BlockResearchTable extends BlockArtificingGeneral {
             return true;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int metadata) {
-
-        return side == ForgeDirection.UP.ordinal() ? iconTop : side == ForgeDirection.DOWN
-                .ordinal() ? iconBottom : this.blockIcon;
-    }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister) {
 
-        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":"
-                + Strings.RESEARCH_TABLE_NAME + FACES[0]);
-        iconTop = iconRegister.registerIcon(Reference.MOD_ID + ":"
-                + Strings.RESEARCH_TABLE_NAME + FACES[1]);
-        iconBottom = iconRegister.registerIcon(Reference.MOD_ID + ":"
-                + Strings.RESEARCH_TABLE_NAME + FACES[2]);
+        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName2());
     }
 
     @Override
@@ -119,6 +116,18 @@ public class BlockResearchTable extends BlockArtificingGeneral {
     public TileEntity createNewTileEntity(World world) {
 
         return new TileResearchTable();
+    }
+    
+    
+    
+    @Override
+    public int getRenderType() {
+        return RenderIds.researchTableRenderId;
+    }
+    
+    @Override
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+        return side == ForgeDirection.UP;
     }
 
 }
