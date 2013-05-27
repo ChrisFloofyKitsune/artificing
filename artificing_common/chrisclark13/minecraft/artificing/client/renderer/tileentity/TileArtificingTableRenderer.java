@@ -124,6 +124,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
             short short2 = 240;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F,
                     (float) short2 / 1.0F);
+            GL11.glDisable(GL11.GL_LIGHTING);
             
             GL11.glPushMatrix();
             {
@@ -208,6 +209,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 
                 //RuneRenderer.renderRunes("test", 0x000000);
             
+                GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_CULL_FACE);
             }
             GL11.glPopMatrix();

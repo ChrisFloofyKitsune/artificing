@@ -32,6 +32,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
+        GL11.glDisable(GL11.GL_LIGHTING);
+        
         // draw text and stuff here
         // the parameters for drawString are: string, x, y, color
         fontRenderer.drawString("Artificing Table", 8, 6, 0x404040);
@@ -54,6 +56,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             line++;
             errors--;
         }
+        
+        GL11.glEnable(GL11.GL_LIGHTING);
     }
     
     @Override

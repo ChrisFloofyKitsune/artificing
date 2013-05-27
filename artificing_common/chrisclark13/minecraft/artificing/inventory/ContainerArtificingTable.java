@@ -98,11 +98,19 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
                         return null;
                     }
                 }
+                
                 if (itemStack.stackSize == 0) {
                     slot.putStack((ItemStack) null);
+                } else {
+                    slot.onSlotChanged();
                 }
                 
-                slot.onSlotChanged();
+                if (itemStack.stackSize == newItemStack.stackSize)
+                {
+                    return null;
+                }
+
+                slot.onPickupFromSlot(entityPlayer, itemStack);
             }
         }
 
