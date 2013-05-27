@@ -10,4 +10,6 @@ public class Textures {
     public static String STAR = "/mods/Artificing/textures/blocks/star.png";
     
     public static String MODEL_RESEARCH_TABLE = "/mods/Artificing/textures/models/researchTable.png";
+
+    public static String GUI_PARTS = "/mods/Artificing/textures/gui/guiParts.png";
 }
