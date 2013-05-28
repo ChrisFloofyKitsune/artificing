@@ -347,9 +347,6 @@ public class GuiTab extends GuiButton {
         }
     }
     
-    /**
-     * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
-     */
     protected void drawTabTexture(int x, int y, int u, int v, int width, int height)
     {
         float uScale = 1F / (float) textureWidth;
