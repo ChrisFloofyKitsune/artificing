@@ -2,6 +2,7 @@ package chrisclark13.minecraft.artificing.client.gui.inventory;
 
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -74,7 +75,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
 //            tabLists[i / 3].addTab((GuiTab) buttonList.get(i));
 //        }
         
-        content = new GuiContent(guiLeft + xSize, guiTop, 8, ySize);
+        content = new GuiContentTest(guiLeft + xSize, guiTop, 100, ySize);
+        content.children.add(new GuiContentTest(25, 25, 50, 50));
     }
     
     @Override
@@ -123,7 +125,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             }
         }
         
-        content.drawBackgroundTexture(mc);
+        
+        
+        content.drawContent(mc, mouseX, mouseY);
         
         // draw your Gui here, only thing you need to change is the path
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
@@ -133,6 +137,19 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        
+    }
+    
+    private class GuiContentTest extends GuiContent {
+
+        public GuiContentTest(int x, int y, int width, int height) {
+            super(x, y, width, height);
+        }
+        
+        @Override
+        protected void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
+            mc.fontRenderer.drawString("X: " + mouseX + "Y: " + mouseY, 5, 5, 0x404040);
+        }
         
     }
 }
