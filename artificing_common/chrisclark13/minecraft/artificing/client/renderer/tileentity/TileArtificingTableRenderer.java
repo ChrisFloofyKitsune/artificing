@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.client.FMLClientHandler;
 
 import chrisclark13.minecraft.artificing.block.ModBlocks;
-import chrisclark13.minecraft.artificing.client.renderer.ArtificingRenderHelper;
+import chrisclark13.minecraft.artificing.client.renderer.RenderUtil;
 import chrisclark13.minecraft.artificing.client.renderer.RuneRenderer;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.lib.Textures;
@@ -114,7 +114,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glTranslatef(-0.5F, -0.5F, -(1F / 32F));
                 
                 if (table.getStackInSlot(TileArtificingTable.INPUT_SLOT_INDEX) != null) {
-                    ArtificingRenderHelper.render3DItemStackForDisplay(table.getStackInSlot(TileArtificingTable.INPUT_SLOT_INDEX));
+                    RenderUtil.render3DItemStackForDisplay(table.getStackInSlot(TileArtificingTable.INPUT_SLOT_INDEX));
                 }
             }
             GL11.glPopMatrix();
@@ -165,7 +165,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glColor3f(r, g, b);
                 
                 bindTextureByName(Textures.STAR);
-                ArtificingRenderHelper.drawImage(0, 0, 1, 1);
+                RenderUtil.drawImage(0, 0, 1, 1);
                 
                 GL11.glEnable(GL11.GL_CULL_FACE);
             }

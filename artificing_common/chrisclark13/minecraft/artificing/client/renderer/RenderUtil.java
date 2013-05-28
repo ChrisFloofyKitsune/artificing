@@ -35,7 +35,7 @@ import static net.minecraftforge.client.IItemRenderer.ItemRenderType.*;
 import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.*;
 
 @SideOnly(Side.CLIENT)
-public class ArtificingRenderHelper {
+public class RenderUtil {
     /** A reference to the Minecraft object. */
     private static Minecraft mc = Minecraft.getMinecraft();
     // private ItemStack itemToRender = null;
@@ -54,7 +54,7 @@ public class ArtificingRenderHelper {
     /** The index of the currently held item (0-8, or -1 if not yet updated) */
     // private int equippedItemSlot = -1;
     
-    private ArtificingRenderHelper() {
+    private RenderUtil() {
         
     }
     
@@ -340,6 +340,8 @@ public class ArtificingRenderHelper {
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         
     }
+    
+    
     
     // /**
     // * Renders the active item in the player's hand when in first person mode.

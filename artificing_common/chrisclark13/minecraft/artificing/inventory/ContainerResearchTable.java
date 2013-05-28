@@ -116,4 +116,9 @@ public class ContainerResearchTable extends Container {
         
         return newItemStack;
     }
+    
+    @Override
+    public boolean func_94531_b(Slot slot) {
+        return !(slot instanceof SlotResearchRing);
+    }
 }

@@ -1,100 +1,196 @@
 package chrisclark13.minecraft.artificing.client.gui;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import chrisclark13.minecraft.artificing.lib.Textures;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 
 public class GuiTab extends GuiButton {
-
-    private final int DEFAULT_SIZE_SHORT = 28;
-    private final int DEFAULT_SIZE_LONG = 29;
-    private boolean pressed;
-    private String texture;
     
-    private boolean hasIcon;
-    private String iconTexture;
-    private double uMin;
-    private double vMin;
-    private double uMax;
-    private double vMax;
+    protected final int DEFAULT_SIZE = 28;
+    protected final int DEFAULT_OVERHANG = 4;
+    protected final int DEFAULT_TEXTURE_WIDTH = 256;
+    protected final int DEFAULT_TEXTURE_HEIGHT = 256;
     
-    public ForgeDirection side;
+    protected boolean pressed;
+    protected String texture;
+    protected int textureWidth;
+    protected int textureHeight;
+    
+    protected boolean hasIcon;
+    protected String iconTexture;
+    protected double uMin;
+    protected double vMin;
+    protected double uMax;
+    protected double vMax;
+    
+    public TabSide side;
     public GuiTabList parentList;
-    private int listId;
-    private boolean active;
+    protected boolean active;
+    protected TabDrawType type;
+    protected int overhang;
+    protected int color;
     
-    public GuiTab(int id, int displayX, int displayY) {
-        this(id, displayX, displayY, ForgeDirection.EAST);
+    public GuiTab(int id, int displayX, int displayY, String hoverString) {
+        this(id, displayX, displayY, hoverString, TabSide.RIGHT, TabDrawType.FRONT);
     }
     
-    public GuiTab(int id, int xPosition, int yPosition, ForgeDirection side) {
-        super(id, xPosition, yPosition, "");
+    public GuiTab(int id, int xPosition, int yPosition, String hoverString, TabSide side) {
+        this(id, xPosition, yPosition, hoverString, side, TabDrawType.FRONT);
+    }
+    
+    public GuiTab(int id, int xPosition, int yPosition, String hoverString, TabSide side,
+            TabDrawType type) {
+        super(id, xPosition, yPosition, hoverString);
         this.side = side;
+        this.type = type;
         this.pressed = false;
-        texture = Textures.GUI_PARTS;
+        this.texture = Textures.TAB_PARTS;
+        this.color = 0xFFFFFF;
         
-        switch (side) {
-            case UP:
-            case NORTH:
-                this.yPosition -= DEFAULT_SIZE_LONG;
-                this.width = DEFAULT_SIZE_SHORT;
-                this.height = DEFAULT_SIZE_LONG;
-                break;
-            default:
-            case EAST:
-                this.width = DEFAULT_SIZE_LONG;
-                this.height = DEFAULT_SIZE_SHORT;
-                break;
-            case DOWN:
-            case SOUTH:
-                this.width = DEFAULT_SIZE_SHORT;
-                this.height = DEFAULT_SIZE_LONG;
-                break;
-            case WEST:
-                this.xPosition -= DEFAULT_SIZE_LONG;
-                this.width = DEFAULT_SIZE_LONG;
-                this.height = DEFAULT_SIZE_SHORT;
-                break;
+        this.width = DEFAULT_SIZE;
+        this.height = DEFAULT_SIZE;
+        this.overhang = DEFAULT_OVERHANG;
+        this.textureWidth = DEFAULT_TEXTURE_WIDTH;
+        this.textureHeight = DEFAULT_TEXTURE_HEIGHT;
+    }
+    
+    public void drawBackground(Minecraft minecraft, int mouseX, int mouseY) {
+        if (this.drawButton && !this.active) {
+            int textureX = 0;
+            int textureY = 0;
+            int xOffset = 0;
+            int yOffset = 0;
+            int widthOffset = 0;
+            int heightOffset = 0;
+            
+            switch (this.side) {
+                case TOP:
+                    textureX = (!this.pressed) ? 0 : width * 3;
+                    textureX += this.type.ordinal() * width;
+                    textureY = textureHeight / 2;
+                    yOffset = -height;
+                    heightOffset = overhang;
+                    break;
+                case RIGHT:
+                    textureX = (!this.pressed) ? (width + overhang) * 2 : (width + overhang) * 6;
+                    textureY = this.type.ordinal() * height;
+                    xOffset = -overhang;
+                    widthOffset = overhang;
+                    break;
+                case BOTTOM:
+                    textureX = (!this.pressed) ? 0 : width * 3;
+                    textureX += this.type.ordinal() * width;
+                    textureY = textureHeight / 2;
+                    textureY += (height + overhang) * 2;
+                    yOffset = -overhang;
+                    heightOffset = overhang;
+                    break;
+                case LEFT:
+                    textureX = (!this.pressed) ? 0 : (width + overhang) * 4;
+                    textureY = this.type.ordinal() * height;
+                    widthOffset = overhang;
+                    xOffset = -width;
+                    break;
+            }
+            
+            minecraft.renderEngine.bindTexture(texture);
+            
+            float r = ((color >> 16) & 0xFF) / 255F;
+            float g = ((color >> 8) & 0xFF) / 255F;
+            float b = (color & 0xFF) / 255F;
+            
+            GL11.glColor4f(r, g, b, 1.0F);
+            
+            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset,
+                    textureX, textureY, width + widthOffset, height + heightOffset);
         }
     }
     
     /**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft par1Minecraft, int par2, int par3)
-    {
-        if (this.drawButton)
-        {
-            FontRenderer fontrenderer = par1Minecraft.fontRenderer;
-            par1Minecraft.renderEngine.bindTexture(texture);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-            int k = this.getHoverState(this.field_82253_i);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + k * 20, this.width / 2, this.height);
-            this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + k * 20, this.width / 2, this.height);
-            this.mouseDragged(par1Minecraft, par2, par3);
-            int l = 14737632;
-
-            if (!this.enabled)
-            {
-                l = -6250336;
+    public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
+        this.field_82253_i = this.isMouseOver(mouseX, mouseY);
+        this.mouseDragged(minecraft, mouseX, mouseY);
+        
+        if (this.drawButton && this.active) {
+            int textureX = 0;
+            int textureY = 0;
+            int xOffset = 0;
+            int yOffset = 0;
+            int widthOffset = 0;
+            int heightOffset = 0;
+            
+            switch (this.side) {
+                case TOP:
+                    textureX = (!this.pressed) ? 0 : width * 3;
+                    textureX += this.type.ordinal() * width;
+                    textureY = textureHeight / 2;
+                    textureY += this.height + overhang;
+                    yOffset = -height;
+                    heightOffset = overhang;
+                    break;
+                case RIGHT:
+                    textureX = (!this.pressed) ? (width + overhang) * 3 : (width + overhang) * 7;
+                    textureY = this.type.ordinal() * height;
+                    xOffset = -overhang;
+                    widthOffset = overhang;
+                    break;
+                case BOTTOM:
+                    textureX = (!this.pressed) ? 0 : width * 3;
+                    textureX += this.type.ordinal() * width;
+                    textureY = textureHeight / 2;
+                    textureY += (height + overhang) * 3;
+                    yOffset = -overhang;
+                    heightOffset = overhang;
+                    break;
+                case LEFT:
+                    textureX = (!this.pressed) ? (width + overhang) : (width + overhang) * 5;
+                    textureY = this.type.ordinal() * height;
+                    widthOffset = overhang;
+                    xOffset = -width;
+                    break;
             }
-            else if (this.field_82253_i)
-            {
-                l = 16777120;
-            }
-
-            this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
+            
+            minecraft.renderEngine.bindTexture(texture);
+            
+            float r = ((color >> 16) & 0xFF) / 255F;
+            float g = ((color >> 8) & 0xFF) / 255F;
+            float b = (color & 0xFF) / 255F;
+            
+            GL11.glColor4f(r, g, b, 1.0F);
+            
+            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset,
+                    textureX, textureY, width + widthOffset, height + heightOffset);
         }
     }
-
+    
+    @Override
+    public void func_82251_b(int mouseX, int mouseY) {
+        this.drawForeground(Minecraft.getMinecraft(), mouseX, mouseY);
+    }
+    
+    public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
+        if (this.field_82253_i && this.drawButton) {
+            this.drawHoveringText(Arrays.asList(displayString), mouseX, mouseY,
+                    minecraft.fontRenderer);
+        }
+    }
+    
     /**
-     * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
+     * Fired when the mouse button is dragged. Equivalent of
+     * MouseListener.mouseDragged(MouseEvent e).
      */
     protected void mouseDragged(Minecraft minecraft, int mouseX, int mouseY) {
         if (pressed && !isMouseOver(mouseX, mouseY)) {
@@ -102,25 +198,35 @@ public class GuiTab extends GuiButton {
         }
         
     }
-
+    
     /**
-     * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
+     * Fired when the mouse button is released. Equivalent of
+     * MouseListener.mouseReleased(MouseEvent e).
      */
     public void mouseReleased(int par1, int par2) {
         if (pressed) {
-            pressed = false;
+            if (this.parentList != null) {
+                if (!this.active) {
+                    parentList.setActiveTab(this);
+                } else {
+                    parentList.setActiveTab(null);
+                }
+            } else if (!this.active) {
+                this.setActive(true);
+            } else {
+                this.setActive(false);
+            }
         }
         
         pressed = false;
     }
-
+    
     /**
-     * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent
-     * e).
+     * Returns true if the mouse has been pressed on this control. Equivalent of
+     * MouseListener.mousePressed(MouseEvent e).
      */
-    public boolean mousePressed(Minecraft minecraft, int mouseX, int mouseY)
-    {
-        if (super.mousePressed(minecraft, mouseX, mouseY)) {
+    public boolean mousePressed(Minecraft minecraft, int mouseX, int mouseY) {
+        if (this.enabled && this.drawButton && isMouseOver(mouseX, mouseY)) {
             pressed = true;
             return true;
         } else {
@@ -129,7 +235,36 @@ public class GuiTab extends GuiButton {
     }
     
     public boolean isMouseOver(int mouseX, int mouseY) {
-        return mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+        int x = (this.side == TabSide.LEFT) ? xPosition - width : xPosition;
+        int y = (this.side == TabSide.TOP) ? yPosition - height : yPosition;
+        
+        return mouseX >= x && mouseY >= y && mouseX < x + this.width && mouseY < y + this.height;
+    }
+    
+    public void setActive(boolean active) {
+        if (active && !this.active) {
+            this.active = true;
+            this.activate();
+        } else if (!active && this.active) {
+            this.active = false;
+            this.deactivate();
+        }
+    }
+    
+    public boolean isActive() {
+        return active;
+    }
+    
+    public void setColor(int color) {
+        this.color = color;
+    }
+    
+    public void resetColor() {
+        this.color = 0xFFFFFF;
+    }
+    
+    public int getColor() {
+        return color;
     }
     
     public void activate() {
@@ -138,5 +273,93 @@ public class GuiTab extends GuiButton {
     
     public void deactivate() {
         
+    }
+    
+    protected void drawHoveringText(List<String> par1List, int x, int y, FontRenderer font) {
+        if (!par1List.isEmpty()) {
+            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            RenderHelper.disableStandardItemLighting();
+            GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            
+            int k = 0;
+            Iterator<String> iterator = par1List.iterator();
+            
+            while (iterator.hasNext()) {
+                String s = iterator.next();
+                int l = font.getStringWidth(s);
+                
+                if (l > k) {
+                    k = l;
+                }
+            }
+            
+            int i1 = x + 12;
+            int j1 = y - 12;
+            int k1 = 8;
+            
+            if (par1List.size() > 1) {
+                k1 += 2 + (par1List.size() - 1) * 10;
+            }
+            
+            // if (i1 + k > this.width)
+            // {
+            // i1 -= 28 + k;
+            // }
+            //
+            // if (j1 + k1 + 6 > this.height)
+            // {
+            // j1 = this.height - k1 - 6;
+            // }
+            
+            this.zLevel = 300.0F;
+            // itemRenderer.zLevel = 300.0F;
+            int l1 = -267386864;
+            this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
+            this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
+            this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 + k1 + 3, l1, l1);
+            this.drawGradientRect(i1 - 4, j1 - 3, i1 - 3, j1 + k1 + 3, l1, l1);
+            this.drawGradientRect(i1 + k + 3, j1 - 3, i1 + k + 4, j1 + k1 + 3, l1, l1);
+            int i2 = 1347420415;
+            int j2 = (i2 & 16711422) >> 1 | i2 & -16777216;
+            this.drawGradientRect(i1 - 3, j1 - 3 + 1, i1 - 3 + 1, j1 + k1 + 3 - 1, i2, j2);
+            this.drawGradientRect(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
+            this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
+            this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
+            
+            for (int k2 = 0; k2 < par1List.size(); ++k2) {
+                String s1 = (String) par1List.get(k2);
+                font.drawStringWithShadow(s1, i1, j1, color);
+                
+                if (k2 == 0) {
+                    j1 += 2;
+                }
+                
+                j1 += 10;
+            }
+            
+            this.zLevel = 0.0F;
+            // itemRenderer.zLevel = 0.0F;
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            RenderHelper.enableStandardItemLighting();
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        }
+    }
+    
+    /**
+     * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
+     */
+    protected void drawTabTexture(int x, int y, int u, int v, int width, int height)
+    {
+        float uScale = 1F / (float) textureWidth;
+        float vScale = 1F / (float) textureHeight;
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV((double)(x + 0), (double)(y + height), (double)this.zLevel, (double)((float)(u + 0) * uScale), (double)((float)(v + height) * vScale));
+        tessellator.addVertexWithUV((double)(x + width), (double)(y + height), (double)this.zLevel, (double)((float)(u + width) * uScale), (double)((float)(v + height) * vScale));
+        tessellator.addVertexWithUV((double)(x + width), (double)(y + 0), (double)this.zLevel, (double)((float)(u + width) * uScale), (double)((float)(v + 0) * vScale));
+        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0), (double)this.zLevel, (double)((float)(u + 0) * uScale), (double)((float)(v + 0) * vScale));
+        tessellator.draw();
     }
 }

@@ -2,12 +2,18 @@ package chrisclark13.minecraft.artificing.client.gui.inventory;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import chrisclark13.minecraft.artificing.client.gui.GuiTab;
+import chrisclark13.minecraft.artificing.client.gui.GuiTabList;
+import chrisclark13.minecraft.artificing.client.gui.TabDrawType;
+import chrisclark13.minecraft.artificing.client.gui.TabSide;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.item.crafting.RuneItemGroupComparer;
 import chrisclark13.minecraft.artificing.lib.Textures;
@@ -30,8 +36,45 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         this.artificingTable = artificingTable;
     }
     
+    @SuppressWarnings("unchecked")
     @Override
-    protected void drawGuiContainerForegroundLayer(int param1, int param2) {
+    public void initGui() {
+        super.initGui();
+        buttonList.add(new GuiTab(-1, guiLeft, guiTop, "TESTY", TabSide.TOP));
+        buttonList.add(new GuiTab(-1, guiLeft + 29, guiTop, "TESTY", TabSide.TOP,
+                TabDrawType.MIDDLE));
+        buttonList.add(new GuiTab(-1, guiLeft + 29 * 2, guiTop, "TESTY", TabSide.TOP,
+                TabDrawType.END));
+        
+        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop, "TESTY", TabSide.RIGHT));
+        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop + 29, "TESTY", TabSide.RIGHT,
+                TabDrawType.MIDDLE));
+        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop + 29 * 2, "TESTY", TabSide.RIGHT,
+                TabDrawType.END));
+        
+        buttonList.add(new GuiTab(-1, guiLeft, guiTop + ySize, "TESTY", TabSide.BOTTOM));
+        buttonList.add(new GuiTab(-1, guiLeft + 29, guiTop + ySize, "TESTY", TabSide.BOTTOM,
+                TabDrawType.MIDDLE));
+        buttonList.add(new GuiTab(-1, guiLeft + 29 * 2, guiTop + ySize, "TESTY", TabSide.BOTTOM,
+                TabDrawType.END));
+        
+        buttonList.add(new GuiTab(-1, guiLeft, guiTop, "TESTY", TabSide.LEFT));
+        buttonList.add(new GuiTab(-1, guiLeft, guiTop + 29, "TESTY", TabSide.LEFT,
+                TabDrawType.MIDDLE));
+        buttonList.add(new GuiTab(-1, guiLeft, guiTop + 29 * 2, "TESTY", TabSide.LEFT,
+                TabDrawType.END));
+        
+        int colors[] = { 0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00 };
+        GuiTabList tabLists[] = { new GuiTabList(), new GuiTabList(), new GuiTabList(),
+                new GuiTabList() };
+        for (int i = 0; i < buttonList.size(); i++) {
+            ((GuiTab) buttonList.get(i)).setColor(colors[i / 3]);
+            tabLists[i / 3].addTab((GuiTab) buttonList.get(i));
+        }
+    }
+    
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         GL11.glDisable(GL11.GL_LIGHTING);
         
         // draw text and stuff here
@@ -45,23 +88,37 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         int errors = artificingTable.manager.getErrorMessages().size();
         for (String string : artificingTable.manager.getErrorMessages()) {
             if (line > 20) {
-                fontRenderer.drawStringWithShadow(errors + " more.." , xSize, line * fontRenderer.FONT_HEIGHT, 0xFF0000);
+                fontRenderer.drawStringWithShadow(errors + " more..", xSize, line
+                        * fontRenderer.FONT_HEIGHT, 0xFF0000);
                 break;
             }
             for (Object o : fontRenderer.listFormattedStringToWidth(string, 100)) {
                 GL11.glColor4f(1, 1, 1, 1);
-                fontRenderer.drawStringWithShadow((String) o, xSize, line * fontRenderer.FONT_HEIGHT, 0xFF0000);
+                fontRenderer.drawStringWithShadow((String) o, xSize, line
+                        * fontRenderer.FONT_HEIGHT, 0xFF0000);
                 line++;
             }
             line++;
             errors--;
         }
         
+        for (Object o : buttonList) {
+            GuiButton button = (GuiButton) o;
+            button.func_82251_b(mouseX - guiLeft, mouseY - guiTop);
+        }
+        
         GL11.glEnable(GL11.GL_LIGHTING);
     }
     
     @Override
-    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        
+        for (Object o : buttonList) {
+            if (o instanceof GuiTab) {
+                ((GuiTab) o).drawBackground(mc, mouseX, mouseY);
+            }
+        }
+        
         // draw your Gui here, only thing you need to change is the path
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -70,7 +127,6 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-        
         
     }
 }

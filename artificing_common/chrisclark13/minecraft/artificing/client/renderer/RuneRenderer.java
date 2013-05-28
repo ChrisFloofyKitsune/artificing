@@ -105,7 +105,7 @@ public class RuneRenderer {
             int u = (charNum % w) * RUNE_WIDTH;
             int v = (charNum / w) * RUNE_HEIGHT;
             
-            ArtificingRenderHelper.drawImagePart(x, y, width, 1, u, v, RUNE_WIDTH,
+            RenderUtil.drawImagePart(x, y, width, 1, u, v, RUNE_WIDTH,
                     RUNE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT);
         }
     }

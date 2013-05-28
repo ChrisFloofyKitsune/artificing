@@ -83,9 +83,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         }
         
         if (slot.getHasStack()) {
-            ItemStack itemStack = slot.getStack();
-            itemRenderer.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, itemStack, 2, 2);
-            itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, itemStack, 2, 2);
+            super.drawSlotInventory(slot);
         }
         
         if (slot == this.getTheSlot()) {
