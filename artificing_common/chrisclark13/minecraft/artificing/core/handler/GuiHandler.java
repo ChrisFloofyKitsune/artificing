@@ -2,6 +2,7 @@ package chrisclark13.minecraft.artificing.core.handler;
 
 import chrisclark13.minecraft.artificing.client.gui.inventory.GuiArtificingTable;
 import chrisclark13.minecraft.artificing.client.gui.inventory.GuiResearchTable;
+import chrisclark13.minecraft.artificing.client.gui.inventory.guidepages.GuiGuideBook;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.inventory.ContainerResearchTable;
 import chrisclark13.minecraft.artificing.lib.GuiIds;
@@ -26,7 +27,10 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == GuiIds.RESEARCH_TABLE) {
             return new ContainerResearchTable(player.inventory,
                     (TileResearchTable) world.getBlockTileEntity(x, y, z));
-        } else {
+        } else if( ID == GuiIds.STARTING_BOOK) {
+            
+            return null;
+        }else{
             return null;
         }
     }
@@ -44,7 +48,10 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == GuiIds.RESEARCH_TABLE) {
             return new GuiResearchTable(player.inventory,
                     (TileResearchTable) world.getBlockTileEntity(x, y, z));
-        } else {
+        } else if( ID == GuiIds.STARTING_BOOK) {
+            
+            return new GuiGuideBook();
+        }else{
             return null;
         }
     }

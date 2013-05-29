@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 import chrisclark13.minecraft.artificing.Artificing;
+import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import cpw.mods.fml.relauncher.Side;
@@ -66,10 +67,14 @@ public class ItemGuideBook extends ItemArtificingGeneral {
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
 
         if (!itemstack.isItemEqual(new ItemStack(ModItems.guideBook, 1, 0))) {
+            System.out.println("Hasnt opened the gui");
             return itemstack;
+           
         } else {
-// player.openGui(Artificing.instance, GuiIds.STARTING_BOOK, world, 0, 0, 0);
+            player.openGui(Artificing.instance, GuiIds.STARTING_BOOK, world, 0, 0, 0);
+            System.out.println("Should have opened the gui");
         }
+        
         return itemstack;
     }
 

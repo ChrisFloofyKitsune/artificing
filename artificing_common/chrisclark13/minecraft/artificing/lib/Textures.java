@@ -1,16 +1,18 @@
 package chrisclark13.minecraft.artificing.lib;
 
 public class Textures {
-    public static String MSI_LOC = "/mods/Artificing/textures/items/multislot/";
-    public static String RUNES = "/mods/Artificing/textures/runes.png";
-    
-    public static String ARTIFICING_TABLE = "/mods/Artificing/textures/gui/artificingTable.png";
-    public static String RESEARCH_TABLE = "/mods/Artificing/textures/gui/researchTable.png";
-    public static String RINGS = "/mods/Artificing/textures/gui/rings.png";
-    public static String STAR = "/mods/Artificing/textures/blocks/star.png";
-    
+
+    public static String MSI_LOC              = "/mods/Artificing/textures/items/multislot/";
+    public static String RUNES                = "/mods/Artificing/textures/runes.png";
+
+    public static String ARTIFICING_TABLE     = "/mods/Artificing/textures/gui/artificingTable.png";
+    public static String RESEARCH_TABLE       = "/mods/Artificing/textures/gui/researchTable.png";
+    public static String GUIDE_BOOK           = "/mods/Artificing/textures/gui/guideBook.png";
+    public static String RINGS                = "/mods/Artificing/textures/gui/rings.png";
+    public static String STAR                 = "/mods/Artificing/textures/blocks/star.png";
+
     public static String MODEL_RESEARCH_TABLE = "/mods/Artificing/textures/models/researchTable.png";
 
-    public static String GUI_PARTS = "/mods/Artificing/textures/gui/guiParts.png";
-    public static String TAB_PARTS = "/mods/Artificing/textures/gui/tabParts.png";
+    public static String GUI_PARTS            = "/mods/Artificing/textures/gui/guiParts.png";
+    public static String TAB_PARTS            = "/mods/Artificing/textures/gui/tabParts.png";
 }
