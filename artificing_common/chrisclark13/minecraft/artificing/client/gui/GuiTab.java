@@ -14,6 +14,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.item.ItemStack;
 
 public class GuiTab extends GuiButton {
     
@@ -27,12 +29,15 @@ public class GuiTab extends GuiButton {
     protected int textureWidth;
     protected int textureHeight;
     
-    protected boolean hasIcon;
+    protected boolean hasTextureIcon;
     protected String iconTexture;
     protected double uMin;
     protected double vMin;
     protected double uMax;
     protected double vMax;
+    
+    protected ItemStack iconStack;
+    protected static RenderItem renderItem;
     
     public TabSide side;
     public GuiTabList parentList;
@@ -40,6 +45,10 @@ public class GuiTab extends GuiButton {
     protected TabDrawType type;
     protected int overhang;
     protected int color;
+    
+    static {
+        renderItem = new RenderItem();
+    }
     
     public GuiTab(int id, int displayX, int displayY, String hoverString) {
         this(id, displayX, displayY, hoverString, TabSide.RIGHT, TabDrawType.FRONT);
@@ -74,6 +83,8 @@ public class GuiTab extends GuiButton {
             int widthOffset = 0;
             int heightOffset = 0;
             
+            minecraft.renderEngine.bindTexture(texture);
+            
             switch (this.side) {
                 case TOP:
                     textureX = (!this.pressed) ? 0 : width * 3;
@@ -104,16 +115,14 @@ public class GuiTab extends GuiButton {
                     break;
             }
             
-            minecraft.renderEngine.bindTexture(texture);
-            
             float r = ((color >> 16) & 0xFF) / 255F;
             float g = ((color >> 8) & 0xFF) / 255F;
             float b = (color & 0xFF) / 255F;
             
             GL11.glColor4f(r, g, b, 1.0F);
             
-            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset,
-                    textureX, textureY, width + widthOffset, height + heightOffset);
+            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset, textureX,
+                    textureY, width + widthOffset, height + heightOffset);
         }
     }
     
@@ -123,6 +132,7 @@ public class GuiTab extends GuiButton {
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         this.field_82253_i = this.isMouseOver(mouseX, mouseY);
         this.mouseDragged(minecraft, mouseX, mouseY);
+        minecraft.renderEngine.bindTexture(texture);
         
         if (this.drawButton && this.active) {
             int textureX = 0;
@@ -163,16 +173,14 @@ public class GuiTab extends GuiButton {
                     break;
             }
             
-            minecraft.renderEngine.bindTexture(texture);
-            
             float r = ((color >> 16) & 0xFF) / 255F;
             float g = ((color >> 8) & 0xFF) / 255F;
             float b = (color & 0xFF) / 255F;
             
             GL11.glColor4f(r, g, b, 1.0F);
             
-            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset,
-                    textureX, textureY, width + widthOffset, height + heightOffset);
+            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset, textureX,
+                    textureY, width + widthOffset, height + heightOffset);
         }
     }
     
@@ -182,10 +190,37 @@ public class GuiTab extends GuiButton {
     }
     
     public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-        if (this.field_82253_i && this.drawButton) {
-            this.drawHoveringText(Arrays.asList(displayString), mouseX, mouseY,
-                    minecraft.fontRenderer);
+        if (this.drawButton) {
+            
+            if (this.hasTextureIcon) {
+                GL11.glColor4f(1, 1, 1, 1);
+                minecraft.renderEngine.bindTexture(iconTexture);
+                int x = this.xPosition + (this.width - 16) / 2;
+                int y = this.yPosition + (this.height - 16) / 2;
+                Tessellator tessellator = Tessellator.instance;
+                tessellator.startDrawingQuads();
+                tessellator.addVertexWithUV((double) (x), (double) (y + 16), (double) this.zLevel,
+                        uMin, vMax);
+                tessellator.addVertexWithUV((double) (x + 16), (double) (y + 16),
+                        (double) this.zLevel, uMax, vMax);
+                tessellator.addVertexWithUV((double) (x + 16), (double) (y), (double) this.zLevel,
+                        uMax, vMin);
+                tessellator.addVertexWithUV((double) (x), (double) (y), (double) this.zLevel, uMin,
+                        vMin);
+                tessellator.draw();
+            } else if (this.iconStack != null) {
+                int x = this.xPosition + (this.width - 16) / 2;
+                int y = this.yPosition + (this.height - 16) / 2;
+                renderItem.renderItemAndEffectIntoGUI(minecraft.fontRenderer,
+                        minecraft.renderEngine, iconStack, x, y);
+            }
+            
+            if (this.field_82253_i) {
+                this.drawHoveringText(Arrays.asList(displayString), mouseX, mouseY,
+                        minecraft.fontRenderer);
+            }
         }
+        
     }
     
     /**
@@ -267,6 +302,48 @@ public class GuiTab extends GuiButton {
         return color;
     }
     
+    /**
+     * Set the icon to draw on this tab, automatically assumes the texture is
+     * 256x256 and the icons size is 16x16
+     * 
+     * @param iconTexture
+     * @param u
+     * @param v
+     */
+    public void setTabIcon(String iconTexture, double u, double v) {
+        this.setTabIcon(iconTexture, u, v, 256, 256);
+    }
+    
+    /**
+     * Set the icon to draw on this tab, automatically assumes the icon's size
+     * is 16x16</br> For finer control set the uMin, vMin, uMax, and vMax
+     * variables yourself
+     * 
+     * @param iconTexture
+     * @param u
+     * @param v
+     * @param textureWidth
+     * @param textureHeight
+     */
+    public void setTabIcon(String iconTexture, double u, double v, int textureWidth,
+            int textureHeight) {
+        this.hasTextureIcon = true;
+        this.iconTexture = iconTexture;
+        float uScale = 1F / (float) textureWidth;
+        float vScale = 1F / (float) textureHeight;
+        this.uMin = u * uScale;
+        this.vMin = v * vScale;
+        this.uMax = (u + 16) * uScale;
+        this.vMax = (v + 16) * vScale;
+        
+        this.iconStack = null;
+    }
+    
+    public void setTabIcon(ItemStack itemStackToDraw) {
+        this.iconStack = itemStackToDraw;
+        this.hasTextureIcon = false;
+    }
+    
     public void activate() {
         
     }
@@ -302,15 +379,15 @@ public class GuiTab extends GuiButton {
                 k1 += 2 + (par1List.size() - 1) * 10;
             }
             
-            // if (i1 + k > this.width)
-            // {
-            // i1 -= 28 + k;
-            // }
-            //
-            // if (j1 + k1 + 6 > this.height)
-            // {
-            // j1 = this.height - k1 - 6;
-            // }
+            Minecraft minecraft = Minecraft.getMinecraft();
+            
+            if (i1 + k > minecraft.currentScreen.width) {
+                i1 -= 28 + k;
+            }
+            
+            if (j1 + k1 + 6 > minecraft.currentScreen.height) {
+                j1 = this.height - k1 - 6;
+            }
             
             this.zLevel = 300.0F;
             // itemRenderer.zLevel = 300.0F;
@@ -347,16 +424,20 @@ public class GuiTab extends GuiButton {
         }
     }
     
-    protected void drawTabTexture(int x, int y, int u, int v, int width, int height)
-    {
+    protected void drawTabTexture(int x, int y, int u, int v, int width, int height) {
         float uScale = 1F / (float) textureWidth;
         float vScale = 1F / (float) textureHeight;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + height), (double)this.zLevel, (double)((float)(u + 0) * uScale), (double)((float)(v + height) * vScale));
-        tessellator.addVertexWithUV((double)(x + width), (double)(y + height), (double)this.zLevel, (double)((float)(u + width) * uScale), (double)((float)(v + height) * vScale));
-        tessellator.addVertexWithUV((double)(x + width), (double)(y + 0), (double)this.zLevel, (double)((float)(u + width) * uScale), (double)((float)(v + 0) * vScale));
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0), (double)this.zLevel, (double)((float)(u + 0) * uScale), (double)((float)(v + 0) * vScale));
+        tessellator.addVertexWithUV((double) (x + 0), (double) (y + height), (double) this.zLevel,
+                (double) ((float) (u + 0) * uScale), (double) ((float) (v + height) * vScale));
+        tessellator.addVertexWithUV((double) (x + width), (double) (y + height),
+                (double) this.zLevel, (double) ((float) (u + width) * uScale),
+                (double) ((float) (v + height) * vScale));
+        tessellator.addVertexWithUV((double) (x + width), (double) (y + 0), (double) this.zLevel,
+                (double) ((float) (u + width) * uScale), (double) ((float) (v + 0) * vScale));
+        tessellator.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel,
+                (double) ((float) (u + 0) * uScale), (double) ((float) (v + 0) * vScale));
         tessellator.draw();
     }
 }

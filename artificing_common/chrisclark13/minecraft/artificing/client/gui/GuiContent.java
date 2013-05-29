@@ -27,12 +27,13 @@ public class GuiContent extends Gui {
     public int texturePartHeight;
     public int textureWidth;
     public int textureHeight;
+    
+    public int backgroundColor;
+    
     public boolean drawBackgroundTopEdge;
     public boolean drawBackgroundRightEdge;
     public boolean drawBackgroundBottomEdge;
     public boolean drawBackgroundLeftEdge;
-    
-    public int backgroundColor;
     
     public int x;
     public int y;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GuiTabList {
     private ArrayList<GuiTab> tabs;
     public GuiTab activeTab;
+    public GuiTab prevActiveTab;
     
     public GuiTabList() {
         tabs = new ArrayList<>();
@@ -28,11 +29,11 @@ public class GuiTabList {
     
     public void setActiveTab(GuiTab tab) {
         
-        GuiTab prev = activeTab;
+        prevActiveTab = activeTab;
         activeTab = tab;
         
-        if (prev != tab) {
-            prev.setActive(false);
+        if (prevActiveTab != null && prevActiveTab != tab) {
+            prevActiveTab.setActive(false);
         }
         
 

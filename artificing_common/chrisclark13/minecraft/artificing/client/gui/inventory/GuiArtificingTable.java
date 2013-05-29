@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -14,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 import chrisclark13.minecraft.artificing.client.gui.GuiContent;
 import chrisclark13.minecraft.artificing.client.gui.GuiTab;
 import chrisclark13.minecraft.artificing.client.gui.GuiTabList;
+import chrisclark13.minecraft.artificing.client.gui.GuiTabSidebarContent;
 import chrisclark13.minecraft.artificing.client.gui.TabDrawType;
 import chrisclark13.minecraft.artificing.client.gui.TabSide;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
@@ -29,7 +32,6 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     
     private ContainerArtificingTable containerArtificing;
     private TileArtificingTable artificingTable;
-    private GuiContent content;
     
     public GuiArtificingTable(InventoryPlayer inventoryPlayer, TileArtificingTable artificingTable) {
         super(new ContainerArtificingTable(inventoryPlayer, artificingTable));
@@ -43,40 +45,22 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     @Override
     public void initGui() {
         super.initGui();
-//        buttonList.add(new GuiTab(-1, guiLeft, guiTop, "TESTY", TabSide.TOP));
-//        buttonList.add(new GuiTab(-1, guiLeft + 29, guiTop, "TESTY", TabSide.TOP,
-//                TabDrawType.MIDDLE));
-//        buttonList.add(new GuiTab(-1, guiLeft + 29 * 2, guiTop, "TESTY", TabSide.TOP,
-//                TabDrawType.END));
-//        
-//        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop, "TESTY", TabSide.RIGHT));
-//        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop + 29, "TESTY", TabSide.RIGHT,
-//                TabDrawType.MIDDLE));
-//        buttonList.add(new GuiTab(-1, guiLeft + xSize, guiTop + 29 * 2, "TESTY", TabSide.RIGHT,
-//                TabDrawType.END));
-//        
-//        buttonList.add(new GuiTab(-1, guiLeft, guiTop + ySize, "TESTY", TabSide.BOTTOM));
-//        buttonList.add(new GuiTab(-1, guiLeft + 29, guiTop + ySize, "TESTY", TabSide.BOTTOM,
-//                TabDrawType.MIDDLE));
-//        buttonList.add(new GuiTab(-1, guiLeft + 29 * 2, guiTop + ySize, "TESTY", TabSide.BOTTOM,
-//                TabDrawType.END));
-//        
-//        buttonList.add(new GuiTab(-1, guiLeft, guiTop, "TESTY", TabSide.LEFT));
-//        buttonList.add(new GuiTab(-1, guiLeft, guiTop + 29, "TESTY", TabSide.LEFT,
-//                TabDrawType.MIDDLE));
-//        buttonList.add(new GuiTab(-1, guiLeft, guiTop + 29 * 2, "TESTY", TabSide.LEFT,
-//                TabDrawType.END));
-//        
-//        int colors[] = { 0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00 };
-//        GuiTabList tabLists[] = { new GuiTabList(), new GuiTabList(), new GuiTabList(),
-//                new GuiTabList() };
-//        for (int i = 0; i < buttonList.size(); i++) {
-//            ((GuiTab) buttonList.get(i)).setColor(colors[i / 3]);
-//            tabLists[i / 3].addTab((GuiTab) buttonList.get(i));
-//        }
         
-        content = new GuiContentTest(guiLeft + xSize, guiTop, 100, ySize);
-        content.children.add(new GuiContentTest(25, 25, 50, 50));
+        GuiContent content = new GuiContentErrorMessages(guiLeft + xSize - 4, guiTop, 100, ySize);
+        GuiTab tab = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop, "TEST", TabSide.RIGHT,
+                TabDrawType.FRONT, content);
+        tab.setTabIcon(Textures.GUI_ICONS, 16, 0);
+        buttonList.add(tab);
+        
+        GuiContent content2 = new GuiContentErrorMessages(guiLeft + xSize - 4, guiTop, 80, ySize);
+        GuiTab tab2 = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop + 29, "TEST 2",
+                TabSide.RIGHT, TabDrawType.MIDDLE, content2);
+        tab2.setTabIcon(new ItemStack(Item.swordDiamond));
+        buttonList.add(tab2);
+        
+        GuiTabList list = new GuiTabList();
+        list.addTab(tab);
+        list.addTab(tab2);
     }
     
     @Override
@@ -108,14 +92,17 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             errors--;
         }
         
-        for (Object o : buttonList) {
-            GuiButton button = (GuiButton) o;
-            button.func_82251_b(mouseX - guiLeft, mouseY - guiTop);
-        }
-        
         GL11.glPushMatrix();
-        GL11.glTranslatef(-guiLeft, -guiTop, 0);
-        content.drawForegroundContent(mc, mouseX, mouseY);
+        {
+            GL11.glTranslatef(-guiLeft, -guiTop, 0);
+            for (Object o : buttonList) {
+                GuiButton button = (GuiButton) o;
+                button.func_82251_b(mouseX, mouseY);
+                if (button instanceof GuiTabSidebarContent) {
+                    ((GuiTabSidebarContent) button).drawContentForeground(mc, mouseX, mouseY);
+                }
+            }
+        }
         GL11.glPopMatrix();
         
         GL11.glEnable(GL11.GL_LIGHTING);
@@ -130,9 +117,11 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             }
         }
         
-        
-        
-        content.drawContent(mc, mouseX, mouseY);
+        for (Object o : buttonList) {
+            if (o instanceof GuiTabSidebarContent) {
+                ((GuiTabSidebarContent) o).drawContentBackground(mc, mouseX, mouseY);
+            }
+        }
         
         // draw your Gui here, only thing you need to change is the path
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
@@ -145,20 +134,20 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         
     }
     
-    private class GuiContentTest extends GuiContent {
-
-        public GuiContentTest(int x, int y, int width, int height) {
+    private class GuiContentErrorMessages extends GuiContent {
+        
+        public GuiContentErrorMessages(int x, int y, int width, int height) {
             super(x, y, width, height);
         }
         
         @Override
         protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
-            if (mouseX > 6) {
-                this.width = mouseX;
-            }
-            if (mouseY > 6) {
-                this.height = mouseY;
-            }
+            // if (mouseX > 6) {
+            // this.width = mouseX;
+            // }
+            // if (mouseY > 6) {
+            // this.height = mouseY;
+            // }
         }
         
         @Override
