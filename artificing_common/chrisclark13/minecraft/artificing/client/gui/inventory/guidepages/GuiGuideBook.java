@@ -10,31 +10,33 @@ import net.minecraft.client.renderer.Tessellator;
 
 public class GuiGuideBook extends GuiScreen {
 
-    private double pageHeight  = 0;  // image height of the page
-    private double pageWidth   = 0;  // image width of the page
-    private int    imageHeight = 180; // size of the image
-    private int    imageWidth  = 292; // size of the image
-    private int    pages       = 4;  // number of pages in total
-    private int    curPage     = 0;  // page that the player is currently on
+    private double pageHeight  = 0;
+    private double pageWidth   = 0;
+    private int    imageHeight = 180;
+    private int    imageWidth  = 292;
+    private int    pages       = 4;
+    private int    curPage     = 0;
+    private int    x;
+    private int    y;
 
-    
     @Override
     public void drawScreen(int par1, int par2, float par3) {
-        
-        
+        x = (width - imageWidth) / 2;
+        y = (height - imageHeight) / 2;
+        GuiPageGuideManual page = new GuiPageGuideManual(x, y, width, height);
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         this.drawBackground();
+        page.drawContent(mc, par1, par2);
     }
+
     /** Draw the page screen */
     public void drawBackground() {
 
         double uScale = 1d / (double) imageWidth;
         double vScale = 1d / (double) imageHeight;
-
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-
+        x = (width - imageWidth) / 2;
+        y = (height - imageHeight) / 2;
         Tessellator tessellator = Tessellator.instance;
         mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
         tessellator.startDrawingQuads();
