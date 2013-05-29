@@ -83,6 +83,23 @@ public class GuiContent extends Gui {
                 child.drawContent(minecraft, mouseX, mouseY);
             }
             
+            GL11.glPopMatrix();
+        }
+    }
+    
+    public void drawForegroundContent(Minecraft minecraft, int mouseX, int mouseY) {
+        if (this.show) {
+            
+            mouseX -= this.x;
+            mouseY -= this.y;
+            
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.x, this.y, 0);
+            
+            for (GuiContent child : children) {
+                child.drawForegroundContent(minecraft, mouseX, mouseY);
+            }
+            
             this.drawForeground(minecraft, mouseX, mouseY);
             
             GL11.glPopMatrix();

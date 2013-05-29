@@ -113,6 +113,11 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             button.func_82251_b(mouseX - guiLeft, mouseY - guiTop);
         }
         
+        GL11.glPushMatrix();
+        GL11.glTranslatef(-guiLeft, -guiTop, 0);
+        content.drawForegroundContent(mc, mouseX, mouseY);
+        GL11.glPopMatrix();
+        
         GL11.glEnable(GL11.GL_LIGHTING);
     }
     
@@ -144,6 +149,16 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
 
         public GuiContentTest(int x, int y, int width, int height) {
             super(x, y, width, height);
+        }
+        
+        @Override
+        protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
+            if (mouseX > 6) {
+                this.width = mouseX;
+            }
+            if (mouseY > 6) {
+                this.height = mouseY;
+            }
         }
         
         @Override

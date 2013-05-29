@@ -17,11 +17,20 @@ public class GuiGuideBook extends GuiScreen {
     private int    pages       = 4;  // number of pages in total
     private int    curPage     = 0;  // page that the player is currently on
 
+    
+    @Override
+    public void drawScreen(int par1, int par2, float par3) {
+        
+        
+        this.drawDefaultBackground();
+        super.drawScreen(par1, par2, par3);
+        this.drawBackground();
+    }
     /** Draw the page screen */
-    public void drawBackground(int par1) {
+    public void drawBackground() {
 
-        double uScale = 1 / imageWidth;
-        double vScale = 1 / imageHeight;
+        double uScale = 1d / (double) imageWidth;
+        double vScale = 1d / (double) imageHeight;
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -30,12 +39,11 @@ public class GuiGuideBook extends GuiScreen {
         mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(x, y, 0, 0 * uScale, 0 * vScale);
-        tessellator.addVertexWithUV(x + imageWidth, y, 0, (0 + imageWidth) * uScale, 0 * vScale);
+        tessellator.addVertexWithUV(x, y + imageHeight, 0, 0 * uScale, (0 + imageHeight) * vScale);
         tessellator.addVertexWithUV(x + imageWidth, y + imageHeight, 0, (0 + imageWidth) * uScale,
                 (0 + imageHeight) * vScale);
-        tessellator.addVertexWithUV(x, y + imageHeight, 0, 0 * uScale, (0 + imageHeight) * vScale);
+        tessellator.addVertexWithUV(x + imageWidth, y, 0, (0 + imageWidth) * uScale, 0 * vScale);
         tessellator.draw();
-
     }
 
     public boolean doesGuiPauseGame() {

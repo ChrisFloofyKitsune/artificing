@@ -49,7 +49,6 @@ public class GuiHandler implements IGuiHandler {
             return new GuiResearchTable(player.inventory,
                     (TileResearchTable) world.getBlockTileEntity(x, y, z));
         } else if( ID == GuiIds.STARTING_BOOK) {
-            
             return new GuiGuideBook();
         }else{
             return null;
