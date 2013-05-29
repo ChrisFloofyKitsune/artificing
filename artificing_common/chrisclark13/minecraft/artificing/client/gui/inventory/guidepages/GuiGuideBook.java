@@ -18,7 +18,7 @@ public class GuiGuideBook extends GuiScreen {
     private int    curPage     = 0;  // page that the player is currently on
 
     /** Draw the page screen */
-    public void drawBackground(int par1) {
+    public void drawScreen(int par1) {
 
         double uScale = 1 / imageWidth;
         double vScale = 1 / imageHeight;
