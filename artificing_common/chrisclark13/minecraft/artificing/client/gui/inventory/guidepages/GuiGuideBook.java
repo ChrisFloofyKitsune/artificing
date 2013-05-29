@@ -2,32 +2,38 @@ package chrisclark13.minecraft.artificing.client.gui.inventory.guidepages;
 
 import org.lwjgl.opengl.GL11;
 
+import chrisclark13.minecraft.artificing.client.gui.GuiContent;
 import chrisclark13.minecraft.artificing.lib.Textures;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 
 
 public class GuiGuideBook extends GuiScreen {
 
-    private double pageHeight  = 0;
-    private double pageWidth   = 0;
-    private int    imageHeight = 180;
-    private int    imageWidth  = 292;
-    private int    pages       = 4;
-    private int    curPage     = 0;
-    private int    x;
-    private int    y;
+    private int pageHeight  = 180;
+    private int pageWidth   = 146;
+    private int imageHeight = 180;
+    private int imageWidth  = 292;
+    private int pages       = 4;
+    private int curPage     = 0;
+    private int x;
+    private int y;
 
     @Override
     public void drawScreen(int par1, int par2, float par3) {
-        x = (width - imageWidth) / 2;
-        y = (height - imageHeight) / 2;
-        GuiPageGuideManual page = new GuiPageGuideManual(x, y, width, height);
+
+        x = (width - pageWidth) / 2;
+        y = (height - pageHeight) / 2;
+
+        GuiGuidePage page = new GuiGuidePage(x, y, width, height);
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         this.drawBackground();
-        page.drawContent(mc, par1, par2);
+        page.drawContent(mc, x, y);
+        page.drawForegroundContent(mc, x, y);
     }
 
     /** Draw the page screen */
@@ -53,4 +59,21 @@ public class GuiGuideBook extends GuiScreen {
         return false;
     }
 
+    public static class GuiGuidePage extends GuiContent {
+
+        FontRenderer fontRenderer;
+
+        public GuiGuidePage(int x, int y, int Pagewidth, int Pageheight) {
+
+            super(x, y, Pagewidth, Pageheight);
+            this.drawOwnBackground = false;
+
+        }
+
+        @Override
+        public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
+            System.out.println("THIS WOULD PRINT OUT");          
+        }
+
+    }
 }
