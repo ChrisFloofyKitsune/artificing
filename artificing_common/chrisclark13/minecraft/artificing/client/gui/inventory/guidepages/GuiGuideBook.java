@@ -18,7 +18,8 @@ public class GuiGuideBook extends GuiScreen {
     private int    curPage     = 0;  // page that the player is currently on
 
     /** Draw the page screen */
-    public void drawScreen(int par1) {
+    @Override
+    public void drawBackground(int par1) {
 
         double uScale = 1 / imageWidth;
         double vScale = 1 / imageHeight;
@@ -27,7 +28,7 @@ public class GuiGuideBook extends GuiScreen {
         int y = (height - imageHeight) / 2;
 
         Tessellator tessellator = Tessellator.instance;
-        mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
+        mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);// need image path
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(x, y, 0, 0 * uScale, 0 * vScale);
         tessellator.addVertexWithUV(x + imageWidth, y, 0, (0 + imageWidth) * uScale, 0 * vScale);
@@ -37,7 +38,7 @@ public class GuiGuideBook extends GuiScreen {
         tessellator.draw();
 
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
 
         return false;
