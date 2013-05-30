@@ -88,7 +88,7 @@ public class ItemGuideBook extends ItemArtificingGeneral {
             case 0:
                 return EnumChatFormatting.LIGHT_PURPLE + super.getItemDisplayName(itemStack);
             case 1:
-                return EnumChatFormatting.DARK_PURPLE + super.getItemDisplayName(itemStack);
+                return EnumChatFormatting.AQUA + super.getItemDisplayName(itemStack);
             default:
                 return EnumChatFormatting.WHITE + super.getItemDisplayName(itemStack);
         }
@@ -130,7 +130,7 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                         || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 
                     list.clear();
-                    list.add(EnumChatFormatting.DARK_PURPLE + super.getItemDisplayName(itemStack));      
+                    list.add(EnumChatFormatting.AQUA + super.getItemDisplayName(itemStack));      
                     list.add("Author: Chris Clark XIII");
                     list.add("");
                     list.add("This book gives information about the");
