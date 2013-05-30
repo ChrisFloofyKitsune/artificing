@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/guideBookSchema"
+	xmlns:tns="http://www.example.org/guideBookSchema" elementFormDefault="qualified">
+
+
+	<attributeGroup name="coords">
+		<attribute name="x" type="int" use="required" />
+		<attribute name="y" type="int" use="required" />
+	</attributeGroup>
+
+	<group name="formattingTags">
+		<all>
+			<element name="black">
+				<complexType />
+			</element>
+			<element name="darkBlue">
+				<complexType />
+			</element>
+			<element name="darkGreen">
+				<complexType />
+			</element>
+			<element name="darkCyan">
+				<complexType />
+			</element>
+			<element name="darkRed">
+				<complexType />
+			</element>
+			<element name="darkPurple">
+				<complexType />
+			</element>
+			<element name="orange">
+				<complexType />
+			</element>
+			<element name="gray">
+				<complexType />
+			</element>
+			<element name="darkGray">
+				<complexType />
+			</element>
+			<element name="blue">
+				<complexType />
+			</element>
+			<element name="green">
+				<complexType />
+			</element>
+			<element name="cyan">
+				<complexType />
+			</element>
+			<element name="red">
+				<complexType />
+			</element>
+			<element name="purple">
+				<complexType />
+			</element>
+			<element name="yellow">
+				<complexType/>
+			</element>
+			<element name="white">
+				<complexType/>
+			</element>
+			<element name="random">
+				<complexType/>
+			</element>
+			<element name="bold">
+				<complexType/>
+			</element>
+			<element name="strikethrough">
+				<complexType/>
+			</element>
+			<element name="underline">
+				<complexType/>
+			</element>
+			<element name="italic">
+				<complexType/>
+			</element>
+			<element name="reset">
+				<complexType/>
+			</element>
+		</all>
+	</group>
+
+	<element name="book">
+		<complexType>
+			<sequence>
+				<element name="page">
+					<complexType>
+						<all minOccurs="1">
+							<element name="text">
+								<complexType mixed="true">
+									<group ref="tns:formattingTags"/>
+									<attributeGroup ref="tns:coords" />
+									<attribute name="lineWidth" type="positiveInteger"
+										use="optional" />
+								</complexType>
+							</element>
+							<element name="picture">
+								<complexType>
+									<simpleContent>
+										<extension base="string">
+											<attributeGroup ref="tns:coords" />
+											<attribute name="width" type="positiveInteger" use="required" />
+											<attribute name="height" type="positiveInteger"
+												use="required" />
+										</extension>
+									</simpleContent>
+								</complexType>
+							</element>
+							<element name="craftingRecipe">
+								<complexType>
+									<simpleContent>
+										<extension base="string">
+											<attributeGroup ref="tns:coords" />
+											<attribute name="size" use="required">
+												<simpleType>
+													<restriction base="positiveInteger">
+														<enumeration value="2" />
+														<enumeration value="3" />
+													</restriction>
+												</simpleType>
+											</attribute>
+										</extension>
+									</simpleContent>
+								</complexType>
+							</element>
+							<element name="itemStack">
+								<complexType>
+									<all>
+										<element name="enchantment">
+											<complexType>
+												<attribute name="name" use="required" />
+												<attribute name="level" use="optional">
+													<simpleType>
+														<restriction base="int">
+															<minInclusive value="0" />
+															<maxInclusive value="10" />
+														</restriction>
+													</simpleType>
+												</attribute>
+											</complexType>
+										</element>
+									</all>
+									<attributeGroup ref="tns:coords" />
+									<attribute name="name" type="string" use="required" />
+									<attribute name="metadata" type="positiveInteger"
+										use="optional" />
+								</complexType>
+							</element>
+						</all>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

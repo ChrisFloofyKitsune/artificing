@@ -33,6 +33,7 @@ public class GuiGuideBook extends GuiScreen {
     @Override
     public void drawScreen(int par1, int par2, float par3) {
         GuiGuidePage page = new GuiGuidePage(guiLeft + LEFT_PAGE_X, guiTop + PAGE_Y);
+        page.addTextContent(3, 3, "§2This text should be green!\n§4This text should be red!");
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         this.drawBackground();
@@ -50,8 +51,8 @@ public class GuiGuideBook extends GuiScreen {
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(guiLeft, guiTop, 0, 0, 0);
         tessellator.addVertexWithUV(guiLeft, guiTop + bookHeight, 0, 0, bookHeight * vScale);
-        tessellator.addVertexWithUV(guiLeft + bookWidth, guiTop + bookHeight, 0, bookWidth
-                * uScale, bookHeight * vScale);
+        tessellator.addVertexWithUV(guiLeft + bookWidth, guiTop + bookHeight, 0,
+                bookWidth * uScale, bookHeight * vScale);
         tessellator.addVertexWithUV(guiLeft + bookWidth, guiTop, 0, bookWidth * uScale, 0);
         tessellator.draw();
     }

@@ -120,10 +120,10 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
             GL11.glPopMatrix();
             
             tessellator.setColorOpaque_F(1f, 1f, 1f);
-            short short1 = 240;
-            short short2 = 240;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F,
-                    (float) short2 / 1.0F);
+//            short short1 = 240;
+//            short short2 = 240;
+//            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F,
+//                    (float) short2 / 1.0F);
             GL11.glDisable(GL11.GL_LIGHTING);
             
             GL11.glPushMatrix();
@@ -181,7 +181,11 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glDisable(GL11.GL_CULL_FACE);
                 
                 GL11.glTranslatef(0, 0, 1.5F / 16F);
-                float angleIncrement = -360 / table.characters.size();
+                float angleIncrement = 0;
+                
+                if (table.characters.size() > 0) {
+                    angleIncrement = -360 / table.characters.size();
+                }
                 
                 for (int i = 0; i < table.characters.size(); i++) {
                     

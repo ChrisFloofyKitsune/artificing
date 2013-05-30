@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<book>
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="guideBookSchema.xsd">
 	<page>
-		<text x = "10" y = "10" width = "80">This is some handy text test stuff</text>
-		<image x = "50" y = "10" width = "16" height = "16">/mods/Artificing/textures/blocks/artificingTableTop.png</image>
+		<text x="3" y="3"><underline/>Minecraft Formatting<reset/>
+		<bold/><underline/><italic/>with XML!<reset/>
+		
+		<black/>Black <darkBlue/>Dark Blue <darkGreen/>Dark Green <darkCyan/>Dark Cyan
+		<darkRed/>Dark Red <darkPurple/> Dark Purple <orange/>Orange <gray/>Gray
+		<darkGray/>Dark Gray <blue/>Blue <green/>Green <cyan/>Cyan
+		<red/>Red <purple/>Purple <yellow/>Yellow <white/>White
+		
+		<reset/>Random <random/>Minecraft
+		<reset/>Bold <bold/>Minecraft
+		<reset/>Underline <underline/>Minecraft
+		<reset/>Italic <italic/>Minecraft
+		<reset/>Reset <reset/>Minecraft</text>
 	</page>
 </book>
