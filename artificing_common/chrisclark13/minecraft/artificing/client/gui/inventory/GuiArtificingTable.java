@@ -37,7 +37,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     public void initGui() {
         super.initGui();
         
-        errorContent = new GuiContentErrorMessages(guiLeft + xSize, guiTop + 10, 100, ySize - 20);
+        errorContent = new GuiContentErrorMessages(guiLeft + xSize, guiTop + 10, 90, ySize - 20);
         errorTab = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop + 10, "TEST",
                 TabSide.RIGHT, TabDrawType.FRONT, errorContent);
         buttonList.add(errorTab);
@@ -77,12 +77,12 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         
         int errorCount = artificingTable.manager.getErrorMessages().size();
         if (errorCount > 0) {
-            errorContent.backgroundColor = 0xCC0000;
+            errorContent.backgroundColor = 0xAA0000;
             errorContent.textColor = 0xFF0000;
-            errorTab.color = 0xCC0000;
+            errorTab.color = 0xAA0000;
             errorTab.iconColor = 0xFF0000;
             errorTab.setTabIcon(Textures.GUI_ICONS, 16, 0);
-            errorTab.displayString = errorCount + " error" + ((errorCount > 1) ? "s" : "") + "!";
+            errorTab.displayString = "§c" + errorCount + " error" + ((errorCount > 1) ? "s" : "") + "!";
         } else {
             errorContent.backgroundColor = 0xFFFFFF;
             errorContent.textColor = 0x404040;

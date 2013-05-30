@@ -2,76 +2,62 @@ package chrisclark13.minecraft.artificing.client.gui.inventory.guidepages;
 
 import org.lwjgl.opengl.GL11;
 
-import chrisclark13.minecraft.artificing.client.gui.GuiContent;
 import chrisclark13.minecraft.artificing.lib.Textures;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 
-
 public class GuiGuideBook extends GuiScreen {
-
-    private int pageHeight  = 180;
-    private int pageWidth   = 146;
-    private int imageHeight = 180;
-    private int imageWidth  = 292;
-    private int pages       = 4;
-    private int curPage     = 0;
-    private int x;
-    private int y;
-
+    
+    private int bookWidth = 256;
+    private int bookHeight = 180;
+    private int imageHeight = 256;
+    private int imageWidth = 256;
+    private final int LEFT_PAGE_X = 11;
+    private final int RIGHT_PAGE_X = 135;
+    private final int PAGE_Y = 7;
+    
+    private int pages = 4;
+    private int curPage = 0;
+    private int guiLeft;
+    private int guiTop;
+    
+    @Override
+    public void setWorldAndResolution(Minecraft par1Minecraft, int par2, int par3) {
+        super.setWorldAndResolution(par1Minecraft, par2, par3);
+        guiLeft = (width - bookWidth) / 2;
+        guiTop = (height - bookHeight) / 2;
+    }
+    
     @Override
     public void drawScreen(int par1, int par2, float par3) {
-
-        x = (width - imageWidth) / 2;
-        y = (height - imageHeight) / 2;
-
-        GuiGuidePage page = new GuiGuidePage(x, y);
+        GuiGuidePage page = new GuiGuidePage(guiLeft + LEFT_PAGE_X, guiTop + PAGE_Y);
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         this.drawBackground();
-        page.drawContent(mc, x, y);
-        page.drawForegroundContent(mc, x, y);
+        page.drawContent(mc, guiLeft, guiTop);
+        page.drawForegroundContent(mc, guiLeft, guiTop);
     }
-
+    
     /** Draw the page screen */
     public void drawBackground() {
-
+        
         double uScale = 1d / (double) imageWidth;
         double vScale = 1d / (double) imageHeight;
-        x = (width - imageWidth) / 2;
-        y = (height - imageHeight) / 2;
         Tessellator tessellator = Tessellator.instance;
-        mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
+        mc.renderEngine.bindTexture("/mods/Artificing/textures/gui/guideBookNew.png");
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(x, y, 0, 0 * uScale, 0 * vScale);
-        tessellator.addVertexWithUV(x, y + imageHeight, 0, 0 * uScale, (0 + imageHeight) * vScale);
-        tessellator.addVertexWithUV(x + imageWidth, y + imageHeight, 0, (0 + imageWidth) * uScale,
-                (0 + imageHeight) * vScale);
-        tessellator.addVertexWithUV(x + imageWidth, y, 0, (0 + imageWidth) * uScale, 0 * vScale);
+        tessellator.addVertexWithUV(guiLeft, guiTop, 0, 0, 0);
+        tessellator.addVertexWithUV(guiLeft, guiTop + bookHeight, 0, 0, bookHeight * vScale);
+        tessellator.addVertexWithUV(guiLeft + bookWidth, guiTop + bookHeight, 0, bookWidth
+                * uScale, bookHeight * vScale);
+        tessellator.addVertexWithUV(guiLeft + bookWidth, guiTop, 0, bookWidth * uScale, 0);
         tessellator.draw();
     }
-
+    
     public boolean doesGuiPauseGame() {
-
+        
         return false;
-    }
-
-    public class GuiGuidePage extends GuiContent {
-
-        public GuiGuidePage(int x, int y) {
-
-            super(x, y, pageWidth, pageHeight);
-            this.drawOwnBackground = false;
-
-        }
-
-        @Override
-        public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-            mc.fontRenderer.drawStringWithShadow("HAYO", 10, 10, 0x0);
-        }
-
     }
 }

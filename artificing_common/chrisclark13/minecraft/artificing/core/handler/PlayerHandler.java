@@ -10,12 +10,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.IPlayerTracker;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.StatList;
 import net.minecraftforge.common.FakePlayer;
 
 
@@ -37,7 +32,6 @@ public class PlayerHandler implements IPlayerTracker {
         stats.book = tags.getCompoundTag("Artificing").getBoolean("startingbook");
         if (!stats.book) {
             tags.getCompoundTag("Artificing").setBoolean("startingbook", true);
-            ItemStack book = new ItemStack(ModItems.guideBook);
             if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(ModItems.guideBook))) {
                 spawnItemAtPlayer(entityplayer, new ItemStack(ModItems.guideBook, 1, 0));
                 //System.out.println("Attempt to give the book");

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<book>
+	<page>
+		<text x = "10" y = "10" width = "80">This is some handy text test stuff</text>
+		<image x = "50" y = "10" width = "16" height = "16">/mods/Artificing/textures/blocks/artificingTableTop.png</image>
+	</page>
+</book>

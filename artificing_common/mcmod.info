@@ -3,7 +3,7 @@
   "modlist": [{
     "modid": "Artificing",
     "name": "Artificing",
-    "description": "Pick and choose the enchants you want in a balanced way.",
+    "description": "Make enchanting fun again! Pick and choose what you want!",
     "version": "0.0.4",
     "mcversion": "1.5.2",
     "url": "",
@@ -14,7 +14,7 @@
     "screenshots": [],
     "parent": "",
     "requiredMods": [ "Forge", "MultiSlotItems" ],
-    "dependencies": [ "MultiSlotItems" ],
+    "dependencies": [ "after:MultiSlotItems" ],
     "dependants": [],
     "useDependencyInformation": "true"
   }]
