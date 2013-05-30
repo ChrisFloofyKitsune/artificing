@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 
 public class GuiTab extends GuiButton {
     
@@ -31,6 +32,7 @@ public class GuiTab extends GuiButton {
     
     protected boolean hasTextureIcon;
     protected String iconTexture;
+    public int iconColor;
     protected double uMin;
     protected double vMin;
     protected double uMax;
@@ -44,7 +46,7 @@ public class GuiTab extends GuiButton {
     protected boolean active;
     protected TabDrawType type;
     protected int overhang;
-    protected int color;
+    public int color;
     
     static {
         renderItem = new RenderItem();
@@ -66,6 +68,7 @@ public class GuiTab extends GuiButton {
         this.pressed = false;
         this.texture = Textures.TAB_PARTS;
         this.color = 0xFFFFFF;
+        this.iconColor = 0xFFFFFF;
         
         this.width = DEFAULT_SIZE;
         this.height = DEFAULT_SIZE;
@@ -193,10 +196,19 @@ public class GuiTab extends GuiButton {
         if (this.drawButton) {
             
             if (this.hasTextureIcon) {
-                GL11.glColor4f(1, 1, 1, 1);
+                float r = ((iconColor >> 16) & 0xFF) / 255F;
+                float g = ((iconColor >> 8) & 0xFF) / 255F;
+                float b = (iconColor & 0xFF) / 255F;
+                
+                GL11.glColor4f(r, g, b, 1.0F);
+                
                 minecraft.renderEngine.bindTexture(iconTexture);
-                int x = this.xPosition + (this.width - 16) / 2;
-                int y = this.yPosition + (this.height - 16) / 2;
+                int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
+                int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
+                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang : 0;
+                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang : 0;
+                int x = (this.xPosition + xOffset) + (this.width + widthOffset - 16) / 2;
+                int y = (this.yPosition + yOffset) + (this.height + heightOffset - 16) / 2;
                 Tessellator tessellator = Tessellator.instance;
                 tessellator.startDrawingQuads();
                 tessellator.addVertexWithUV((double) (x), (double) (y + 16), (double) this.zLevel,
@@ -209,8 +221,18 @@ public class GuiTab extends GuiButton {
                         vMin);
                 tessellator.draw();
             } else if (this.iconStack != null) {
-                int x = this.xPosition + (this.width - 16) / 2;
-                int y = this.yPosition + (this.height - 16) / 2;
+                float r = ((iconColor >> 16) & 0xFF) / 255F;
+                float g = ((iconColor >> 8) & 0xFF) / 255F;
+                float b = (iconColor & 0xFF) / 255F;
+                
+                GL11.glColor4f(r, g, b, 1.0F);
+                
+                int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
+                int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
+                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang : 0;
+                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang : 0;
+                int x = (this.xPosition + xOffset) + (this.width + widthOffset - 16) / 2;
+                int y = (this.yPosition + yOffset) + (this.height + heightOffset - 16) / 2;
                 renderItem.renderItemAndEffectIntoGUI(minecraft.fontRenderer,
                         minecraft.renderEngine, iconStack, x, y);
             }
@@ -220,7 +242,6 @@ public class GuiTab extends GuiButton {
                         minecraft.fontRenderer);
             }
         }
-        
     }
     
     /**

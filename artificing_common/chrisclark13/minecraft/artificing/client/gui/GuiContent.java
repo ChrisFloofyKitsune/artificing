@@ -39,12 +39,17 @@ public class GuiContent extends Gui {
     public int y;
     public int width;
     public int height;
+    public int topSpacing;
+    public int leftSpacing;
     
     public GuiContent(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        
+        this.topSpacing = 0;
+        this.leftSpacing = 0;
         
         this.show = true;
         this.drawOwnBackground = true;
@@ -68,15 +73,18 @@ public class GuiContent extends Gui {
     public void drawContent(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.show) {
             
-            mouseX -= this.x;
-            mouseY -= this.y;
+            mouseX -= this.x + leftSpacing;
+            mouseY -= this.y + topSpacing;
             
             GL11.glPushMatrix();
+            GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glTranslatef(this.x, this.y, 0);
             
             if (this.drawOwnBackground) {
                 this.drawBackgroundTexture(minecraft);
             }
+            
+            GL11.glTranslatef(leftSpacing, topSpacing, 0);
             
             this.draw(minecraft, mouseX, mouseY);
             
@@ -84,6 +92,7 @@ public class GuiContent extends Gui {
                 child.drawContent(minecraft, mouseX, mouseY);
             }
             
+            //GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glPopMatrix();
         }
     }
@@ -91,11 +100,12 @@ public class GuiContent extends Gui {
     public void drawForegroundContent(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.show) {
             
-            mouseX -= this.x;
-            mouseY -= this.y;
+            mouseX -= this.x + leftSpacing;
+            mouseY -= this.y + topSpacing;
             
             GL11.glPushMatrix();
-            GL11.glTranslatef(this.x, this.y, 0);
+            GL11.glTranslatef(this.x + this.leftSpacing, this.y + this.topSpacing, 0);
+            GL11.glDisable(GL11.GL_LIGHTING);
             
             for (GuiContent child : children) {
                 child.drawForegroundContent(minecraft, mouseX, mouseY);
@@ -103,6 +113,7 @@ public class GuiContent extends Gui {
             
             this.drawForeground(minecraft, mouseX, mouseY);
             
+            //GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glPopMatrix();
         }
     }

@@ -13,15 +13,23 @@ public class GuiTabSidebarContent extends GuiTab {
         switch (this.side) {
             case TOP:
                 this.content.drawBackgroundBottomEdge = false;
+                this.content.height += overhang;
                 break;
             case RIGHT:
                 this.content.drawBackgroundLeftEdge = false;
+                this.content.x -= overhang;
+                this.content.width += overhang;
+                this.content.leftSpacing += overhang;
                 break;
             case BOTTOM:
                 this.content.drawBackgroundTopEdge = false;
+                this.content.y -= overhang;
+                this.content.height += overhang;
+                this.content.topSpacing += overhang;
                 break;
             case LEFT:
                 this.content.drawBackgroundRightEdge = false;
+                this.content.width += overhang;
                 break;
         }
     }

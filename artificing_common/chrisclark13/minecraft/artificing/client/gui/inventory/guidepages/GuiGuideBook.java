@@ -25,10 +25,10 @@ public class GuiGuideBook extends GuiScreen {
     @Override
     public void drawScreen(int par1, int par2, float par3) {
 
-        x = (width - pageWidth) / 2;
-        y = (height - pageHeight) / 2;
+        x = (width - imageWidth) / 2;
+        y = (height - imageHeight) / 2;
 
-        GuiGuidePage page = new GuiGuidePage(x, y, width, height);
+        GuiGuidePage page = new GuiGuidePage(x, y);
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         this.drawBackground();
@@ -59,20 +59,18 @@ public class GuiGuideBook extends GuiScreen {
         return false;
     }
 
-    public static class GuiGuidePage extends GuiContent {
+    public class GuiGuidePage extends GuiContent {
 
-        FontRenderer fontRenderer;
+        public GuiGuidePage(int x, int y) {
 
-        public GuiGuidePage(int x, int y, int Pagewidth, int Pageheight) {
-
-            super(x, y, Pagewidth, Pageheight);
+            super(x, y, pageWidth, pageHeight);
             this.drawOwnBackground = false;
 
         }
 
         @Override
         public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-            System.out.println("THIS WOULD PRINT OUT");          
+            mc.fontRenderer.drawStringWithShadow("HAYO", 10, 10, 0x0);
         }
 
     }
