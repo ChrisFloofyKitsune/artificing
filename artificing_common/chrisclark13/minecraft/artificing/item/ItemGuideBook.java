@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -69,25 +70,38 @@ public class ItemGuideBook extends ItemArtificingGeneral {
         if (!itemstack.isItemEqual(new ItemStack(ModItems.guideBook, 1, 0))) {
             //System.out.println("Hasnt opened the gui");
             return itemstack;
-           
+
         } else {
             player.openGui(Artificing.instance, GuiIds.STARTING_BOOK, world, 0, 0, 0);
+<<<<<<< HEAD
             //System.out.println("Should have opened the gui");
+=======
+           // System.out.println("Should have opened the gui");
+>>>>>>> refs/remotes/origin/master
         }
-        
+
         return itemstack;
+    }
+
+    @Override
+    public String getItemDisplayName(ItemStack itemStack) {
+
+        int meta = MathHelper.clamp_int(itemStack.getItemDamage(), 0, 3);
+
+        switch (meta) {
+            case 0:
+                return EnumChatFormatting.LIGHT_PURPLE + super.getItemDisplayName(itemStack);
+            case 1:
+                return EnumChatFormatting.AQUA + super.getItemDisplayName(itemStack);
+            default:
+                return EnumChatFormatting.WHITE + super.getItemDisplayName(itemStack);
+        }
     }
 
     @SuppressWarnings({ "unchecked" , "rawtypes" })
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean debug) {
-
-        /*
-         * Change what you would like about this. TODO make a stingsUtil to wrap
-         * the text, do the if statement and add colour to the text using the
-         * /#### things
-         */
         int meta = MathHelper.clamp_int(itemStack.getItemDamage(), 0, 3);
         switch (meta) {
 
@@ -95,24 +109,24 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                 list.add("Author: Cyntain of Minecraftia");
                 list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
-
+                
                 if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
                         || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 
                     list.clear();
-                    list.add("Book of Artificing");
-                    list.add("Author: Cyntain the first");
+                    list.add(EnumChatFormatting.LIGHT_PURPLE + super.getItemDisplayName(itemStack));
+                    list.add("Author: Cyntain I");
                     list.add("");
                     list.add("This book gives information about how to get");
                     list.add("started with Artificing; including recipes,");
                     list.add("what is what, and a guide to the world!");
                     break;
-                }else{
+                } else {
                     break;
                 }
-                
+
             case 1:
-                list.add("Author: Chris Clark XIII from The 4th Wall");
+                list.add("Author: Chris Clark of The 4th Wall");
                 list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
 
@@ -120,14 +134,14 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                         || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 
                     list.clear();
-                    list.add("Book of Runes");
+                    list.add(EnumChatFormatting.AQUA + super.getItemDisplayName(itemStack));      
                     list.add("Author: Chris Clark XIII");
                     list.add("");
                     list.add("This book gives information about the");
                     list.add("different runes. This includes what they");
-                    list.add("do, how they effect a rune, and more!");
+                    list.add("do, What effects they do, and more!");
                     break;
-                }else{
+                } else {
                     break;
                 }
         }
@@ -135,7 +149,6 @@ public class ItemGuideBook extends ItemArtificingGeneral {
     }
 
     @Override
-    @SuppressWarnings({ "unchecked" , "rawtypes" })
     @SideOnly(Side.CLIENT)
     public void getSubItems(int id, CreativeTabs creativeTab, List list) {
 
