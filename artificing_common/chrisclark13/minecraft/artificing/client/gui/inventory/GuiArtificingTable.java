@@ -78,7 +78,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         int errorCount = artificingTable.manager.getErrorMessages().size();
         if (errorCount > 0) {
             errorContent.backgroundColor = 0xCC0000;
-            errorContent.textColor = 0xFF0000;
+            errorContent.textColor = 0x000000;// changed the text colour to black as it was hard to see against the red.
             errorTab.color = 0xCC0000;
             errorTab.iconColor = 0xFF0000;
             errorTab.setTabIcon(Textures.GUI_ICONS, 16, 0);
@@ -104,11 +104,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             }
         }
         
-        // draw your Gui here, only thing you need to change is the path
-        // int texture = mc.renderEngine.getTexture("/gui/trap.png");
+        // draw your Gui here, only thing you need to change is the path       
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(Textures.ARTIFICING_TABLE);
-        // this.mc.renderEngine.bindTexture(texture);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

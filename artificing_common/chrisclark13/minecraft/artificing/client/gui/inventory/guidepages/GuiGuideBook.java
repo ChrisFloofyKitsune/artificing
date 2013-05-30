@@ -70,7 +70,8 @@ public class GuiGuideBook extends GuiScreen {
 
         @Override
         public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-            mc.fontRenderer.drawStringWithShadow("HAYO", 10, 10, 0x0);
+
+            mc.fontRenderer.drawString("HELLO", 15, 10, 0x0);
         }
 
     }
