@@ -137,63 +137,56 @@ public class GuiTab extends GuiButton {
         this.mouseDragged(minecraft, mouseX, mouseY);
         minecraft.renderEngine.bindTexture(texture);
         
-        if (this.drawButton && this.active) {
-            int textureX = 0;
-            int textureY = 0;
-            int xOffset = 0;
-            int yOffset = 0;
-            int widthOffset = 0;
-            int heightOffset = 0;
-            
-            switch (this.side) {
-                case TOP:
-                    textureX = (!this.pressed) ? 0 : width * 3;
-                    textureX += this.type.ordinal() * width;
-                    textureY = textureHeight / 2;
-                    textureY += this.height + overhang;
-                    yOffset = -height;
-                    heightOffset = overhang;
-                    break;
-                case RIGHT:
-                    textureX = (!this.pressed) ? (width + overhang) * 3 : (width + overhang) * 7;
-                    textureY = this.type.ordinal() * height;
-                    xOffset = -overhang;
-                    widthOffset = overhang;
-                    break;
-                case BOTTOM:
-                    textureX = (!this.pressed) ? 0 : width * 3;
-                    textureX += this.type.ordinal() * width;
-                    textureY = textureHeight / 2;
-                    textureY += (height + overhang) * 3;
-                    yOffset = -overhang;
-                    heightOffset = overhang;
-                    break;
-                case LEFT:
-                    textureX = (!this.pressed) ? (width + overhang) : (width + overhang) * 5;
-                    textureY = this.type.ordinal() * height;
-                    widthOffset = overhang;
-                    xOffset = -width;
-                    break;
-            }
-            
-            float r = ((color >> 16) & 0xFF) / 255F;
-            float g = ((color >> 8) & 0xFF) / 255F;
-            float b = (color & 0xFF) / 255F;
-            
-            GL11.glColor4f(r, g, b, 1.0F);
-            
-            this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset, textureX,
-                    textureY, width + widthOffset, height + heightOffset);
-        }
-    }
-    
-    @Override
-    public void func_82251_b(int mouseX, int mouseY) {
-        this.drawForeground(Minecraft.getMinecraft(), mouseX, mouseY);
-    }
-    
-    public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.drawButton) {
+            if (this.active) {
+                int textureX = 0;
+                int textureY = 0;
+                int xOffset = 0;
+                int yOffset = 0;
+                int widthOffset = 0;
+                int heightOffset = 0;
+                
+                switch (this.side) {
+                    case TOP:
+                        textureX = (!this.pressed) ? 0 : width * 3;
+                        textureX += this.type.ordinal() * width;
+                        textureY = textureHeight / 2;
+                        textureY += this.height + overhang;
+                        yOffset = -height;
+                        heightOffset = overhang;
+                        break;
+                    case RIGHT:
+                        textureX = (!this.pressed) ? (width + overhang) * 3
+                                : (width + overhang) * 7;
+                        textureY = this.type.ordinal() * height;
+                        xOffset = -overhang;
+                        widthOffset = overhang;
+                        break;
+                    case BOTTOM:
+                        textureX = (!this.pressed) ? 0 : width * 3;
+                        textureX += this.type.ordinal() * width;
+                        textureY = textureHeight / 2;
+                        textureY += (height + overhang) * 3;
+                        yOffset = -overhang;
+                        heightOffset = overhang;
+                        break;
+                    case LEFT:
+                        textureX = (!this.pressed) ? (width + overhang) : (width + overhang) * 5;
+                        textureY = this.type.ordinal() * height;
+                        widthOffset = overhang;
+                        xOffset = -width;
+                        break;
+                }
+                
+                float r = ((color >> 16) & 0xFF) / 255F;
+                float g = ((color >> 8) & 0xFF) / 255F;
+                float b = (color & 0xFF) / 255F;
+                
+                GL11.glColor4f(r, g, b, 1.0F);
+                
+                this.drawTabTexture(this.xPosition + xOffset, this.yPosition + yOffset, textureX,
+                        textureY, width + widthOffset, height + heightOffset);
+            }
             
             if (this.hasTextureIcon) {
                 float r = ((iconColor >> 16) & 0xFF) / 255F;
@@ -205,8 +198,10 @@ public class GuiTab extends GuiButton {
                 minecraft.renderEngine.bindTexture(iconTexture);
                 int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
                 int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
-                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang : 0;
-                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang : 0;
+                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang
+                        : 0;
+                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang
+                        : 0;
                 int x = (this.xPosition + xOffset) + (this.width + widthOffset - 16) / 2;
                 int y = (this.yPosition + yOffset) + (this.height + heightOffset - 16) / 2;
                 Tessellator tessellator = Tessellator.instance;
@@ -229,14 +224,25 @@ public class GuiTab extends GuiButton {
                 
                 int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
                 int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
-                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang : 0;
-                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang : 0;
+                int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang
+                        : 0;
+                int heightOffset = (this.side == TabSide.TOP || this.side == TabSide.BOTTOM) ? overhang
+                        : 0;
                 int x = (this.xPosition + xOffset) + (this.width + widthOffset - 16) / 2;
                 int y = (this.yPosition + yOffset) + (this.height + heightOffset - 16) / 2;
                 renderItem.renderItemAndEffectIntoGUI(minecraft.fontRenderer,
                         minecraft.renderEngine, iconStack, x, y);
             }
-            
+        }
+    }
+    
+    @Override
+    public void func_82251_b(int mouseX, int mouseY) {
+        this.drawForeground(Minecraft.getMinecraft(), mouseX, mouseY);
+    }
+    
+    public void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
+        if (this.drawButton) {
             if (this.field_82253_i) {
                 this.drawHoveringText(Arrays.asList(displayString), mouseX, mouseY,
                         minecraft.fontRenderer);
