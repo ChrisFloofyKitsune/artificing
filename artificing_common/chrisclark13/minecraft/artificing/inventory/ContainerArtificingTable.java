@@ -56,8 +56,8 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
 
 	protected void addPlayerInventory(InventoryPlayer inventoryPlayer) {
 		final int INVENTORY_X = 8;
-		final int INVENTORY_Y = 144;
-		final int HOTBAR_Y = 202;
+		final int INVENTORY_Y = 154;
+		final int HOTBAR_Y = 212;
 
 		for (int slotVertical = 0; slotVertical < 3; slotVertical++) {
 			for (int slotHorizontal = 0; slotHorizontal < 9; slotHorizontal++) {
