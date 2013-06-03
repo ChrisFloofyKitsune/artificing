@@ -2,21 +2,21 @@ package chrisclark13.minecraft.artificing.client.renderer.tileentity;
 
 import org.lwjgl.opengl.GL11;
 
-import chrisclark13.minecraft.artificing.client.model.ModelResearchTable;
-import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
+import chrisclark13.minecraft.artificing.client.model.ModelDisenchanter;
+import chrisclark13.minecraft.artificing.tileentity.TileDisenchanter;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileResearchTableRenderer extends TileEntitySpecialRenderer {
+public class TileDisenchanterRenderer extends TileEntitySpecialRenderer {
     
-    private ModelResearchTable modelResearchTable = new ModelResearchTable();
+    private ModelDisenchanter modelDisenchanter = new ModelDisenchanter();
     
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f) {
-        if (tileEntity instanceof TileResearchTable) {
+        if (tileEntity instanceof TileDisenchanter) {
             
-            TileResearchTable table = (TileResearchTable) tileEntity;
+            TileDisenchanter disenchanter = (TileDisenchanter) tileEntity;
             
             GL11.glPushMatrix();
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -27,7 +27,7 @@ public class TileResearchTableRenderer extends TileEntitySpecialRenderer {
                 // This line actually rotates the renderer.
                 
                 int _angle = 0;
-                ForgeDirection direction = ForgeDirection.getOrientation(table.getBlockMetadata());
+                ForgeDirection direction = ForgeDirection.getOrientation(disenchanter.getBlockMetadata());
                 if (direction != null) {
                     if (direction == ForgeDirection.NORTH) {
                         _angle = 180;
@@ -43,7 +43,7 @@ public class TileResearchTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glRotatef(_angle, 0F, 1F, 0F);
                 GL11.glTranslatef(-0.5F, 0, -0.5F);
                 
-                modelResearchTable.render();
+                modelDisenchanter.renderAnim(1f, 0f);
                 
             }
             GL11.glEnable(GL11.GL_LIGHTING);

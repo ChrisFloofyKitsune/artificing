@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
@@ -24,7 +25,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemGuideBook extends ItemArtificingGeneral {
 
     public final static String[] GUIDE_NAMES = { "Starting" , "Runes" };
-
+    public final static int STARTING_BOOK_META = 0;
+    public final static int RUNES_BOOK_META = 1;
+    
     @SideOnly(Side.CLIENT)
     private Icon[]               icons;
 
@@ -68,21 +71,15 @@ public class ItemGuideBook extends ItemArtificingGeneral {
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
 
         if (!itemstack.isItemEqual(new ItemStack(ModItems.guideBook, 1, 0))) {
-            //System.out.println("Hasnt opened the gui");
             return itemstack;
 
         } else {
-            player.openGui(Artificing.instance, GuiIds.STARTING_BOOK, world, 0, 0, 0);
-<<<<<<< HEAD
-            //System.out.println("Should have opened the gui");
-=======
-           // System.out.println("Should have opened the gui");
->>>>>>> refs/remotes/origin/master
+            player.openGui(Artificing.instance, GuiIds.GUIDE_BOOK, world, 0, 0, 0);
         }
 
         return itemstack;
     }
-
+    
     @Override
     public String getItemDisplayName(ItemStack itemStack) {
 
@@ -105,7 +102,7 @@ public class ItemGuideBook extends ItemArtificingGeneral {
         int meta = MathHelper.clamp_int(itemStack.getItemDamage(), 0, 3);
         switch (meta) {
 
-            case 0:
+            case STARTING_BOOK_META:
                 list.add("Author: Cyntain of Minecraftia");
                 list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
@@ -125,7 +122,7 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                     break;
                 }
 
-            case 1:
+            case RUNES_BOOK_META:
                 list.add("Author: Chris Clark of The 4th Wall");
                 list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
@@ -148,6 +145,7 @@ public class ItemGuideBook extends ItemArtificingGeneral {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(int id, CreativeTabs creativeTab, List list) {

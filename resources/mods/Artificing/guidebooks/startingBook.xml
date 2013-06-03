@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="guideBookSchema.xsd">
+    <section name="Preface">
+        <page/>
+        <page>
+            <text x="3" y="3">(This page should be over on the right!)</text>
+        </page>
+    </section>
+    <section name="Artificing Table">
+        <page/>
+    </section>
+</book>

@@ -1,28 +1,17 @@
 package chrisclark13.minecraft.artificing.client.renderer.tileentity;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import cpw.mods.fml.client.FMLClientHandler;
-
 import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.client.renderer.RenderUtil;
 import chrisclark13.minecraft.artificing.client.renderer.RuneRenderer;
-import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;

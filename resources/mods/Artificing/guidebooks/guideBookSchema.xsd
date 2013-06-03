@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:attributeGroup name="coords">
+		<xsd:attribute name="y" type="xsd:int" use="required" />
+		<xsd:attribute name="x" type="xsd:int" use="required" />
+	</xsd:attributeGroup>
+
+	<xsd:group name="formattingTags">
+		<xsd:choice>
+			<xsd:element name="black">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="darkBlue">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="darkGreen">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="darkAqua">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="darkRed">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="purple">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="gold">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="gray">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="darkGray">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="blue">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="green">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="aqua">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="red">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="lightPurple">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="yellow">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="white">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="random">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="bold">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="strikethrough">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="underline">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="italic">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="reset">
+				<xsd:complexType />
+			</xsd:element>
+		</xsd:choice>
+	</xsd:group>
+
+	<xsd:group name="pageContentTypes">
+		<xsd:choice>
+			<xsd:element name="text">
+				<xsd:complexType mixed="true">
+					<xsd:group ref="formattingTags" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:attributeGroup ref="coords" />
+					<xsd:attribute name="lineWidth" type="xsd:positiveInteger" use="optional" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="image">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attributeGroup ref="coords" />
+							<xsd:attribute name="width" type="xsd:positiveInteger" use="required" />
+							<xsd:attribute name="height" type="xsd:positiveInteger" use="required" />
+							<xsd:attribute name="imageWidth" type="xsd:positiveInteger" use="optional" />
+							<xsd:attribute name="imageHeight" type="xsd:positiveInteger" use="optional" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="craftingRecipe">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attributeGroup ref="coords" />
+							<xsd:attribute name="size"
+                                use="required">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:positiveInteger">
+										<xsd:enumeration
+                                            value="2" />
+										<xsd:enumeration
+                                            value="3" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="itemStack">
+				<xsd:complexType>
+					<xsd:choice minOccurs="0" maxOccurs="1">
+						<xsd:element name="enchantment"
+                            maxOccurs="1">
+							<xsd:complexType>
+								<xsd:attribute name="name" use="required" />
+								<xsd:attribute name="level"
+                                    use="optional">
+									<xsd:simpleType>
+										<xsd:restriction
+                                            base="xsd:int">
+											<xsd:minInclusive
+                                                value="1" />
+											<xsd:maxInclusive
+                                                value="10" />
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:choice>
+					<xsd:attributeGroup ref="coords" />
+					<xsd:attribute name="name" type="xsd:string" use="required" />
+					<xsd:attribute name="metadata" type="xsd:positiveInteger" use="optional" />
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:group>
+
+	<xsd:element name="book">
+		<xsd:complexType>
+			<xsd:sequence>
+                <xsd:element name ="section" minOccurs="1" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="page" minOccurs="1" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:group ref="pageContentTypes"/ minOccurs="0" maxOccurs="unbounded">
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                        <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        <xsd:attribute name="hasBookmark" type="xsd:boolean" use="optional"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

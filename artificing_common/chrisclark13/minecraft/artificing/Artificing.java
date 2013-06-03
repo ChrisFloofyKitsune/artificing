@@ -6,6 +6,7 @@ import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.core.handler.GuiHandler;
 import chrisclark13.minecraft.artificing.core.handler.PlayerHandler;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
+import chrisclark13.minecraft.artificing.core.helper.LogHelper;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.core.proxy.CommonProxy;
 import chrisclark13.minecraft.artificing.creativetab.CreativeTabArtificing;
@@ -45,6 +46,8 @@ public class Artificing {
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
 
+        LogHelper.init();
+        
         LocalizationHelper.loadLanguages();
 
         ModBlocks.init();

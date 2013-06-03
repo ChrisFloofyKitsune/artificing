@@ -5,10 +5,12 @@ import chrisclark13.minecraft.artificing.client.gui.inventory.GuiResearchTable;
 import chrisclark13.minecraft.artificing.client.gui.inventory.guidepages.GuiGuideBook;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.inventory.ContainerResearchTable;
+import chrisclark13.minecraft.artificing.item.ItemGuideBook;
 import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -27,7 +29,7 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == GuiIds.RESEARCH_TABLE) {
             return new ContainerResearchTable(player.inventory,
                     (TileResearchTable) world.getBlockTileEntity(x, y, z));
-        } else if( ID == GuiIds.STARTING_BOOK) {
+        } else if( ID == GuiIds.GUIDE_BOOK) {
             
             return null;
         }else{
@@ -48,8 +50,13 @@ public class GuiHandler implements IGuiHandler {
         } else if (ID == GuiIds.RESEARCH_TABLE) {
             return new GuiResearchTable(player.inventory,
                     (TileResearchTable) world.getBlockTileEntity(x, y, z));
-        } else if( ID == GuiIds.STARTING_BOOK) {
-            return new GuiGuideBook();
+        } else if( ID == GuiIds.GUIDE_BOOK) {
+            ItemStack stack = player.getCurrentEquippedItem();
+            if (stack.getItem() instanceof ItemGuideBook) {
+                return new GuiGuideBook(player, stack);
+            } else {
+                return null;
+            }
         }else{
             return null;
         }

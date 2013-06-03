@@ -1,8 +1,6 @@
 package chrisclark13.minecraft.artificing.item;
 
 import java.util.List;
-import java.util.Locale;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
@@ -13,7 +11,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
@@ -294,5 +292,29 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
         } else {
             return RuneHelper.getDefaultColor();
         }
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public EnumRarity getRarity(ItemStack itemStack) {
+	    EnchantmentData data = getEnchantmentData(itemStack);
+	    
+	    if (data != null) {
+	        int rarity = MathHelper.floor_float((float) data.enchantmentLevel / (float) data.enchantmentobj.getMaxLevel() * 3F);
+	        switch (rarity) {
+	            default:
+	            case 0:
+	                return EnumRarity.common;
+	            case 1:
+	                return EnumRarity.uncommon;
+	            case 2:
+	                return EnumRarity.rare;
+	            case 3:
+	                return EnumRarity.epic;
+	        }
+	        
+	    }
+	    
+	    return EnumRarity.common;
 	}
 }
