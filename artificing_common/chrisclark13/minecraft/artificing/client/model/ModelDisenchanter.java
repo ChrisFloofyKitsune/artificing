@@ -6,7 +6,7 @@ import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
-import scala.collection.parallel.ParIterableLike.Min;
+
 
 import chrisclark13.minecraft.artificing.lib.Models;
 import chrisclark13.minecraft.artificing.lib.Reference;
