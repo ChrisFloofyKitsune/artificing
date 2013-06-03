@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:noNamespaceSchemaLocation="guideBookSchema.xsd">
-    <section name="Preface">
-        <page/>
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="guideBookSchema.xsd">
+    <section name="Table of Contents" hasBookmark="true" bookmarkColor="CC0000">
         <page>
-            <text x="3" y="3">(This page should be over on the right!)</text>
+            <text x="0" y="10" alignment="center">Fake publishing info here</text>
+        </page>
+        <page>
+            <image x="8" y="0" width="100" height = "50">/mods/Artificing/guidebooks/tomeOfArtificing.png</image>
+<text x="0" y="53" alignment="center">Table of Contents
+here eventually</text>
         </page>
     </section>
-    <section name="Artificing Table">
+    <section name="Artificing Table" hasBookmark="true" bookmarkColor="00CC00">
+        <page>
+            <text x="0" y="3" alignment="center">The Artificing Table</text>
+<text x="3" y="20">    This table is the center of your Artificing workspace. It lets you pick and choose the enchantments you want and place them on your item.
+
+    It even lets you make super-powered enchantments! (Though it costs an arm and a leg in levels to do that.)</text>
+        </page>
         <page/>
+    </section>
+    <section name="TEST SECTION" hasBookmark="true" bookmarkColor="0000CC">
+        <page/>
+        <page>
+            <text x="0" y="3" lineWidth="113" alignment="right">Testing!</text>
+        </page>
     </section>
 </book>

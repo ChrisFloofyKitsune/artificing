@@ -22,7 +22,7 @@ public class ModelDisenchanter {
     private IModelCustom modelDisenchanter;
     private final float MODEL_SCALE = 1F / 8F;
     
-    private final float SECTION_HEIGHT = 5F / 8F;
+    private final float SECTION_HEIGHT = 6F / 8F;
     
     private final float PYLON_HEIGHT = 7F;
     private final float PYLON_POS = 1F;

@@ -12,4 +12,6 @@ public class Reference {
     public static final int TICKS_PER_SECOND = 20;
     public static final int MILLS_PER_SECOND = 1000;
     public static final int MILLS_PER_TICK = 500;
+    
+    public static final int BLACK = 0xFF000000;
 }

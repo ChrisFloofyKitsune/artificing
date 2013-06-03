@@ -717,7 +717,7 @@ public class UnicodeFontRenderer extends FontRenderer {
     /**
      * Remove all newline characters from the end of the string
      */
-    private String trimStringNewline(String par1Str) {
+    public String trimStringNewline(String par1Str) {
         while (par1Str != null && par1Str.endsWith("\n")) {
             par1Str = par1Str.substring(0, par1Str.length() - 1);
         }

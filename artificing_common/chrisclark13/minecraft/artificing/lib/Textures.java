@@ -17,4 +17,5 @@ public class Textures {
     public static final String GUI_PARTS            = "/mods/Artificing/textures/gui/guiParts.png";
     public static final String TAB_PARTS            = "/mods/Artificing/textures/gui/tabParts.png";
     public static final String GUI_ICONS            = "/mods/Artificing/textures/gui/guiIcons.png";
+    public static final String GUIDE_BOOK_TAB_PARTS = "/mods/Artificing/textures/gui/guideBookTabParts.png";
 }

@@ -1,16 +1,11 @@
-package chrisclark13.minecraft.artificing.core.helper;
+package chrisclark13.minecraft.artificing.core.handler;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import net.minecraft.client.gui.Gui;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,22 +16,24 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import chrisclark13.minecraft.artificing.client.gui.inventory.guidepages.GuiGuidePage;
+import chrisclark13.minecraft.artificing.client.gui.inventory.guidepages.GuiGuideSection;
+import chrisclark13.minecraft.artificing.client.gui.inventory.guidepages.GuideTextAlignment;
 import chrisclark13.minecraft.artificing.core.helper.LogHelper;
 
-public class GuideBookHelper {
+public class XMLHandler {
     
-    private static final String JAXP_SCHEMA_LANGUAGE =
-            "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-    private static final String W3C_XML_SCHEMA =
-            "http://www.w3.org/2001/XMLSchema";
-    private static final String JAXP_SCHEMA_SOURCE =
-            "http://java.sun.com/xml/jaxp/properties/schemaSource";
+//    private static final String JAXP_SCHEMA_LANGUAGE =
+//            "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+//    private static final String W3C_XML_SCHEMA =
+//            "http://www.w3.org/2001/XMLSchema";
+//    private static final String JAXP_SCHEMA_SOURCE =
+//            "http://java.sun.com/xml/jaxp/properties/schemaSource";
     
-    private GuideBookHelper() {
+    private XMLHandler() {
     }
     
-    public static ArrayList<GuiGuidePage> getPagesFromXML(String xmlPath) {
-        ArrayList<GuiGuidePage> pages = new ArrayList<>();
+    public static ArrayList<GuiGuideSection> parseGuideBookXML(String xmlPath) {
+        ArrayList<GuiGuideSection> sections = new ArrayList<>();
         
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 //        factory.setNamespaceAware(true);
@@ -45,23 +42,42 @@ public class GuideBookHelper {
 //        factory.setAttribute(JAXP_SCHEMA_SOURCE, new File("/mods/Artificing/manuals/guideBookSchema.xsd"));
         
         try {
-            InputStream stream = GuideBookHelper.class.getResourceAsStream(xmlPath);
+            InputStream stream = XMLHandler.class.getResourceAsStream(xmlPath);
             DocumentBuilder db = factory.newDocumentBuilder();
             db.setErrorHandler(new GuideBookErrorHandler());
             Document doc = db.parse(stream);
             
             Element bookElement = doc.getDocumentElement();
-            NodeList list = bookElement.getElementsByTagName("page");
+            NodeList sectionNodes = bookElement.getElementsByTagName("section");
             
-            for (int i = 0; i < list.getLength(); i++) {
-                pages.add(parsePageElement((Element) list.item(i)));
+            for (int i = 0; i < sectionNodes.getLength(); i++) {
+                
+                Element sectionElement = (Element) sectionNodes.item(i);
+                String name;
+                boolean hasBookmark = false;
+                int bookmarkColor = 0xFFFFFF;
+                
+                name = sectionElement.getAttribute("name");
+                if (sectionElement.hasAttribute("hasBookmark")) {
+                    hasBookmark = Boolean.parseBoolean(sectionElement.getAttribute("hasBookmark"));
+                    bookmarkColor = Integer.parseInt(sectionElement.getAttribute("bookmarkColor"), 16);
+                }
+                
+                GuiGuideSection section = new GuiGuideSection(name, hasBookmark, bookmarkColor);
+                NodeList pageNodes = sectionElement.getElementsByTagName("page");
+                
+                for (int j = 0; j < pageNodes.getLength(); j++) {
+                    section.addPage(parsePageElement((Element) pageNodes.item(j)));
+                }
+                
+                sections.add(section);
             }
             
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return pages;
+        return sections;
     }
     
     private static GuiGuidePage parsePageElement(Element pageElement) {
@@ -75,10 +91,24 @@ public class GuideBookHelper {
                 if (e.getTagName().equals("text")) {
                     int x = Integer.parseInt(e.getAttribute("x"));
                     int y = Integer.parseInt(e.getAttribute("y"));
+                    
                     int lineWidth = GuiGuidePage.PAGE_WIDTH;
                     if (e.hasAttribute("lineWidth")) {
                         lineWidth = Integer.parseInt(e.getAttribute("lineWidth"));
                     }
+                    
+                    GuideTextAlignment alignment = GuideTextAlignment.LEFT;
+                    if (e.hasAttribute("alignment")) {
+                        switch (e.getAttribute("alignment")) {
+                            case "center":
+                                alignment = GuideTextAlignment.CENTER;
+                                break;
+                            case "right":
+                                alignment = GuideTextAlignment.RIGHT;
+                                break;
+                        }
+                    }
+                    
                     
                     StringBuilder sb = new StringBuilder();
                     NodeList textList = e.getChildNodes();
@@ -92,7 +122,8 @@ public class GuideBookHelper {
                         }
                     }
                     
-                    page.addTextContent(x, y, lineWidth, sb.toString());
+                    page.addTextContent(x, y, lineWidth, alignment, sb.toString());
+                    
                 } else if (e.getTagName().equals("image")) {
                     int x = Integer.parseInt(e.getAttribute("x"));
                     int y = Integer.parseInt(e.getAttribute("y"));

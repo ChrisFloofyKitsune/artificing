@@ -1,53 +1,80 @@
 package chrisclark13.minecraft.artificing.client.gui.inventory.guidepages;
 
+import org.lwjgl.opengl.GL11;
+import org.omg.CORBA.OMGVMCID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import chrisclark13.minecraft.artificing.client.gui.GuiContent;
 import chrisclark13.minecraft.artificing.client.gui.UnicodeFontRenderer;
 import chrisclark13.minecraft.artificing.core.proxy.ClientProxy;
+import chrisclark13.minecraft.artificing.lib.Textures;
 
 public class GuiGuidePage extends GuiContent {
     
     public static final int PAGE_WIDTH = 116;
-    public static final int PAGE_HEIGHT = 165;
+    public static final int PAGE_HEIGHT = 145;
     public int pageNumber;
-
+    public GuiGuideSection section;
+    
     public GuiGuidePage() {
-
         super(0, 0, PAGE_WIDTH, PAGE_HEIGHT);
         this.drawOwnBackground = false;
-
     }
     
     public void addTextContent(int x, int y, String text) {
-        this.addTextContent(x, y, PAGE_WIDTH - x, text);
+        this.addTextContent(x, y, PAGE_WIDTH - x, GuideTextAlignment.LEFT, text);
     }
     
-    public void addTextContent(int x, int y, int lineWidth, String text) {
+    public void addTextContent(int x, int y, int lineWidth, GuideTextAlignment alignment, String text) {
         lineWidth = Math.min(lineWidth, PAGE_WIDTH - x);
         
-        children.add(new GuiGuideText(x, y, lineWidth, PAGE_HEIGHT - y, text));
+        children.add(new GuiGuideText(x, y, lineWidth, PAGE_HEIGHT - y, alignment, text));
     }
     
     public void addImageContent(int x, int y, int width, int height, String imagePath) {
-        children.add(new GuiGuideImage(x, y, width, height, imagePath));
+        children.add(new GuiGuideImage(x, y, width, height, (imagePath == null) ? "" : imagePath));
     }
     
     private class GuiGuideText extends GuiContent {
 
         private String text;
+        private GuideTextAlignment alignment;
         
-        public GuiGuideText(int x, int y, int width, int height, String text) {
+        private static final int BLACK = 0xFF000000;
+        
+        public GuiGuideText(int x, int y, int width, int height, GuideTextAlignment alignment, String text) {
             super(x, y, width, height);
-            this.text = text;
+            this.text = ClientProxy.unicodeFontRenderer.trimStringNewline(text);;
+            this.alignment = alignment;
             
             this.drawOwnBackground = false;
         }
         
         @Override
         protected void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-            ClientProxy.unicodeFontRenderer.drawSplitString(text, 0, 0, this.width, 0xFF000000);
+            int line = 0;
+            int fontHeight = ClientProxy.unicodeFontRenderer.FONT_HEIGHT;
+            for(String s : text.split("\n")) {
+                for(Object o : ClientProxy.unicodeFontRenderer.listFormattedStringToWidth(s, width)) {
+                    
+                    String text = ClientProxy.unicodeFontRenderer.trimStringNewline((String) o);
+                    int stringWidth = ClientProxy.unicodeFontRenderer.getStringWidth(text);
+                    switch (alignment) {
+                        case LEFT:
+                            ClientProxy.unicodeFontRenderer.drawString(text, 0, line * fontHeight, BLACK);
+                            break;
+                        case CENTER:
+                            ClientProxy.unicodeFontRenderer.drawString(text, (width - stringWidth) / 2, line * fontHeight, BLACK);
+                            break;
+                        case RIGHT:
+                            ClientProxy.unicodeFontRenderer.drawString(text, width - stringWidth, line * fontHeight, BLACK);
+                            break;
+                    }
+                    line++;
+                }
+            }
         }
     }
     
@@ -57,6 +84,8 @@ public class GuiGuidePage extends GuiContent {
         
         public GuiGuideImage(int x, int y, int width, int height, String imagePath) {
             super(x, y, width, height);
+            this.imagePath = imagePath;
+            
             this.drawOwnBackground = false;
         }
 
@@ -64,6 +93,12 @@ public class GuiGuidePage extends GuiContent {
         protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
             Tessellator tessellator = Tessellator.instance;
             minecraft.renderEngine.bindTexture(imagePath);
+//            minecraft.renderEngine.bindTexture(Textures.GUI_PARTS);
+//            System.out.println(imagePath);
+            
+//            this.drawTexturedModalRect(0, 0, 0, 0, width, height);
+            
+            GL11.glColor4f(1, 1, 1, 1);
             tessellator.startDrawingQuads();
             tessellator.addVertexWithUV(0, 0, 0, 0, 0);
             tessellator.addVertexWithUV(0, height, 0, 0, 1);
