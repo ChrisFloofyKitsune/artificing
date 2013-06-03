@@ -21,7 +21,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
     public ContainerResearchTable conResearchTable;
     public TileResearchTable researchTable;
     private float animTimer;
-    private static final float ANIM_PERIOD = 20 * Reference.TICKS_IN_SECOND;
+    private static final float ANIM_PERIOD = 20 * Reference.TICKS_PER_SECOND;
     
     private static final int TEX_RING_SLOT_X = 217;
     private static final int TEX_RING_SLOT_Y = 140;

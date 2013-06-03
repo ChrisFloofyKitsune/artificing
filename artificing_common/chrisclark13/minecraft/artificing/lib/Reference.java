@@ -9,6 +9,7 @@ public class Reference {
 
     public static final int SHIFTED_ID_RANGE_CORRECTION = 256;
     
-    public static final int TICKS_IN_SECOND = 20;
-    public static final int MILLS_IN_SECOND = 1000;
+    public static final int TICKS_PER_SECOND = 20;
+    public static final int MILLS_PER_SECOND = 1000;
+    public static final int MILLS_PER_TICK = 500;
 }

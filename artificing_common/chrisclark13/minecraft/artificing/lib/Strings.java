@@ -9,6 +9,7 @@ public class Strings {
     //Block names
     public static final String ARTIFICING_TABLE_NAME = "artificingTable";
     public static final String RESEARCH_TABLE_NAME = "researchTable";
+    public static final String DISENCHANTER_NAME = "disenchanter";
     
     //Block Icon Names
     public static final String ARTIFICING_TABLE_ICON_SIDE = "artificingTableSide";
@@ -38,10 +39,14 @@ public class Strings {
     //TileEntity id names
     public static final String TE_ARTIFICING_TABLE_NAME = "tileArtificingTable";
     public static final String TE_RESEARCH_TABLE_NAME = "tileResearchTable";
+    public static final String TE_DISENCHANTER_NAME = "tileDisenchanter";
     
     //Container names
     public static final String CONTAINER_ARTIFICING_TABLE_NAME = "container." + ARTIFICING_TABLE_NAME;
     public static final String CONTAINER_RESEARCH_TABLE_NAME = "container." + RESEARCH_TABLE_NAME;
+    
+    //Manual XML files
+    public static final String GUIDE_STARTING_XML = "/mods/Artificing/guidebooks/startingBook.xml";
     
     //Errors
     public static final String ERROR_NO_INPUT = "artificing.error.noInput";
