@@ -26,5 +26,20 @@ here eventually</text>
         <page>
             <text x="0" y="3" lineWidth="113" alignment="right">Testing!</text>
         </page>
+        <page/>
+        <page/>
+        <page/>
+        <page/>
+    </section>
+    <section name="TEST SECTION 2" hasBookmark="true" bookmarkColor="CCCC00">
+        <page>
+            <text x="0" y="10" alignment="center">Just some more testing!</text>
+        </page>
+        <page/>
+        <page/>
+        <page/>
+        <page>
+            <text x="0" y="50" alignment="center">That's all folks!</text>
+        </page>
     </section>
 </book>

@@ -38,7 +38,7 @@ public class ClientProxy extends CommonProxy {
         RenderIds.researchTableRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderIds.disenchanterRenderId = RenderingRegistry.getNextAvailableRenderId();
         
-        MinecraftForgeClient.registerItemRenderer(BlockIds.RESEARCH_TABLE_ID, new ItemResearchTableRenderer());
-        MinecraftForgeClient.registerItemRenderer(BlockIds.DISENCHANTER_ID, new ItemDisenchanterRenderer());
+        MinecraftForgeClient.registerItemRenderer(BlockIds.researchTableID, new ItemResearchTableRenderer());
+        MinecraftForgeClient.registerItemRenderer(BlockIds.disenchanterID, new ItemDisenchanterRenderer());
     }
 }

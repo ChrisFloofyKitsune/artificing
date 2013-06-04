@@ -16,9 +16,9 @@ public class ModBlocks {
 
     public static void init() {
 
-        artificingTable = new BlockArtificingTable(BlockIds.ARTIFICING_TABLE_ID);
-        researchTable = new BlockResearchTable(BlockIds.RESEARCH_TABLE_ID);
-        disenchanter = new BlockDisenchanter(BlockIds.DISENCHANTER_ID);
+        artificingTable = new BlockArtificingTable(BlockIds.artificingTableID);
+        researchTable = new BlockResearchTable(BlockIds.researchTableID);
+        disenchanter = new BlockDisenchanter(BlockIds.disenchanterID);
         
         GameRegistry.registerBlock(artificingTable, Strings.ARTIFICING_TABLE_NAME);
         GameRegistry.registerTileEntity(TileArtificingTable.class, Strings.ARTIFICING_TABLE_NAME);

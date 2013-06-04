@@ -17,7 +17,7 @@ public class CreativeTabArtificing extends CreativeTabs {
     @Override
     @SideOnly(Side.CLIENT)
     public int getTabIconItemIndex() {
-        return BlockIds.ARTIFICING_TABLE_ID;
+        return BlockIds.artificingTableID;
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
