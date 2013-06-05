@@ -4,12 +4,22 @@
     xsi:noNamespaceSchemaLocation="guideBookSchema.xsd">
     <section name="Table of Contents" hasBookmark="true" bookmarkColor="CC0000">
         <page>
-            <text x="0" y="10" alignment="center">Fake publishing info here</text>
+            <text x="0" y="10" alignment="center">Magki Books.
+Published by Magki Books.
+Copyright reserved. 
+4th wall street, block road, block city, Blocksville (MC).
+First published on 1276.
+Copy 1020102393.
+Author: Cyntain (I)
+
+</text>
         </page>
         <page>
             <image x="8" y="0" width="100" height = "50">/mods/Artificing/guidebooks/tomeOfArtificing.png</image>
-<text x="0" y="53" alignment="center">Table of Contents
-here eventually</text>
+<text x="0" y="53" alignment="center">-- Contents --
+Artificing and me: P.2
+Research Table discovery: P.6
+Long lost Disenchanter: P.12 </text>
         </page>
     </section>
     <section name="Artificing Table" hasBookmark="true" bookmarkColor="00CC00">
@@ -20,24 +30,28 @@ here eventually</text>
     It even lets you make super-powered enchantments! (Though it costs an arm and a leg in levels to do that.)</text>
         </page>
         <page/>
+ 	<page>
+<text x="2" y="3"> You should consider that the table doesn't have multiple uses, if you run out of symbols you can not use the table anymore. 
+But never fear you can regain these symbols, you can use runes to regain symbols. Each level of rune gives back 3 symbols, EX:level 3 rune gives back 9 symbols.To use the runes on the table you must shift right click on the table, and you will notice that the symbols will reappear again.</text>
+	</page>
+	<page/>
+	<page/>
     </section>
-    <section name="TEST SECTION" hasBookmark="true" bookmarkColor="0000CC">
+    <section name="Research Table" hasBookmark="true" bookmarkColor="F7D439">
         <page/>
         <page>
             <text x="0" y="3" lineWidth="113" alignment="right">Testing!</text>
         </page>
-        <page/>
-        <page/>
+        <page/>       
         <page/>
         <page/>
     </section>
-    <section name="TEST SECTION 2" hasBookmark="true" bookmarkColor="CCCC00">
+    <section name="Disenchanter" hasBookmark="true" bookmarkColor="8521FF">
         <page>
             <text x="0" y="10" alignment="center">Just some more testing!</text>
         </page>
         <page/>
-        <page/>
-        <page/>
+        <page/>     
         <page>
             <text x="0" y="50" alignment="center">That's all folks!</text>
         </page>
