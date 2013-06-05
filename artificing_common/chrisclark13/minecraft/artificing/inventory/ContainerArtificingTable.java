@@ -110,7 +110,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
                     return null;
                 }
 
-                slot.onPickupFromSlot(entityPlayer, itemStack);
+                slot.onPickupFromSlot(entityPlayer, newItemStack);
             }
         }
 

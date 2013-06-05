@@ -24,6 +24,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
 
     private GuiContentErrorMessages  errorContent;
     private GuiTabSidebarContent     errorTab;
+    
+    private GuiContentArtificingGrid gridContent;
 
     public GuiArtificingTable(InventoryPlayer inventoryPlayer, TileArtificingTable artificingTable) {
 
@@ -44,6 +46,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         errorTab = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop + 10, "TEST",
                 TabSide.RIGHT, TabDrawType.FRONT, errorContent);
         buttonList.add(errorTab);
+        
+        gridContent = new GuiContentArtificingGrid();
+        gridContent.setGridSizeAndPosition(6, 6, guiLeft, guiTop);
     }
 
     @Override
@@ -70,6 +75,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             for (Object o : buttonList) {
                 ((GuiButton) o).func_82251_b(mouseX, mouseY);
             }
+            
+            gridContent.drawForegroundContent(mc, mouseX, mouseY);
         }
         GL11.glPopMatrix();
 
@@ -80,6 +87,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
         int errorCount = artificingTable.manager.getErrorMessages().size();
+        
         if (errorCount > 0) {
             errorContent.backgroundColor = 0xAA0000;
             errorContent.textColor = 0xFF0000;
@@ -117,6 +125,8 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        
+        gridContent.drawContent(mc, mouseX, mouseY);
 
     }
 

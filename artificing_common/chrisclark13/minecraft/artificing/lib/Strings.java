@@ -55,4 +55,5 @@ public class Strings {
     public static final String ARTIFICING_ERROR_DUPLICATE = "artificing.error.duplicate";
     public static final String ARTIFICING_ERROR_NO_RUNES = "artificing.error.noRunes";
     public static final String ARTIFICING_ERROR_INVALID = "artificing.error.invalidEnchantments";
+    public static final String ARTIFICING_ERROR_INCOMPATIBLE = "artificing.error.incompatibleEnchantments";
 }

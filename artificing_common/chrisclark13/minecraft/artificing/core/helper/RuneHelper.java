@@ -9,7 +9,7 @@ import chrisclark13.minecraft.artificing.item.ItemRune;
 import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
 import chrisclark13.minecraft.artificing.lib.Textures;
-import chrisclark13.minecraft.multislotitems.MultiSlotItemRegistry;
+import chrisclark13.minecraft.multislotitems.core.MultiSlotItemRegistry;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;

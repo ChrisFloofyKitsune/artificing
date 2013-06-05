@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.lib.Strings;
-import chrisclark13.minecraft.multislotitems.IMultiSlotItem;
+import chrisclark13.minecraft.multislotitems.core.IMultiSlotItem;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
