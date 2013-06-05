@@ -21,6 +21,7 @@ import chrisclark13.minecraft.multislotitems.groups.ItemGroup;
 
 public class ArtificingCraftingManager {
     
+    private static final float OVER_LEVELS_MULTIPLIER = 2;
     private InventoryArtificingGrid grid;
     private List<ItemGroup> itemGroups;
     
@@ -29,16 +30,11 @@ public class ArtificingCraftingManager {
     
     private ItemStack result;
     private LinkedList<EnchantmentData> enchantments;
+    private LinkedList<EnchantmentData> previousEnchantments;
     private int levelsNeeded;
     
     private static RuneItemGroupComparer runeComparer = new RuneItemGroupComparer();
     private static EnchantmentComparator enchantmentComparator = new EnchantmentComparator();
-    
-    private final int ENCHANTMENT_LEVEL_MOD = -10;
-    private final float ENCHANTMENT_LEVEL_MULTIPLIER = 0.5f;
-    
-    private final int ENCHANTMENT_LEVEL_OVER_MOD = -10;
-    private final float ENCHANTMENT_LEVEL_OVER_MULTIPLIER = 1.0f;
     
     public ArtificingCraftingManager(InventoryArtificingGrid grid) {
         this.grid = grid;
@@ -48,6 +44,7 @@ public class ArtificingCraftingManager {
         
         result = null;
         enchantments = new LinkedList<>();
+        previousEnchantments = new LinkedList<>();
         levelsNeeded = 0;
     }
     
@@ -65,17 +62,15 @@ public class ArtificingCraftingManager {
         }
         
         // List of enchantments already on the ItemStack
-        List<EnchantmentData> enchList;
+        previousEnchantments.clear();
         if (itemStack != null) {
-            enchList = RuneHelper.getEnchantments(itemStack);
+            previousEnchantments.addAll(RuneHelper.getEnchantments(itemStack));
             
-            if (!itemStack.isItemEnchantable() && enchList.isEmpty()) {
+            if (!itemStack.isItemEnchantable() && previousEnchantments.isEmpty()) {
                 error = true;
                 addErrorMessage(LocalizationHelper
                         .getLocalizedString(Strings.ARTIFICING_ERROR_UNENCHANTABLE));
             }
-        } else {
-            enchList = Collections.emptyList();
         }
         
         itemGroups = ItemGroup.createItemGroupsFromGrid(grid, runeComparer);
@@ -94,7 +89,7 @@ public class ArtificingCraftingManager {
                     if (ench == null) {
                         ench = runeData.enchantmentobj;
                         
-                        for (EnchantmentData _data : enchList) {
+                        for (EnchantmentData _data : previousEnchantments) {
                             if (runeData.enchantmentobj.effectId == _data.enchantmentobj.effectId) {
                                 exponetialLevels += Math.pow(2, _data.enchantmentLevel - 1);
                             }
@@ -137,13 +132,14 @@ public class ArtificingCraftingManager {
                     .getLocalizedString(Strings.ARTIFICING_ERROR_NO_RUNES));
         }
         
-        for (EnchantmentData data : enchList) {
+        for (EnchantmentData data : previousEnchantments) {
             if (!listContainsEnchantment(data.enchantmentobj)) {
                 enchantments.add(data);
             }
             
         }
         
+        // Check if the enchantments are incompatible with the current item
         Collections.sort(enchantments, enchantmentComparator);
         if (itemStack != null) {
             for (EnchantmentData data : enchantments) {
@@ -154,7 +150,25 @@ public class ArtificingCraftingManager {
                     s = String.format(s,
                             StatCollector.translateToLocal(data.enchantmentobj.getName()),
                             itemStack.getDisplayName());
-                   addErrorMessage(s);
+                    addErrorMessage(s);
+                }
+            }
+        }
+        
+        // Check to see if any enchantments are incompatible with eachother
+        for (int i = 0; i < enchantments.size() - 1; i++) {
+            for (int j = i + 1; j < enchantments.size(); j++) {
+                if (!enchantments.get(i).enchantmentobj
+                        .canApplyTogether(enchantments.get(j).enchantmentobj)) {
+                    error = true;
+                    String s = LocalizationHelper
+                            .getLocalizedString(Strings.ARTIFICING_ERROR_INCOMPATIBLE);
+                    s = String.format(s,
+                            StatCollector.translateToLocal(enchantments.get(i).enchantmentobj
+                                    .getName()),
+                            StatCollector.translateToLocal(enchantments.get(j).enchantmentobj
+                                    .getName()));
+                    errorMessages.add(s);
                 }
             }
         }
@@ -166,20 +180,14 @@ public class ArtificingCraftingManager {
             
             for (EnchantmentData data : enchantments) {
                 if (data.enchantmentLevel > data.enchantmentobj.getMaxLevel()) {
-                    int normalLevels = data.enchantmentobj.getMinEnchantability(data.enchantmentobj
-                            .getMaxLevel());
-                    int overLevels = data.enchantmentobj.getMinEnchantability(data.enchantmentobj
-                            .getMaxLevel() - data.enchantmentLevel)
-                            - normalLevels + ENCHANTMENT_LEVEL_OVER_MOD;
-                    overLevels = MathHelper.floor_double(overLevels
-                            * ENCHANTMENT_LEVEL_OVER_MULTIPLIER);
+                    int overLevels = data.enchantmentLevel - data.enchantmentobj.getMaxLevel();
+                    overLevels *= getCostPerLevel(data) * OVER_LEVELS_MULTIPLIER;
+                    
                     levelsNeeded += overLevels;
                 }
                 
-                int levels = data.enchantmentobj.getMinEnchantability(data.enchantmentLevel)
-                        + ENCHANTMENT_LEVEL_MOD;
-                
-                levels = MathHelper.floor_float(levels * ENCHANTMENT_LEVEL_MULTIPLIER);
+                int levels = MathHelper.ceiling_float_int(getCostPerLevel(data)
+                        * data.enchantmentLevel);
                 levelsNeeded += levels;
             }
         }
@@ -194,6 +202,31 @@ public class ArtificingCraftingManager {
         }
         
         return false;
+    }
+    
+    private float getCostPerLevel(EnchantmentData data) {
+        switch (data.itemWeight) {
+            case 1:
+                return 8f;
+            case 2:
+                return 4f;
+            case 3:
+                return 3f;
+            case 4:
+                return 2.5f;
+            case 5:
+                return 2f;
+            case 6:
+                return 1.75f;
+            case 7:
+                return 1.5f;
+            case 8:
+                return 1.25f;
+            case 9:
+                return 1.125f;
+            default:
+                return 1f;
+        }
     }
     
     private void addErrorMessage(String error) {
@@ -220,6 +253,10 @@ public class ArtificingCraftingManager {
     
     public List<EnchantmentData> getEnchantments() {
         return enchantments;
+    }
+    
+    public List<EnchantmentData> getPreviousEnchantments() {
+        return previousEnchantments;
     }
     
     private static class EnchantmentComparator implements Comparator<EnchantmentData> {

@@ -31,8 +31,11 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	public final static int OUTPUT_SLOT_INDEX = 1;
 	
 	private ItemStack[] inventory;
+	
 	public InventoryArtificingGrid grid;
 
+	
+	
 	private static final Random RAND = new Random();
 	
 	/**
@@ -118,6 +121,10 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemStack) {
 
+	    if (slot == OUTPUT_SLOT_INDEX) {
+	        
+	    }
+	    
 		if (slot >= inventory.length) {
 			grid.setInventorySlotContents(slot, itemStack);
 			return;
@@ -154,6 +161,10 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 	    }
 	    
 	    super.onInventoryChanged();
+	}
+	
+	private void onOutputRemoved() {
+	    
 	}
 	
 	@Override
@@ -233,8 +244,6 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         switch (ForgeDirection.getOrientation(side)) {
             case UP:
                 return new int[] {INPUT_SLOT_INDEX};
-            case DOWN:
-                return new int[] {OUTPUT_SLOT_INDEX};
             default:
                 return new int[] {};
         }
@@ -251,11 +260,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
 
     @Override
     public boolean canExtractItem(int id, ItemStack itemstack, int side) {
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
     
     @Override
@@ -271,8 +276,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
-        //return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+        return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 2, zCoord + 1);
     }
     
     public Packet getDescriptionPacket() {
