@@ -15,7 +15,9 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -363,9 +365,37 @@ public class RuneHelper {
                     && itemStack.getTagCompound().hasKey(ItemRune.TAG_ENCHANTMENT))
                 itemStack.getTagCompound().removeTag(ItemRune.TAG_ENCHANTMENT);
         } else {
-            if (itemStack.hasTagCompound()
-                    && itemStack.getTagCompound().hasKey("ench"))
+            if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("ench"))
                 itemStack.getTagCompound().removeTag("ench");
         }
+    }
+    
+    public static int getEnchantabilityLevelForArtificing(ItemStack itemStack) {
+        int enchantability = itemStack.getItem().getItemEnchantability();
+        
+        boolean enchantExists = false;
+        for (Enchantment ench : Enchantment.enchantmentsList) {
+            // If there is even a single enchantment that can be applied,
+            // boost the level
+            if (ench != null && ench.canApply(itemStack)) {
+                enchantExists = true;
+                break;
+            }
+        }
+        
+        if (!enchantExists) {
+            return 0;
+        }
+        
+        // If it has a base enchantability of just one (like the bow and book)
+        // give it a boost to make it equal to iron.
+        if (enchantability == 1) {
+            enchantability = 15;
+            //Boost tools like shears and fishing poles
+        } else if (enchantability == 0) {
+            enchantability = 10;
+        }
+        
+        return MathHelper.ceiling_float_int((float) enchantability / 5F);
     }
 }

@@ -1,8 +1,13 @@
 package chrisclark13.minecraft.artificing.client.gui.inventory;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCloth;
+import net.minecraft.block.BlockWood;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
@@ -15,11 +20,11 @@ import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.multislotitems.client.gui.GuiMultiSlotItem;
+import chrisclark13.minecraft.multislotitems.groups.ItemGroup;
 
 
 public class GuiArtificingTable extends GuiMultiSlotItem {
 
-    private ContainerArtificingTable containerArtificing;
     private TileArtificingTable      artificingTable;
 
     private GuiContentErrorMessages  errorContent;
@@ -30,9 +35,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     public GuiArtificingTable(InventoryPlayer inventoryPlayer, TileArtificingTable artificingTable) {
 
         super(new ContainerArtificingTable(inventoryPlayer, artificingTable));
+        xSize = 208;
         ySize = 236;
 
-        containerArtificing = (ContainerArtificingTable) this.inventorySlots;
         this.artificingTable = artificingTable;
     }
 
@@ -48,7 +53,6 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         buttonList.add(errorTab);
         
         gridContent = new GuiContentArtificingGrid();
-        gridContent.setGridSizeAndPosition(6, 6, guiLeft, guiTop);
     }
 
     @Override
@@ -62,7 +66,32 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         // draws "Inventory" or your regional equivalent
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8,
                 ySize - 96 + 2, 0x404040);
-
+        
+        if (mc.gameSettings.advancedItemTooltips) {
+            int groupNum = 0;
+            for (ItemGroup group : artificingTable.manager.getItemGroups()) {
+                float[] colors = EntitySheep.fleeceColorTable[groupNum % 16];
+                int color = packColorFrom3Floats(colors);
+                
+                color = (color & 0x00FFFFFF) | 0xAA000000;
+                
+                for (int j = group.getTop(); j <= group.getBottom(); j++) {
+                    for (int i = group.getLeft(); i <= group.getRight(); i++) {
+                        if (group.isFilledAtPosition(i, j)) {
+                            int x1 = gridContent.x + i * 16 - guiLeft;
+                            int y1 = gridContent.y + j * 16 - guiTop;
+                            int x2 = x1 + 16;
+                            int y2 = y1 + 16;
+                            
+                            drawRect(x1, y1, x2, y2, color);
+                        }
+                    }
+                }
+                
+                groupNum++;
+            }
+        }
+        
         GL11.glPushMatrix();
         {
             GL11.glTranslatef(-guiLeft, -guiTop, 0);
@@ -122,10 +151,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(Textures.ARTIFICING_TABLE);
         // this.mc.renderEngine.bindTexture(texture);
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
-        this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         
+        gridContent.setGridSizeAndPosition(artificingTable.getCurrentGridWidth(), artificingTable.getCurrentGridHeight(), guiLeft, guiTop);
         gridContent.drawContent(mc, mouseX, mouseY);
 
     }
