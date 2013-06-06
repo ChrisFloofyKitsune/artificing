@@ -259,6 +259,10 @@ public class ArtificingCraftingManager {
         return previousEnchantments;
     }
     
+    public List<ItemGroup> getItemGroups() {
+        return itemGroups;
+    }
+    
     private static class EnchantmentComparator implements Comparator<EnchantmentData> {
         
         @Override

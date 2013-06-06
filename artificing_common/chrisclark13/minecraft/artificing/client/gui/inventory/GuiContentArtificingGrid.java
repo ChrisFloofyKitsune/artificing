@@ -4,27 +4,19 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import chrisclark13.minecraft.artificing.client.gui.GuiContent;
+import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
 import chrisclark13.minecraft.artificing.lib.Textures;
 
 public class GuiContentArtificingGrid extends GuiContent {
     
-    private int gridWidth;
-    private int gridHeight;
-    
     private final static int GRID_SQUARE_SIZE = 16;
     private final static int BORDER_SIZE = 2;
     
-    private final static int CENTER_X = 88;
-    private final static int CENTER_Y = 73;
-    
     public GuiContentArtificingGrid() {
-        super(CENTER_X, CENTER_Y, 0, 0);
+        super(ContainerArtificingTable.GRID_CENTER_X, ContainerArtificingTable.GRID_CENTER_Y, 0, 0);
         
-        this.gridWidth = 0;
-        this.gridHeight = 0;
-        
-        this.backgroundTexture = Textures.ARTIFICING_TABLE;
-        this.textureU = 178;
+        this.backgroundTexture = Textures.GUI_PARTS;
+        this.textureU = 130;
         this.textureV = 2;
     }
     
@@ -71,14 +63,11 @@ public class GuiContentArtificingGrid extends GuiContent {
     }
     
     public void setGridSizeAndPosition(int gridWidth, int gridHeight, int guiLeft, int guiTop) {
-        this.gridWidth = gridWidth;
-        this.gridHeight = gridHeight;
-        
         this.width = gridWidth * GRID_SQUARE_SIZE;
         this.height = gridHeight * GRID_SQUARE_SIZE;
         
-        this.x = guiLeft + CENTER_X - width / 2;
-        this.y = guiTop + CENTER_Y - height / 2;
+        this.x = guiLeft + ContainerArtificingTable.GRID_CENTER_X - width / 2;
+        this.y = guiTop + ContainerArtificingTable.GRID_CENTER_Y - height / 2;
     }
     
 }
