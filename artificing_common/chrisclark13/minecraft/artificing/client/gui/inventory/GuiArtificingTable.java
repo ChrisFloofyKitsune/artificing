@@ -58,7 +58,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-        GL11.glDisable(GL11.GL_LIGHTING);
+//        GL11.glDisable(GL11.GL_LIGHTING);
 
         // draw text and stuff here
         // the parameters for drawString are: string, x, y, color
@@ -78,15 +78,15 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
                 for (int j = group.getTop(); j <= group.getBottom(); j++) {
                     for (int i = group.getLeft(); i <= group.getRight(); i++) {
                         if (group.isFilledAtPosition(i, j)) {
-                            int x1 = gridContent.x + i * 16 - guiLeft;
-                            int y1 = gridContent.y + j * 16 - guiTop;
-                            int x2 = x1 + 16;
-                            int y2 = y1 + 16;
+                            int x = gridContent.x + i * 16 - guiLeft;
+                            int y = gridContent.y + j * 16 - guiTop;
                             
-                            drawRect(x1, y1, x2, y2, color);
+                            drawRect(x, y, x + 16, y + 16, color);
                         }
                     }
                 }
+                
+                
                 
                 groupNum++;
             }
@@ -109,7 +109,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         }
         GL11.glPopMatrix();
 
-        GL11.glEnable(GL11.GL_LIGHTING);
+//        GL11.glEnable(GL11.GL_LIGHTING);
     }
 
     @Override

@@ -48,6 +48,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         }
         
         addPlayerInventory(inventoryPlayer);
+        this.updateArtificingGridSize();
     }
     
     @Override
@@ -117,9 +118,10 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         
         return newItemStack;
     }
-    
-    public void setArtificingGridSize(int gridWidth, int gridHeight) {
-        artificingTable.setArtificingGridSize(gridWidth, gridHeight);
+
+    public void updateArtificingGridSize() {
+        int gridWidth = artificingTable.getCurrentGridWidth();
+        int gridHeight = artificingTable.getCurrentGridHeight();
         
         for (SlotMultiSlotItem slot : gridSlots) {
             MultiSlotItemGridSlot gridSlot = slot.getGridSlot();
@@ -133,5 +135,6 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
                         + gridSlot.getGridY() * slot.getHeight();
             }
         }
+        
     }
 }

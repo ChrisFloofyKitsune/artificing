@@ -41,4 +41,9 @@ public class SlotArtificingGrid extends SlotMultiSlotItem implements IDisableabl
     public boolean isClickable() {
         return this.gridSlot.isEnabled();
     }
+    
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
 }

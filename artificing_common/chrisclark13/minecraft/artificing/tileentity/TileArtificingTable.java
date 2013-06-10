@@ -39,6 +39,9 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     public InventoryArtificingGrid grid;
     public final static int GRID_WIDTH = 9;
     public final static int GRID_HEIGHT = 7;
+    private static final int[][] GRID_SIZES_BY_LEVEL = { { 0, 0 }, { 3, 3 }, { 4, 4 }, { 5, 5 },
+        { 6, 6 }, { 7, 7 }, { 8, 7 }, { 9, 7 } };
+    
     private int currentGridWidth = 0;
     private int currentGridHeight = 0;
     
@@ -126,11 +129,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack) {
-        
-        if (slot == OUTPUT_SLOT_INDEX) {
-            
-        }
-        
+                
         if (slot >= inventory.length) {
             grid.setInventorySlotContents(slot, itemStack);
             return;
@@ -148,7 +147,21 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     @Override
     public void onInventoryChanged() {
         
-        manager.updateEnchantments(getStackInSlot(INPUT_SLOT_INDEX));
+        ItemStack itemStack = getStackInSlot(INPUT_SLOT_INDEX);
+        
+        if (itemStack != null) {
+            
+            int level = RuneHelper.getEnchantabilityLevelForArtificing(itemStack);
+            level = (level >= GRID_SIZES_BY_LEVEL.length) ? GRID_SIZES_BY_LEVEL.length - 1 : level;
+            
+            this.setArtificingGridSize(GRID_SIZES_BY_LEVEL[level][0],
+                    GRID_SIZES_BY_LEVEL[level][1]);
+        } else {
+            this.setArtificingGridSize(0, 0);
+        }
+        
+        
+        manager.updateEnchantments(itemStack);
         
         inventory[OUTPUT_SLOT_INDEX] = manager.getResult();
         
@@ -218,6 +231,9 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
             }
         }
         
+        currentGridWidth = tagCompound.getByte("GridWidth");
+        currentGridHeight = tagCompound.getByte("GridHeight");
+        
         grid.readFromNBT(tagCompound);
     }
     
@@ -236,6 +252,9 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
             }
         }
         tagCompound.setTag("ATInventory", itemList);
+        
+        tagCompound.setByte("GridWidth", (byte) currentGridWidth);
+        tagCompound.setByte("GridHeight", (byte) currentGridHeight);
         
         grid.writeToNBT(tagCompound);
     }
@@ -306,6 +325,8 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
                     ejectItem(slot.getItemStack());
                     slot.setItemStack(null);
                 }
+                
+                slot.setEnabled(false);
             }
         } else {
             for (int i = 0; i < grid.getSizeInventory(); i++) {
