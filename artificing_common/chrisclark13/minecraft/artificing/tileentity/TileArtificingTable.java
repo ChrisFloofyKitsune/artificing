@@ -10,7 +10,7 @@ import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
 import chrisclark13.minecraft.multislotitems.helper.MultiSlotItemHelper;
-import chrisclark13.minecraft.multislotitems.inventory.MultiSlotItemGridSlot;
+import chrisclark13.minecraft.multislotitems.inventory.GridSlot;
 import chrisclark13.minecraft.multislotitems.inventory.SlotSignature;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentData;
@@ -319,7 +319,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         // still fit.
         if (gridWidth == 0 || gridHeight == 0) {
             for (int i = 0; i < grid.getSizeInventory(); i++) {
-                MultiSlotItemGridSlot slot = grid.getGridSlot(i);
+                GridSlot slot = grid.getGridSlot(i);
                 
                 if (slot.getItemStack() != null) {
                     ejectItem(slot.getItemStack());
@@ -330,7 +330,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
             }
         } else {
             for (int i = 0; i < grid.getSizeInventory(); i++) {
-                MultiSlotItemGridSlot slot = grid.getGridSlot(i);
+                GridSlot slot = grid.getGridSlot(i);
                 
                 if (slot.getItemStack() != null) {
                     SlotSignature sig = MultiSlotItemHelper.getSignature(slot.getItemStack());

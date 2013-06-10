@@ -8,7 +8,7 @@ import chrisclark13.minecraft.artificing.item.ItemRune;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.multislotitems.inventory.ContainerMultiSlotItem;
 import chrisclark13.minecraft.multislotitems.inventory.InventoryMultiSlotItemGrid;
-import chrisclark13.minecraft.multislotitems.inventory.MultiSlotItemGridSlot;
+import chrisclark13.minecraft.multislotitems.inventory.GridSlot;
 import chrisclark13.minecraft.multislotitems.inventory.SlotMultiSlotItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -124,7 +124,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         int gridHeight = artificingTable.getCurrentGridHeight();
         
         for (SlotMultiSlotItem slot : gridSlots) {
-            MultiSlotItemGridSlot gridSlot = slot.getGridSlot();
+            GridSlot gridSlot = slot.getGridSlot();
             if (gridSlot.getGridX() >= gridWidth || gridSlot.getGridY() >= gridHeight) {
                 slot.xDisplayPosition = -slot.getWidth();
                 slot.yDisplayPosition = -slot.getHeight();
