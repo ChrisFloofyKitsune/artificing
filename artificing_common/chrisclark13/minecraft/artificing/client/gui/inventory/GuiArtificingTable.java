@@ -6,6 +6,7 @@ import net.minecraft.block.BlockWood;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
@@ -24,9 +25,10 @@ import chrisclark13.minecraft.multislotitems.groups.ItemGroup;
 
 
 public class GuiArtificingTable extends GuiMultiSlotItem {
-
+    
     private TileArtificingTable      artificingTable;
-
+    private EntityPlayer player;
+    
     private GuiContentErrorMessages  errorContent;
     private GuiTabSidebarContent     errorTab;
     
@@ -37,8 +39,9 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         super(new ContainerArtificingTable(inventoryPlayer, artificingTable));
         xSize = 208;
         ySize = 236;
-
+        
         this.artificingTable = artificingTable;
+        this.player = inventoryPlayer.player;
     }
 
     @SuppressWarnings("unchecked")
@@ -67,11 +70,21 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8,
                 ySize - 96 + 2, 0x404040);
         
+        int levels = artificingTable.manager.getLevelsNeeded();
+        
+        int color = 0x80FF20;
+        if (player.experienceLevel < levels && !player.capabilities.isCreativeMode) {
+            color = 0xFF6060;
+        }
+        String s = StatCollector.translateToLocalFormatted("container.repair.cost", new Object[] {levels});
+        
+        fontRenderer.drawStringWithShadow(s, 142 - fontRenderer.getStringWidth(s) / 2, 138, color);
+        
         if (mc.gameSettings.advancedItemTooltips) {
             int groupNum = 0;
             for (ItemGroup group : artificingTable.manager.getItemGroups()) {
                 float[] colors = EntitySheep.fleeceColorTable[groupNum % 16];
-                int color = packColorFrom3Floats(colors);
+                color = packColorFrom3Floats(colors);
                 
                 color = (color & 0x00FFFFFF) | 0xAA000000;
                 
@@ -119,7 +132,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         
         if (errorCount > 0) {
             errorContent.backgroundColor = 0xAA0000;
-            errorContent.textColor = 0xFF0000;
+            errorContent.textColor = 0xFF6060;
             errorTab.color = 0xAA0000;
             errorTab.iconColor = 0xFF0000;
             errorTab.setTabIcon(Textures.GUI_ICONS, 16, 0);

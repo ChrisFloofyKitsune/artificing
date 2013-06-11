@@ -76,10 +76,10 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
         Random rand = new Random();
         
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if (!(tileEntity instanceof IInventory)) {
+        if (!(tileEntity instanceof TileArtificingTable)) {
             return;
         }
-        IInventory inventory = (IInventory) tileEntity;
+        TileArtificingTable inventory = (TileArtificingTable) tileEntity;
         
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             

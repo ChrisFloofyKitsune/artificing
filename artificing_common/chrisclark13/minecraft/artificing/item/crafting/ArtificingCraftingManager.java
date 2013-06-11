@@ -21,7 +21,10 @@ import chrisclark13.minecraft.multislotitems.groups.ItemGroup;
 
 public class ArtificingCraftingManager {
     
+    private static final int REPAIR_COST_INCREMENT = 2;
     private static final float OVER_LEVELS_MULTIPLIER = 2;
+    private static final float FINAL_DISCOUNT = 0.75f;
+    
     private InventoryArtificingGrid grid;
     private List<ItemGroup> itemGroups;
     
@@ -177,11 +180,14 @@ public class ArtificingCraftingManager {
         if (!error) {
             result = itemStack.copy();
             RuneHelper.setEnchantments(result, enchantments);
+            result.setRepairCost(result.getRepairCost() + REPAIR_COST_INCREMENT);
+            
+            int multipleEnchantmentCost = 0;
             
             for (EnchantmentData data : enchantments) {
                 if (data.enchantmentLevel > data.enchantmentobj.getMaxLevel()) {
                     int overLevels = data.enchantmentLevel - data.enchantmentobj.getMaxLevel();
-                    overLevels *= getCostPerLevel(data) * OVER_LEVELS_MULTIPLIER;
+                    overLevels *= MathHelper.ceiling_float_int(getCostPerLevel(data) * OVER_LEVELS_MULTIPLIER);
                     
                     levelsNeeded += overLevels;
                 }
@@ -189,7 +195,13 @@ public class ArtificingCraftingManager {
                 int levels = MathHelper.ceiling_float_int(getCostPerLevel(data)
                         * data.enchantmentLevel);
                 levelsNeeded += levels;
+                
+                levelsNeeded += multipleEnchantmentCost;
+                multipleEnchantmentCost++;
             }
+            
+            levelsNeeded += multipleEnchantmentCost;
+            levelsNeeded = MathHelper.ceiling_float_int(levelsNeeded * FINAL_DISCOUNT);
         }
     }
     

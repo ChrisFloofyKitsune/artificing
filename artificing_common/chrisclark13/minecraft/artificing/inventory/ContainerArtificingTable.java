@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.google.common.collect.ObjectArrays;
 
+import cpw.mods.fml.common.network.Player;
+
 import chrisclark13.minecraft.artificing.item.ItemRune;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.multislotitems.inventory.ContainerMultiSlotItem;
@@ -38,7 +40,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         final int OUTPUT_Y = 65;
         
         addSlotToContainer(new SlotArtificingInput(this, 0, INPUT_X, INPUT_Y));
-        addSlotToContainer(new SlotArtificingOutput(artificingTable, artificingTable.grid, 1,
+        addSlotToContainer(new SlotArtificingOutput(artificingTable, 1,
                 OUTPUT_X, OUTPUT_Y));
         
         gridSlots = artificingTable.grid.createSlotsForContainer(this, GRID_CENTER_X, GRID_CENTER_Y, 16, 16);
