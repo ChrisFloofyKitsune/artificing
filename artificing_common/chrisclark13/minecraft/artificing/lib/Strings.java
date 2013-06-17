@@ -56,4 +56,8 @@ public class Strings {
     public static final String ARTIFICING_ERROR_NO_RUNES = "artificing.error.noRunes";
     public static final String ARTIFICING_ERROR_INVALID = "artificing.error.invalidEnchantments";
     public static final String ARTIFICING_ERROR_INCOMPATIBLE = "artificing.error.incompatibleEnchantments";
+    public static final String ARTIFICING_ERROR_NO_CHARGE = "artificing.error.noCharge";
+    public static final String ARTIFICING_ERROR_EXP = "artificing.error.exp";
+    public static final String ARTIFICING_ERROR_MORE = "artificing.error.more";
+    public static final String ARTIFICING_ERROR_NONE = "artificing.error.none";
 }

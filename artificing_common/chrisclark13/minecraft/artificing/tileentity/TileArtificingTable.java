@@ -40,12 +40,19 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     public final static int GRID_WIDTH = 9;
     public final static int GRID_HEIGHT = 7;
     private static final int[][] GRID_SIZES_BY_LEVEL = { { 0, 0 }, { 3, 3 }, { 4, 4 }, { 5, 5 },
-        { 6, 6 }, { 7, 7 }, { 8, 7 }, { 9, 7 } };
+            { 6, 6 }, { 7, 7 }, { 8, 7 }, { 9, 7 } };
     
     private int currentGridWidth = 0;
     private int currentGridHeight = 0;
     
     private static final Random RAND = new Random();
+    
+    public static final String[] CHARGE_STATUS_NAMES = { ".depleted", ".almostDepleted",
+            ".slightlyDepleted", "" };
+    public static final int MAX_CHARGE = 36;
+    public static final int[] CHARGE_STATUS_THRESHOLDS = { MAX_CHARGE, 24, 12, 0 };
+    
+    private int charge;
     
     /**
      * Used in TileArtificingTableRender to control the animations
@@ -129,7 +136,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack) {
-                
+        
         if (slot >= inventory.length) {
             grid.setInventorySlotContents(slot, itemStack);
             return;
@@ -146,7 +153,6 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     @Override
     public void onInventoryChanged() {
-        
         ItemStack itemStack = getStackInSlot(INPUT_SLOT_INDEX);
         
         if (itemStack != null) {
@@ -154,14 +160,16 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
             int level = RuneHelper.getEnchantabilityLevelForArtificing(itemStack);
             level = (level >= GRID_SIZES_BY_LEVEL.length) ? GRID_SIZES_BY_LEVEL.length - 1 : level;
             
-            this.setArtificingGridSize(GRID_SIZES_BY_LEVEL[level][0],
-                    GRID_SIZES_BY_LEVEL[level][1]);
+            this.setArtificingGridSize(GRID_SIZES_BY_LEVEL[level][0], GRID_SIZES_BY_LEVEL[level][1]);
         } else {
             this.setArtificingGridSize(0, 0);
         }
         
-        
-        manager.updateEnchantments(itemStack);
+        if (charge < MAX_CHARGE) {
+            manager.updateEnchantments(itemStack);
+        } else {
+            manager.reset();
+        }
         
         inventory[OUTPUT_SLOT_INDEX] = manager.getResult();
         
@@ -171,10 +179,21 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         }
         
         characters.clear();
-        for (int i = 0; i < NUMBER_NAMES; i++) {
-            String name = Homestuck.TROLL_NAMES[RAND.nextInt(Homestuck.TROLL_NAMES.length)];
-            for (int j = 0; j < name.length(); j++) {
-                characters.add(name.charAt(j));
+        if (charge < MAX_CHARGE) {
+            
+            int maxCharacterCount = MAX_CHARGE - charge;
+            int characterCount = 0;
+            
+            for (int i = 0; i < NUMBER_NAMES && characterCount < maxCharacterCount; i++) {
+                String name = Homestuck.TROLL_NAMES[RAND.nextInt(Homestuck.TROLL_NAMES.length)];
+                for (int j = 0; j < name.length(); j++) {
+                    characters.add(name.charAt(j));
+                    characterCount++;
+                    
+                    if (characterCount >= maxCharacterCount) {
+                        break;
+                    }
+                }
             }
         }
         
@@ -202,13 +221,13 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     }
     
     @Override
-    public void openChest() {
+    public void closeChest() {
         // TODO Auto-generated method stub
         
     }
-    
+
     @Override
-    public void closeChest() {
+    public void openChest() {
         // TODO Auto-generated method stub
         
     }
@@ -233,6 +252,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         
         currentGridWidth = tagCompound.getByte("GridWidth");
         currentGridHeight = tagCompound.getByte("GridHeight");
+        charge = tagCompound.getByte("Charge");
         
         grid.readFromNBT(tagCompound);
     }
@@ -255,6 +275,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         
         tagCompound.setByte("GridWidth", (byte) currentGridWidth);
         tagCompound.setByte("GridHeight", (byte) currentGridHeight);
+        tagCompound.setByte("Charge", (byte) charge);
         
         grid.writeToNBT(tagCompound);
     }
@@ -381,5 +402,17 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     public int getCurrentGridHeight() {
         return currentGridHeight;
+    }
+    
+    public int getCharge() {
+        return charge;
+    }
+    
+    public void setCharge(int charge) {
+        this.charge = Math.min(MAX_CHARGE, Math.max(0, charge));
+    }
+    
+    public void addCharge(int charge) {
+        this.setCharge(this.charge + charge);
     }
 }

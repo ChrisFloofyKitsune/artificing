@@ -1,14 +1,12 @@
 package chrisclark13.minecraft.artificing.client.gui.inventory;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCloth;
-import net.minecraft.block.BlockWood;
+import java.util.LinkedList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
@@ -17,25 +15,29 @@ import chrisclark13.minecraft.artificing.client.gui.GuiTab;
 import chrisclark13.minecraft.artificing.client.gui.GuiTabSidebarContent;
 import chrisclark13.minecraft.artificing.client.gui.TabDrawType;
 import chrisclark13.minecraft.artificing.client.gui.TabSide;
+import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
 import chrisclark13.minecraft.artificing.inventory.ContainerArtificingTable;
+import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.multislotitems.client.gui.GuiMultiSlotItem;
 import chrisclark13.minecraft.multislotitems.groups.ItemGroup;
 
-
 public class GuiArtificingTable extends GuiMultiSlotItem {
     
-    private TileArtificingTable      artificingTable;
+    private TileArtificingTable artificingTable;
     private EntityPlayer player;
     
-    private GuiContentErrorMessages  errorContent;
-    private GuiTabSidebarContent     errorTab;
+    private LinkedList<String> errorMessages;
+    private GuiContentErrorMessages errorContent;
+    private GuiTabSidebarContent errorTab;
     
     private GuiContentArtificingGrid gridContent;
-
+    
+    private final int ERROR_LINE_CUTOFF = 18;
+    
     public GuiArtificingTable(InventoryPlayer inventoryPlayer, TileArtificingTable artificingTable) {
-
+        
         super(new ContainerArtificingTable(inventoryPlayer, artificingTable));
         xSize = 208;
         ySize = 236;
@@ -43,26 +45,27 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         this.artificingTable = artificingTable;
         this.player = inventoryPlayer.player;
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
-
+        
         super.initGui();
-
-        errorContent = new GuiContentErrorMessages(guiLeft + xSize, guiTop + 10, 90, ySize - 20);
+        
+        errorMessages = new LinkedList<>();
+        errorContent = new GuiContentErrorMessages(guiLeft + xSize, guiTop + 10, 80, ySize - 20);
         errorTab = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop + 10, "TEST",
                 TabSide.RIGHT, TabDrawType.FRONT, errorContent);
         buttonList.add(errorTab);
         
         gridContent = new GuiContentArtificingGrid();
     }
-
+    
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
-//        GL11.glDisable(GL11.GL_LIGHTING);
-
+        
+        // GL11.glDisable(GL11.GL_LIGHTING);
+        
         // draw text and stuff here
         // the parameters for drawString are: string, x, y, color
         fontRenderer.drawString("Artificing Table", 8, 6, 0x404040);
@@ -76,9 +79,12 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         if (player.experienceLevel < levels && !player.capabilities.isCreativeMode) {
             color = 0xFF6060;
         }
-        String s = StatCollector.translateToLocalFormatted("container.repair.cost", new Object[] {levels});
+        String s = StatCollector.translateToLocalFormatted("container.repair.cost",
+                new Object[] { levels });
         
-        fontRenderer.drawStringWithShadow(s, 142 - fontRenderer.getStringWidth(s) / 2, 138, color);
+        if (artificingTable.getCharge() < TileArtificingTable.MAX_CHARGE)
+            fontRenderer.drawStringWithShadow(s, 142 - fontRenderer.getStringWidth(s) / 2, 138,
+                    color);
         
         if (mc.gameSettings.advancedItemTooltips) {
             int groupNum = 0;
@@ -99,8 +105,6 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
                     }
                 }
                 
-                
-                
                 groupNum++;
             }
         }
@@ -113,7 +117,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
                     ((GuiTabSidebarContent) o).drawContentForeground(mc, mouseX, mouseY);
                 }
             }
-
+            
             for (Object o : buttonList) {
                 ((GuiButton) o).func_82251_b(mouseX, mouseY);
             }
@@ -121,14 +125,26 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             gridContent.drawForegroundContent(mc, mouseX, mouseY);
         }
         GL11.glPopMatrix();
-
-//        GL11.glEnable(GL11.GL_LIGHTING);
+        
+        // GL11.glEnable(GL11.GL_LIGHTING);
     }
-
+    
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
-        int errorCount = artificingTable.manager.getErrorMessages().size();
+        
+        errorMessages.clear();
+        errorMessages.addAll(artificingTable.manager.getErrorMessages());
+        
+        if (artificingTable.getCharge() >= TileArtificingTable.MAX_CHARGE) {
+            errorMessages.add(LocalizationHelper
+                    .getLocalizedString(Strings.ARTIFICING_ERROR_NO_CHARGE));
+        }
+        
+        if (player.experienceLevel < artificingTable.manager.getLevelsNeeded()) {
+            errorMessages.add(LocalizationHelper.getLocalizedString(Strings.ARTIFICING_ERROR_EXP));
+        }
+        
+        int errorCount = errorMessages.size();
         
         if (errorCount > 0) {
             errorContent.backgroundColor = 0xAA0000;
@@ -146,19 +162,19 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
             errorTab.setTabIcon(Textures.GUI_ICONS, 0, 0);
             errorTab.displayString = "No errors";
         }
-
+        
         for (Object o : buttonList) {
             if (o instanceof GuiTab) {
                 ((GuiTab) o).drawBackground(mc, mouseX, mouseY);
             }
         }
-
+        
         for (Object o : buttonList) {
             if (o instanceof GuiTabSidebarContent) {
                 ((GuiTabSidebarContent) o).drawContentBackground(mc, mouseX, mouseY);
             }
         }
-
+        
         // draw your Gui here, only thing you need to change is the path
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -166,30 +182,33 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         // this.mc.renderEngine.bindTexture(texture);
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         
-        gridContent.setGridSizeAndPosition(artificingTable.getCurrentGridWidth(), artificingTable.getCurrentGridHeight(), guiLeft, guiTop);
+        gridContent.setGridSizeAndPosition(artificingTable.getCurrentGridWidth(),
+                artificingTable.getCurrentGridHeight(), guiLeft, guiTop);
         gridContent.drawContent(mc, mouseX, mouseY);
-
+        
     }
-
+    
     private class GuiContentErrorMessages extends GuiContent {
-
+        
         public int textColor;
-
+        
         public GuiContentErrorMessages(int x, int y, int width, int height) {
-
+            
             super(x, y, width, height);
         }
-
+        
         @Override
         protected void drawForeground(Minecraft minecraft, int mouseX, int mouseY) {
-
-            int errorCount = artificingTable.manager.getErrorMessages().size();
+            
+            int errorCount = errorMessages.size();
             if (errorCount > 0) {
                 int line = 0;
-                for (String string : artificingTable.manager.getErrorMessages()) {
-                    if (line > 18) {
-                        fontRenderer.drawString(errorCount + " more...", 3, 5 + line
-                                * fontRenderer.FONT_HEIGHT, textColor);
+                for (String string : errorMessages) {
+                    if (line > ERROR_LINE_CUTOFF) {
+                        String s = String.format(LocalizationHelper
+                                .getLocalizedString(Strings.ARTIFICING_ERROR_MORE), errorCount);
+                        fontRenderer.drawString(s, 3, 5 + line * fontRenderer.FONT_HEIGHT,
+                                textColor);
                         break;
                     }
                     for (Object o : fontRenderer
@@ -202,9 +221,10 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
                     errorCount--;
                 }
             } else {
-                fontRenderer.drawString("No errors.", 3, 5, textColor);
+                String s = LocalizationHelper.getLocalizedString(Strings.ARTIFICING_ERROR_NONE);
+                fontRenderer.drawString(s, 3, 5, textColor);
             }
         }
-
+        
     }
 }

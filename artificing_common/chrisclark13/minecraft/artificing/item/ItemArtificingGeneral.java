@@ -1,12 +1,11 @@
 package chrisclark13.minecraft.artificing.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import chrisclark13.minecraft.artificing.Artificing;
-import chrisclark13.minecraft.artificing.lib.Reference;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.Icon;
+import chrisclark13.minecraft.artificing.lib.Reference;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemArtificingGeneral extends Item {
     public ItemArtificingGeneral(int id) {

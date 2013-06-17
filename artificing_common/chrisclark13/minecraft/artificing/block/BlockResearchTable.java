@@ -33,6 +33,7 @@ public class BlockResearchTable extends BlockArtificingGeneral {
         super(id, Material.rock);
         this.setUnlocalizedName(Strings.RESEARCH_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
+        this.setHardness(5);
     }
     
     @Override

@@ -51,7 +51,7 @@ public class ArtificingCraftingManager {
         levelsNeeded = 0;
     }
     
-    public void updateEnchantments(ItemStack itemStack) {
+    public void reset() {
         error = false;
         errorMessages.clear();
         
@@ -59,13 +59,20 @@ public class ArtificingCraftingManager {
         enchantments.clear();
         levelsNeeded = 0;
         
+        previousEnchantments.clear();
+        itemGroups = ItemGroup.createItemGroupsFromGrid(grid, runeComparer);
+    }
+    
+    public void updateEnchantments(ItemStack itemStack) {
+        this.reset();
+        
         if (itemStack == null) {
             error = true;
             addErrorMessage(LocalizationHelper.getLocalizedString(Strings.ERROR_NO_INPUT));
         }
         
         // List of enchantments already on the ItemStack
-        previousEnchantments.clear();
+        
         if (itemStack != null) {
             previousEnchantments.addAll(RuneHelper.getEnchantments(itemStack));
             
@@ -75,8 +82,6 @@ public class ArtificingCraftingManager {
                         .getLocalizedString(Strings.ARTIFICING_ERROR_UNENCHANTABLE));
             }
         }
-        
-        itemGroups = ItemGroup.createItemGroupsFromGrid(grid, runeComparer);
         
         // Parse ItemGroups to build the enchantments list
         for (ItemGroup group : itemGroups) {

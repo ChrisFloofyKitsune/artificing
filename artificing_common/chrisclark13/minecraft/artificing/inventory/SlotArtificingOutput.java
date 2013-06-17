@@ -43,6 +43,6 @@ public class SlotArtificingOutput extends Slot {
         }
         
         table.decrStackSize(TileArtificingTable.INPUT_SLOT_INDEX, 1);
+        table.addCharge(1);
     }
-    
 }

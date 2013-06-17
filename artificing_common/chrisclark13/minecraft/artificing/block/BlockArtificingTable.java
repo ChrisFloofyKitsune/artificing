@@ -1,26 +1,29 @@
 package chrisclark13.minecraft.artificing.block;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import chrisclark13.minecraft.artificing.Artificing;
-import chrisclark13.minecraft.artificing.lib.GuiIds;
-import chrisclark13.minecraft.artificing.lib.Reference;
-import chrisclark13.minecraft.artificing.lib.Strings;
-import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import chrisclark13.minecraft.artificing.Artificing;
+import chrisclark13.minecraft.artificing.item.ItemRune;
+import chrisclark13.minecraft.artificing.lib.GuiIds;
+import chrisclark13.minecraft.artificing.lib.Reference;
+import chrisclark13.minecraft.artificing.lib.Strings;
+import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockArtificingTable extends BlockArtificingGeneral {
     
@@ -31,6 +34,42 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
         super(id, Material.rock);
         this.setUnlocalizedName(Strings.ARTIFICING_TABLE_NAME);
         this.setCreativeTab(Artificing.tabArtificing);
+        this.setHardness(5);
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(int id, CreativeTabs tabs, List list) {
+        for (int i = TileArtificingTable.CHARGE_STATUS_THRESHOLDS.length - 1; i >= 0; i--) {
+            list.add(new ItemStack(this, 1, TileArtificingTable.CHARGE_STATUS_THRESHOLDS[i]));
+        }
+    }
+    
+    @Override
+    public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
+    {
+        if(!player.capabilities.isCreativeMode && !world.isRemote && canHarvestBlock(player, world.getBlockMetadata(x, y, z)))
+        {
+//            TileArtificingTable table = (TileArtificingTable)world.getBlockTileEntity(x, y, z);
+
+            float motion = 0.7F;
+            double motionX = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
+            double motionY = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
+            double motionZ = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
+            
+            EntityItem entityItem = new EntityItem(world, x + motionX, y + motionY, z + motionZ, getPickBlock(null, world, x, y, z));
+
+            world.spawnEntityInWorld(entityItem);
+        }
+        
+        return world.setBlockToAir(x, y, z);
+    }
+
+    
+    @Override
+    public int idDropped(int par1, Random par2Random, int par3) {
+        return 0;
     }
     
     @Override
@@ -52,18 +91,48 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
     }
     
     @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving,
+            ItemStack itemStack) {
+        super.onBlockPlacedBy(world, x, y, z, entityLiving, itemStack);
+                
+        TileArtificingTable table = (TileArtificingTable) world.getBlockTileEntity(x, y, z);
+        table.setCharge(itemStack.getItemDamage());
+    }
+    
+    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk,
             float what, float these, float are) {
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
         
-        // Null check and Sneaking check
-        if (tileEntity == null || player.isSneaking()) {
+        // Null check
+        if (tileEntity == null) {
             return false;
+        }
+        
+        if (player.isSneaking()) {
+            if (player.getCurrentEquippedItem().getItem() instanceof ItemRune) {
+                return true;
+            } else {
+                return false;
+            }
         }
         
         // Open GUI
         player.openGui(Artificing.instance, GuiIds.ARTIFICING_TABLE, world, x, y, z);
         return true;
+    }
+    
+    @Override
+    public int getDamageValue(World world, int x, int y, int z) {
+        TileArtificingTable table = (TileArtificingTable) world.getBlockTileEntity(x, y, z);
+        return table.getCharge();
+    }
+    
+    @Override
+    public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata,
+            int fortune) {
+        // TODO Auto-generated method stub
+        return super.getBlockDropped(world, x, y, z, metadata, fortune);
     }
     
     @Override

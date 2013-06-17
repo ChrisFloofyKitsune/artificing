@@ -30,7 +30,7 @@ public class GuiContentArtificingGrid extends GuiContent {
         
         GL11.glColor4f(r, g, b, 1f);
         
-        // Draw border
+        // Draw border, assumes width or height is always a multiple of texturePartWidth or texturePartHeight.
         if (width > 0 && height > 0) {
             // Draw corner pieces
             drawTexturePart(-BORDER_SIZE, -BORDER_SIZE, textureU - BORDER_SIZE, textureV
