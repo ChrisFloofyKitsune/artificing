@@ -1,5 +1,16 @@
 package chrisclark13.minecraft.artificing.lib;
 
+/**
+ * Just a reference class filled with a bunch of Homestuck references... <br/>
+ * Used here and there when I really want to make a reference to Homestuck. <br/>
+ * <br/>
+ * Contains all Troll blood color codes and all the first and last names of the
+ * Trolls.
+ * 
+ * @author Christian
+ * 
+ */
+
 public class Homestuck {
     public static final int RUST = 0xA10000;
     public static final int BRONZE = 0xA25203;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -18,12 +19,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import chrisclark13.minecraft.artificing.Artificing;
 import chrisclark13.minecraft.artificing.item.ItemRune;
+import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.GuiIds;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
+import chrisclark13.minecraft.artificing.network.packet.PacketATChargeUpdate;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.server.FMLServerHandler;
 
 public class BlockArtificingTable extends BlockArtificingGeneral {
     
@@ -47,25 +52,25 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
     }
     
     @Override
-    public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
-    {
-        if(!player.capabilities.isCreativeMode && !world.isRemote && canHarvestBlock(player, world.getBlockMetadata(x, y, z)))
-        {
-//            TileArtificingTable table = (TileArtificingTable)world.getBlockTileEntity(x, y, z);
-
+    public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+        if (!player.capabilities.isCreativeMode && !world.isRemote
+                && canHarvestBlock(player, world.getBlockMetadata(x, y, z))) {
+            // TileArtificingTable table =
+            // (TileArtificingTable)world.getBlockTileEntity(x, y, z);
+            
             float motion = 0.7F;
             double motionX = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
             double motionY = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
             double motionZ = (world.rand.nextFloat() * motion) + (1.0F - motion) * 0.5D;
             
-            EntityItem entityItem = new EntityItem(world, x + motionX, y + motionY, z + motionZ, getPickBlock(null, world, x, y, z));
-
+            EntityItem entityItem = new EntityItem(world, x + motionX, y + motionY, z + motionZ,
+                    getPickBlock(null, world, x, y, z));
+            
             world.spawnEntityInWorld(entityItem);
         }
         
         return world.setBlockToAir(x, y, z);
     }
-
     
     @Override
     public int idDropped(int par1, Random par2Random, int par3) {
@@ -94,7 +99,7 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving,
             ItemStack itemStack) {
         super.onBlockPlacedBy(world, x, y, z, entityLiving, itemStack);
-                
+        
         TileArtificingTable table = (TileArtificingTable) world.getBlockTileEntity(x, y, z);
         table.setCharge(itemStack.getItemDamage());
     }
@@ -111,6 +116,26 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
         
         if (player.isSneaking()) {
             if (player.getCurrentEquippedItem().getItem() instanceof ItemRune) {
+                
+                TileArtificingTable table = (TileArtificingTable) tileEntity;
+                if (table.getCharge() > 0) {
+                    ItemStack itemStack = player.getCurrentEquippedItem();
+                    int levels = ModItems.rune.getEnchantmentData(itemStack).enchantmentLevel;
+                    
+                    table.addCharge(-levels * TileArtificingTable.CHARGE_RESTORED_PER_RUNE_LEVEL);
+                    
+                    if (!player.capabilities.isCreativeMode) {
+                        player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                    }
+                    
+                    if (!world.isRemote) {
+                        PacketDispatcher.sendPacketToAllAround(x, y, z, 128D,
+                                world.provider.dimensionId,
+                                new PacketATChargeUpdate(x, y, z, table.getCharge())
+                                        .makePacket250());
+                    }
+                }
+                
                 return true;
             } else {
                 return false;

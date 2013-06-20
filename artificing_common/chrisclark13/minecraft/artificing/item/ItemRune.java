@@ -3,6 +3,7 @@ package chrisclark13.minecraft.artificing.item;
 import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.lib.Strings;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 /**
  * Base item for all Rune items
@@ -58,6 +60,11 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
         super(id);
         this.setMaxStackSize(16);
         this.setUnlocalizedName(Strings.RUNE_NAME);
+    }
+    
+    @Override
+    public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
+        return world.getBlockId(x, y, z) == ModBlocks.artificingTable.blockID;
     }
     
     public void setEnchantmentData(ItemStack itemStack, EnchantmentData data) {

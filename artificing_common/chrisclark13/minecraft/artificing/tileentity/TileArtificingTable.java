@@ -3,20 +3,20 @@ package chrisclark13.minecraft.artificing.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
+import chrisclark13.minecraft.artificing.network.packet.PacketATChargeUpdate;
 import chrisclark13.minecraft.multislotitems.helper.MultiSlotItemHelper;
 import chrisclark13.minecraft.multislotitems.inventory.GridSlot;
 import chrisclark13.minecraft.multislotitems.inventory.SlotSignature;
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +24,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -62,6 +61,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     public ArrayList<Integer> colors;
     public ArrayList<Character> characters;
     private static final int NUMBER_NAMES = 6;
+    public static final int CHARGE_RESTORED_PER_RUNE_LEVEL = 2;
     private boolean hasUpdatedAtLeastOnce = false;
     
     public ArtificingCraftingManager manager;
@@ -153,6 +153,12 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     
     @Override
     public void onInventoryChanged() {
+        this.updateGrid();
+        
+        super.onInventoryChanged();
+    }
+    
+    public void updateGrid() {
         ItemStack itemStack = getStackInSlot(INPUT_SLOT_INDEX);
         
         if (itemStack != null) {
@@ -196,8 +202,6 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
                 }
             }
         }
-        
-        super.onInventoryChanged();
     }
     
     @Override
@@ -225,7 +229,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void openChest() {
         // TODO Auto-generated method stub
@@ -324,7 +328,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         this.writeToNBT(nbtTag);
-        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 13, nbtTag);
     }
     
     public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
@@ -409,7 +413,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     }
     
     public void setCharge(int charge) {
-        this.charge = Math.min(MAX_CHARGE, Math.max(0, charge));
+        this.charge = Math.min(Math.max(0, charge), MAX_CHARGE);
     }
     
     public void addCharge(int charge) {

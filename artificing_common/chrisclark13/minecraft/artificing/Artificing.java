@@ -12,6 +12,7 @@ import chrisclark13.minecraft.artificing.core.proxy.CommonProxy;
 import chrisclark13.minecraft.artificing.creativetab.CreativeTabArtificing;
 import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.Reference;
+import chrisclark13.minecraft.artificing.network.PacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -27,7 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(channels = { Reference.CHANNEL}, packetHandler = PacketHandler.class, clientSideRequired = true, serverSideRequired = false)
 public class Artificing {
 
     public static PlayerHandler playerTracker;
