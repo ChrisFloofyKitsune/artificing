@@ -12,7 +12,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.IPlayerTracker;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.FakePlayer;
-
+/**@author Cyntain
+ * 
+ * Tracks players login to a world, log out or switch dimension 
+ * 
+ * Gives the player a book when they log into a world, then checks if they have already got that book then decides whether to give a book or not.
+ * */
 
 public class PlayerHandler implements IPlayerTracker {
 

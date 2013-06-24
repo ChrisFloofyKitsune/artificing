@@ -103,7 +103,6 @@ public class ItemGuideBook extends ItemArtificingGeneral {
 
             case STARTING_BOOK_META:
                 list.add("Author: Cyntain of Minecraftia");
-                list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
                 
                 if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
@@ -112,7 +111,6 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                     list.clear();
                     list.add(EnumChatFormatting.LIGHT_PURPLE + super.getItemDisplayName(itemStack));
                     list.add("Author: Cyntain I");
-                    list.add("");
                     list.add("This book gives information about how to get");
                     list.add("started with Artificing; including recipes,");
                     list.add("what is what, and a guide to the world!");
@@ -123,7 +121,6 @@ public class ItemGuideBook extends ItemArtificingGeneral {
 
             case RUNES_BOOK_META:
                 list.add("Author: Chris Clark of The 4th Wall");
-                list.add("");
                 list.add("Press " + "§6" + "shift" + "§7" + " to see more information");
 
                 if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
@@ -132,7 +129,6 @@ public class ItemGuideBook extends ItemArtificingGeneral {
                     list.clear();
                     list.add(EnumChatFormatting.AQUA + super.getItemDisplayName(itemStack));      
                     list.add("Author: Chris Clark XIII");
-                    list.add("");
                     list.add("This book gives information about the");
                     list.add("different runes. This includes what they");
                     list.add("do, What effects they do, and more!");
