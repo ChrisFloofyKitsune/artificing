@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -28,7 +27,6 @@ import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import cpw.mods.fml.server.FMLServerHandler;
 
 public class BlockArtificingTable extends BlockArtificingGeneral {
     
@@ -115,11 +113,11 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
         }
         
         if (player.isSneaking()) {
-            if (player.getCurrentEquippedItem().getItem() instanceof ItemRune) {
+            ItemStack itemStack = player.getCurrentEquippedItem();
+            if (itemStack != null && itemStack.getItem() instanceof ItemRune) {
                 
                 TileArtificingTable table = (TileArtificingTable) tileEntity;
                 if (table.getCharge() > 0) {
-                    ItemStack itemStack = player.getCurrentEquippedItem();
                     int levels = ModItems.rune.getEnchantmentData(itemStack).enchantmentLevel;
                     
                     table.addCharge(-levels * TileArtificingTable.CHARGE_RESTORED_PER_RUNE_LEVEL);
