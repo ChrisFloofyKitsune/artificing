@@ -69,22 +69,32 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         
         GL11.glPushMatrix();
         int index;
-        
+        float x = 0f;
+        float y = 0f;
         if (slot.getSlotIndex() >= researchTable.INNER_SLOT_START
                 && slot.getSlotIndex() <= researchTable.INNER_SLOT_END) {
             index = slot.getSlotIndex() - researchTable.INNER_SLOT_START;
-            GL11.glTranslatef(innerSlotLocations[2 * index], innerSlotLocations[2 * index + 1], 0);
+            x = innerSlotLocations[2 * index];
+            y = innerSlotLocations[2 * index + 1];
         }
         
         if (slot.getSlotIndex() >= researchTable.OUTER_SLOT_START
                 && slot.getSlotIndex() <= researchTable.OUTER_SLOT_END) {
             index = slot.getSlotIndex() - researchTable.OUTER_SLOT_START;
-            GL11.glTranslatef(outerSlotLocations[2 * index], outerSlotLocations[2 * index + 1], 0);
+            x = outerSlotLocations[2 * index];
+            y = outerSlotLocations[2 * index + 1];
         }
         
+        GL11.glTranslatef(x, y, 0);
+        
         if (slot.getHasStack()) {
+            slot.xDisplayPosition = 2;
+            slot.yDisplayPosition = 2;
             super.drawSlotInventory(slot);
         }
+        
+        slot.xDisplayPosition = Math.round(x);
+        slot.yDisplayPosition = Math.round(y);
         
         if (slot == this.getTheSlot()) {
             
@@ -156,7 +166,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         Tessellator tessellator = Tessellator.instance;
         
         // Render rings
-        final float RADIUS = 255F / 2F;
+        final float RADIUS = 256F / 2F;
         final float SCALE = 0.5f;
         final int CENTER_X = 88;
         final int CENTER_Y = 66;
@@ -201,9 +211,9 @@ public class GuiResearchTable extends GuiMultiSlotItem {
             GL11.glTranslatef(x + CENTER_X, y + CENTER_Y, 0);
             
             final int RING_SLOT_SIZE = 20;
-            final float INNER_SLOT_RADIUS = 39.5f;
+            final float INNER_SLOT_RADIUS = 32f;
             final float INNER_ROT_OFFSET = -30f;
-            final float OUTER_SLOT_RADIUS = 57.5f;
+            final float OUTER_SLOT_RADIUS = 57f;
             final float OUTER_ROT_OFFSET = 90f;
             
             for (int i = 0; i < 3; i++) {

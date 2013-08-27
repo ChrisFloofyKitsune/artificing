@@ -92,7 +92,7 @@ public class ContainerResearchTable extends Container {
         
         if (slot != null) {
             if (slot instanceof SlotMultiSlotItem) {
-                slot = ((SlotMultiSlotItem) slot).getParentSlot();
+                slot = ((SlotMultiSlotItem) slot).getParentSlotIfExists();
             }
             if (slot.getHasStack()) {
                 ItemStack itemStack = slot.getStack();
@@ -117,8 +117,8 @@ public class ContainerResearchTable extends Container {
         return newItemStack;
     }
     
-    @Override
-    public boolean func_94531_b(Slot slot) {
-        return !(slot instanceof SlotResearchRing);
-    }
+//    @Override
+//    public boolean func_94531_b(Slot slot) {
+//        return !(slot instanceof SlotResearchRing);
+//    }
 }

@@ -10,7 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SlotArtificingGrid extends SlotMultiSlotItem implements IDisableableSlot {
+public class SlotArtificingGrid extends SlotMultiSlotItem {
     
 	public SlotArtificingGrid(ContainerMultiSlotItem container, GridSlot gridSlot, int displayX,
 			int displayY, int slotWidth, int slotHeight) {
@@ -21,28 +21,8 @@ public class SlotArtificingGrid extends SlotMultiSlotItem implements IDisableabl
 	public boolean isItemValid(ItemStack itemStack) {
 		return super.isItemValid(itemStack) && itemStack.itemID == ItemIds.RUNE;
 	}
-
-    @Override
-    public boolean isDisabled() {
-        return !this.gridSlot.isEnabled();
-    }
-
-    @Override
-    public boolean getDrawItemStack() {
-        return this.gridSlot.isEnabled();
-    }
-
-    @Override
-    public boolean getDrawHighlight() {
-        return this.gridSlot.isEnabled();
-    }
-
-    @Override
-    public boolean isClickable() {
-        return this.gridSlot.isEnabled();
-    }
-    
-    @Override
+	
+	@Override
     public int getSlotStackLimit() {
         return 1;
     }

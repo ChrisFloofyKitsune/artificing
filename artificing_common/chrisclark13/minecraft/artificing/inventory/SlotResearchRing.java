@@ -7,7 +7,7 @@ import net.minecraft.inventory.Slot;
 public class SlotResearchRing extends Slot implements IDisableableSlot{
 
     public SlotResearchRing(IInventory par1iInventory, int par2) {
-        super(par1iInventory, par2, 2, 2);
+        super(par1iInventory, par2, 0, 0);
         
     }
     

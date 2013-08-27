@@ -43,7 +43,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         addSlotToContainer(new SlotArtificingOutput(artificingTable, 1,
                 OUTPUT_X, OUTPUT_Y));
         
-        gridSlots = artificingTable.grid.createSlotsForContainer(this, GRID_CENTER_X, GRID_CENTER_Y, 16, 16);
+        gridSlots = artificingTable.grid.createSlotsForContainer(this, 0, 0, 16, 16);
         
         for (SlotMultiSlotItem slot : gridSlots) {
             addSlotToContainer(slot);
@@ -84,7 +84,7 @@ public class ContainerArtificingTable extends ContainerMultiSlotItem {
         
         if (slot != null) {
             if (slot instanceof SlotMultiSlotItem) {
-                slot = ((SlotMultiSlotItem) slot).getParentSlot();
+                slot = ((SlotMultiSlotItem) slot).getParentSlotIfExists();
             }
             
             if (slot.getHasStack()) {
