@@ -1,6 +1,7 @@
 package chrisclark13.minecraft.artificing.item;
 
 import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.block.ModBlocks;
@@ -17,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 /**
@@ -282,8 +284,8 @@ public class ItemRune extends ItemArtificingGeneral implements IMultiSlotItem {
     }
 
 	@Override
-	public String getImagePath(ItemStack itemStack) {
-	    return RuneHelper.getEnchantmentImagePath(this.getEnchantmentData(itemStack));
+	public ResourceLocation getImageResource(ItemStack itemStack) {
+	    return RuneHelper.getEnchantmentImageResource(this.getEnchantmentData(itemStack));
 	}
 
 	@Override

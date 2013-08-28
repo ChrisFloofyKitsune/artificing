@@ -104,7 +104,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             
-            mc.renderEngine.bindTexture("%blur%" + Textures.RESEARCH_TABLE);
+            mc.renderEngine.func_110577_a(Textures.RESEARCH_TABLE);
             float[] colors = unpackColorsFromInt(0x80FFFFFF);
             GL11.glColor4f(colors[1], colors[2], colors[3], colors[0]);
             this.drawTexturedModalRect(0, 0, TEX_RING_SLOT_X, TEX_RING_SLOT_Y + 20, 20, 20);
@@ -158,7 +158,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         
         // draw your Gui here, only thing you need to change is the path
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(Textures.RESEARCH_TABLE);
+        mc.renderEngine.func_110577_a(Textures.RESEARCH_TABLE);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
@@ -172,7 +172,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         final int CENTER_Y = 66;
         float rotation = animTimer * 360;
         
-        mc.renderEngine.bindTexture(Textures.RINGS);
+        mc.renderEngine.func_110577_a(Textures.RINGS);
         GL11.glPushMatrix();
         {
             GL11.glTranslatef(x + CENTER_X, y + CENTER_Y, 0);
@@ -205,7 +205,7 @@ public class GuiResearchTable extends GuiMultiSlotItem {
         }
         GL11.glPopMatrix();
         
-        mc.renderEngine.bindTexture(Textures.RESEARCH_TABLE);
+        mc.renderEngine.func_110577_a(Textures.RESEARCH_TABLE);
         GL11.glPushMatrix();
         {
             GL11.glTranslatef(x + CENTER_X, y + CENTER_Y, 0);

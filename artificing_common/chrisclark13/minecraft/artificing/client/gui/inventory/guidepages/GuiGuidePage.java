@@ -6,8 +6,10 @@ import org.omg.CORBA.OMGVMCID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
 import chrisclark13.minecraft.artificing.client.gui.GuiContent;
 import chrisclark13.minecraft.artificing.client.gui.UnicodeFontRenderer;
+import chrisclark13.minecraft.artificing.core.helper.ResourceLocationHelper;
 import chrisclark13.minecraft.artificing.core.proxy.ClientProxy;
 import chrisclark13.minecraft.artificing.lib.Textures;
 
@@ -34,7 +36,7 @@ public class GuiGuidePage extends GuiContent {
     }
     
     public void addImageContent(int x, int y, int width, int height, String imagePath) {
-        children.add(new GuiGuideImage(x, y, width, height, (imagePath == null) ? "" : imagePath));
+        children.add(new GuiGuideImage(x, y, width, height, ResourceLocationHelper.create((imagePath == null) ? "" : imagePath)));
     }
     
     private class GuiGuideText extends GuiContent {
@@ -80,11 +82,11 @@ public class GuiGuidePage extends GuiContent {
     
     private class GuiGuideImage extends GuiContent {
         
-        private String imagePath;
+        private ResourceLocation imageResource;
         
-        public GuiGuideImage(int x, int y, int width, int height, String imagePath) {
+        public GuiGuideImage(int x, int y, int width, int height, ResourceLocation imageResouce) {
             super(x, y, width, height);
-            this.imagePath = imagePath;
+            this.imageResource = imageResouce;
             
             this.drawOwnBackground = false;
         }
@@ -92,7 +94,7 @@ public class GuiGuidePage extends GuiContent {
         @Override
         protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
             Tessellator tessellator = Tessellator.instance;
-            minecraft.renderEngine.bindTexture(imagePath);
+            minecraft.renderEngine.func_110577_a(imageResource);
 //            minecraft.renderEngine.bindTexture(Textures.GUI_PARTS);
 //            System.out.println(imagePath);
             

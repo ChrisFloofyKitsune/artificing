@@ -63,7 +63,7 @@ public class BlockDisenchanter extends BlockArtificingGeneral {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister) {
 
-        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName2());
+        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + this.getUnwrappedUnlocalizedName().substring(5));
     }
 
     @Override

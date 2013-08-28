@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.GL11;
 
 import chrisclark13.minecraft.artificing.lib.Textures;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiContent extends Gui {
-    public static final String DEFAULT_TEXTURE = Textures.GUI_PARTS;
+    public static final ResourceLocation DEFAULT_TEXTURE = Textures.GUI_PARTS;
     public static final int DEFAULT_TEXTURE_POS = 0;
     public static final int DEFAULT_TEXTURE_PART_SIZE = 16;
     public static final int DEFAULT_TEXTURE_SIZE = 256;
@@ -20,7 +20,7 @@ public class GuiContent extends Gui {
     public boolean drawOwnBackground;
     public ArrayList<GuiContent> children;
     
-    public String backgroundTexture;
+    public ResourceLocation backgroundTexture;
     public int textureU;
     public int textureV;
     public int texturePartWidth;
@@ -125,7 +125,7 @@ public class GuiContent extends Gui {
     }
     
     protected void drawBackgroundTexture(Minecraft minecraft) {
-        minecraft.renderEngine.bindTexture(backgroundTexture);
+        minecraft.renderEngine.func_110577_a(backgroundTexture);
         
         float r = ((backgroundColor >> 16) & 0xFF) / 255F;
         float g = ((backgroundColor >> 8) & 0xFF) / 255F;

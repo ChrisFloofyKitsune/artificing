@@ -237,7 +237,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     }
     
     @Override
-    public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         return (i == 0);
     }
     

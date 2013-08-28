@@ -1,8 +1,6 @@
 package chrisclark13.minecraft.artificing.inventory;
 
-import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public class SlotArtificingInput extends Slot {
     

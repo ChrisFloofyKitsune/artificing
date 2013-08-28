@@ -4,8 +4,8 @@ package chrisclark13.minecraft.artificing.lib;
  * Just a reference class filled with a bunch of Homestuck references... <br/>
  * Used here and there when I really want to make a reference to Homestuck. <br/>
  * <br/>
- * Contains all Troll blood color codes and all the first and last names of the
- * Trolls.
+ * Contains all Troll blood/text color codes and all the first and last names of the
+ * main Trolls.
  * 
  * @author Christian
  * 

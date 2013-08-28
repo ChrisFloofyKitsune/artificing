@@ -15,7 +15,7 @@ Author: Cyntain (I)
 </text>
         </page>
         <page>
-            <image x="8" y="0" width="100" height = "50">/mods/Artificing/guidebooks/tomeOfArtificing.png</image>
+            <image x="8" y="0" width="100" height = "50">guidebooks/tomeOfArtificing.png</image>
 <text x="0" y="53" alignment="center">-- Contents --
 Artificing and Knowledge: P.2
 Research Table discovery: P.6
@@ -31,7 +31,7 @@ After-thought: Disenchanter: P.12 </text>
 	
         <page>
 		<text x="0" y="5" alignment="center">-- Construction --</text>
-			<image x="32" y="15" width="50" height = "50">/mods/Artificing/textures/gui/crafting.png</image>
+			<image x="32" y="15" width="50" height = "50">textures/gui/crafting.png</image>
 	</page>
  	<page>
 		<text x="2" y="3"> You should consider that the table doesn't have multiple uses, if you run out of symbols you can not use the table anymore. 

@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -94,7 +95,7 @@ public class BlockArtificingTable extends BlockArtificingGeneral {
     }
     
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving,
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving,
             ItemStack itemStack) {
         super.onBlockPlacedBy(world, x, y, z, entityLiving, itemStack);
         

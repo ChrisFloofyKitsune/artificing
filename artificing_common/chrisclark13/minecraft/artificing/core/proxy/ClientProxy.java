@@ -1,6 +1,7 @@
 package chrisclark13.minecraft.artificing.core.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import chrisclark13.minecraft.artificing.client.gui.UnicodeFontRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.item.ItemDisenchanterRenderer;
@@ -33,7 +34,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initRendering() {
         Minecraft mc = Minecraft.getMinecraft();
-        unicodeFontRenderer = new UnicodeFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, true);
+        unicodeFontRenderer = new UnicodeFontRenderer(mc.gameSettings, new ResourceLocation("font/default.png"), mc.renderEngine, true);
         
         RenderIds.researchTableRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderIds.disenchanterRenderId = RenderingRegistry.getNextAvailableRenderId();

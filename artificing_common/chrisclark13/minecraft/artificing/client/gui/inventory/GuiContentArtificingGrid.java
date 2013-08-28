@@ -22,7 +22,7 @@ public class GuiContentArtificingGrid extends GuiContent {
     
     @Override
     protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
-        minecraft.renderEngine.bindTexture(backgroundTexture);
+        minecraft.renderEngine.func_110577_a(backgroundTexture);
         
         float r = ((backgroundColor >> 16) & 0xFF) / 255F;
         float g = ((backgroundColor >> 8) & 0xFF) / 255F;

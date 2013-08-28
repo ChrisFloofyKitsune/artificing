@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import chrisclark13.minecraft.artificing.lib.Textures;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -17,6 +16,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiTab extends GuiButton {
     
@@ -26,12 +26,12 @@ public class GuiTab extends GuiButton {
     protected final int DEFAULT_TEXTURE_HEIGHT = 256;
     
     protected boolean pressed;
-    protected String texture;
+    protected ResourceLocation texture;
     protected int textureWidth;
     protected int textureHeight;
     
     protected boolean hasTextureIcon;
-    protected String iconTexture;
+    protected ResourceLocation iconTexture;
     public int iconColor;
     protected double uMin;
     protected double vMin;
@@ -86,7 +86,7 @@ public class GuiTab extends GuiButton {
             int widthOffset = 0;
             int heightOffset = 0;
             
-            minecraft.renderEngine.bindTexture(texture);
+            minecraft.renderEngine.func_110577_a(texture);
             
             switch (this.side) {
                 case TOP:
@@ -135,7 +135,7 @@ public class GuiTab extends GuiButton {
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         this.field_82253_i = this.isMouseOver(mouseX, mouseY);
         this.mouseDragged(minecraft, mouseX, mouseY);
-        minecraft.renderEngine.bindTexture(texture);
+        minecraft.renderEngine.func_110577_a(texture);
         
         if (this.drawButton) {
             if (this.active) {
@@ -195,7 +195,7 @@ public class GuiTab extends GuiButton {
                 
                 GL11.glColor4f(r, g, b, 1.0F);
                 
-                minecraft.renderEngine.bindTexture(iconTexture);
+                minecraft.renderEngine.func_110577_a(iconTexture);
                 int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
                 int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
                 int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang
@@ -337,7 +337,7 @@ public class GuiTab extends GuiButton {
      * @param u
      * @param v
      */
-    public void setTabIcon(String iconTexture, double u, double v) {
+    public void setTabIcon(ResourceLocation iconTexture, double u, double v) {
         this.setTabIcon(iconTexture, u, v, 256, 256);
     }
     
@@ -352,7 +352,7 @@ public class GuiTab extends GuiButton {
      * @param textureWidth
      * @param textureHeight
      */
-    public void setTabIcon(String iconTexture, double u, double v, int textureWidth,
+    public void setTabIcon(ResourceLocation iconTexture, double u, double v, int textureWidth,
             int textureHeight) {
         this.hasTextureIcon = true;
         this.iconTexture = iconTexture;

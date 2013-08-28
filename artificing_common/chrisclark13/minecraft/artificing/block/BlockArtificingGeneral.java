@@ -5,6 +5,7 @@ import chrisclark13.minecraft.artificing.tileentity.TileArtificingGeneral;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -20,10 +21,10 @@ public abstract class BlockArtificingGeneral extends BlockContainer {
      * Sets the direction of the block when placed
      */
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving, ItemStack itemStack) {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack itemStack) {
         
         int direction = 0;
-        int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+        int facing = MathHelper.floor_double(entityLivingBase.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
         
         if (facing == 0) {
             direction = ForgeDirection.NORTH.ordinal();
@@ -41,5 +42,9 @@ public abstract class BlockArtificingGeneral extends BlockContainer {
         world.setBlockMetadataWithNotify(x, y, z, direction, 3);
         
         ((TileArtificingGeneral) world.getBlockTileEntity(x, y, z)).setOrientation(direction);
+    }
+    
+    protected String getUnwrappedUnlocalizedName() {	
+    	return this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(":") + 1);
     }
 }

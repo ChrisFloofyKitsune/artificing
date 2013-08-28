@@ -185,7 +185,7 @@ public class GuiGuideBook extends GuiScreen {
         double uScale = 1d / (double) imageWidth;
         double vScale = 1d / (double) imageHeight;
         Tessellator tessellator = Tessellator.instance;
-        mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
+        mc.renderEngine.func_110577_a(Textures.GUIDE_BOOK);
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(guiLeft, guiTop, 0, 0, 0);
         tessellator.addVertexWithUV(guiLeft, guiTop + bookHeight, 0, 0, bookHeight * vScale);

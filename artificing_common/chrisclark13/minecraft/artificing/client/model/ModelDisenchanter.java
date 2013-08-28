@@ -1,10 +1,12 @@
 package chrisclark13.minecraft.artificing.client.model;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
+
 
 
 
@@ -18,7 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ModelDisenchanter {
     
-    protected String texturePath;
+    protected ResourceLocation texturePath;
     private IModelCustom modelDisenchanter;
     private final float MODEL_SCALE = 1F / 8F;
     
@@ -63,7 +65,7 @@ public class ModelDisenchanter {
         {
             GL11.glTranslatef(0, 0, 1);
             GL11.glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(texturePath);
+            FMLClientHandler.instance().getClient().renderEngine.func_110577_a(texturePath);
             modelDisenchanter.renderPart("Disenchanter");
             
             float height;

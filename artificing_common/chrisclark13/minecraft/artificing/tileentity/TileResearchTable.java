@@ -128,7 +128,7 @@ public class TileResearchTable extends TileArtificingGeneral implements ISidedIn
     }
 
     @Override
-    public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 
         return true;
     }

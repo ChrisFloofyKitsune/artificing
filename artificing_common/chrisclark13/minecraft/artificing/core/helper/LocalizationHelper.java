@@ -4,7 +4,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class LocalizationHelper {
     
-    private static final String LANG_FILE_LOCATION = "/mods/artificing/lang";
+    private static final String LANG_FILE_LOCATION = "/assets/artificing/lang";
     
     private static String[] localeFiles = {LANG_FILE_LOCATION + "/en_US.xml"};
     
