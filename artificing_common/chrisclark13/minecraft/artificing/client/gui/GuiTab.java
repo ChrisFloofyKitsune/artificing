@@ -4,10 +4,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import chrisclark13.minecraft.artificing.lib.Textures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -15,8 +11,12 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import chrisclark13.minecraft.artificing.lib.Textures;
 
 public class GuiTab extends GuiButton {
     
@@ -86,7 +86,7 @@ public class GuiTab extends GuiButton {
             int widthOffset = 0;
             int heightOffset = 0;
             
-            minecraft.renderEngine.func_110577_a(texture);
+            minecraft.renderEngine.bindTexture(texture);
             
             switch (this.side) {
                 case TOP:
@@ -135,7 +135,7 @@ public class GuiTab extends GuiButton {
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         this.field_82253_i = this.isMouseOver(mouseX, mouseY);
         this.mouseDragged(minecraft, mouseX, mouseY);
-        minecraft.renderEngine.func_110577_a(texture);
+        minecraft.renderEngine.bindTexture(texture);
         
         if (this.drawButton) {
             if (this.active) {
@@ -195,7 +195,7 @@ public class GuiTab extends GuiButton {
                 
                 GL11.glColor4f(r, g, b, 1.0F);
                 
-                minecraft.renderEngine.func_110577_a(iconTexture);
+                minecraft.renderEngine.bindTexture(iconTexture);
                 int xOffset = (this.side == TabSide.RIGHT) ? -overhang : 0;
                 int yOffset = (this.side == TabSide.BOTTOM) ? -overhang : 0;
                 int widthOffset = (this.side == TabSide.LEFT || this.side == TabSide.RIGHT) ? overhang

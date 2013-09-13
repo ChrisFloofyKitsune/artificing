@@ -2,8 +2,6 @@ package chrisclark13.minecraft.artificing.client.gui.inventory.guidepages;
 
 import java.util.ArrayList;
 
-import org.lwjgl.opengl.GL11;
-
 import chrisclark13.minecraft.artificing.client.gui.GuiTab;
 import chrisclark13.minecraft.artificing.client.gui.GuiTabList;
 import chrisclark13.minecraft.artificing.client.gui.TabDrawType;
@@ -15,7 +13,6 @@ import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.lib.Textures;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
@@ -185,7 +182,7 @@ public class GuiGuideBook extends GuiScreen {
         double uScale = 1d / (double) imageWidth;
         double vScale = 1d / (double) imageHeight;
         Tessellator tessellator = Tessellator.instance;
-        mc.renderEngine.func_110577_a(Textures.GUIDE_BOOK);
+        mc.renderEngine.bindTexture(Textures.GUIDE_BOOK);
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(guiLeft, guiTop, 0, 0, 0);
         tessellator.addVertexWithUV(guiLeft, guiTop + bookHeight, 0, 0, bookHeight * vScale);

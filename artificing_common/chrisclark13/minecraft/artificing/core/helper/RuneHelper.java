@@ -10,18 +10,13 @@ import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
 import chrisclark13.minecraft.artificing.lib.Textures;
 import chrisclark13.minecraft.multislotitems.core.MultiSlotItemRegistry;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 

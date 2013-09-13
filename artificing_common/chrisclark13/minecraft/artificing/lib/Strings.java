@@ -46,7 +46,7 @@ public class Strings {
     public static final String CONTAINER_RESEARCH_TABLE_NAME = "container." + RESEARCH_TABLE_NAME;
     
     //Manual XML files
-    public static final String GUIDE_STARTING_XML = "/assest/artificing/guidebooks/startingBook.xml";
+    public static final String GUIDE_STARTING_XML = "/assets/artificing/guidebooks/startingBook.xml";
     
     //Errors
     public static final String ERROR_NO_INPUT = "artificing.error.noInput";

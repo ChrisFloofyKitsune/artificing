@@ -27,7 +27,7 @@ public class ModelResearchTable {
         GL11.glPushMatrix();
         GL11.glTranslatef(0, 0, 1);
         GL11.glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(tableTexturePath);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(tableTexturePath);
         modelResearchTable.renderPart("Table_Cube");
         GL11.glPopMatrix();
     }

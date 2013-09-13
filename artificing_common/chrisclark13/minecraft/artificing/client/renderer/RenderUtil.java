@@ -3,35 +3,17 @@ package chrisclark13.minecraft.artificing.client.renderer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.MapItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.storage.MapData;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import chrisclark13.minecraft.artificing.lib.Textures;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -86,7 +68,7 @@ public class RenderUtil {
 
 		if (customRenderer != null) {
 			mc.renderEngine
-					.func_110577_a(itemStack.getItemSpriteNumber() == 0 ? Textures.VANILLA_BLOCK_TEXTURE_SHEET
+					.bindTexture(itemStack.getItemSpriteNumber() == 0 ? Textures.VANILLA_BLOCK_TEXTURE_SHEET
 							: Textures.VANILLA_ITEM_TEXTURE_SHEET);
 			GL11.glRotatef(90, 1, 0, 0);
 			GL11.glRotatef(-90, 0, 1, 0);
@@ -97,7 +79,7 @@ public class RenderUtil {
 				&& RenderBlocks
 						.renderItemIn3d(Block.blocksList[itemStack.itemID]
 								.getRenderType())) {
-			mc.renderEngine.func_110577_a(Textures.VANILLA_BLOCK_TEXTURE_SHEET);
+			mc.renderEngine.bindTexture(Textures.VANILLA_BLOCK_TEXTURE_SHEET);
 			GL11.glRotatef(90, 1, 0, 0);
 			GL11.glRotatef(-90, 0, 1, 0);
 			GL11.glTranslatef(-0.5f, 0.5f, -0.5f);
@@ -140,9 +122,9 @@ public class RenderUtil {
 				}
 
 				if (itemStack.getItemSpriteNumber() == 0) {
-					mc.renderEngine.func_110577_a(Textures.VANILLA_BLOCK_TEXTURE_SHEET);
+					mc.renderEngine.bindTexture(Textures.VANILLA_BLOCK_TEXTURE_SHEET);
 				} else {
-					mc.renderEngine.func_110577_a(Textures.VANILLA_ITEM_TEXTURE_SHEET);
+					mc.renderEngine.bindTexture(Textures.VANILLA_ITEM_TEXTURE_SHEET);
 				}
 
 //				float uMin = icon.getMinU();
@@ -154,12 +136,12 @@ public class RenderUtil {
 	            float uMax = icon.getMaxU();
 	            float vMin = icon.getMinV();
 	            float vMax = icon.getMaxV();
-	            render3DImage(tessellator, uMax, vMin, uMin, vMax, icon.getOriginX(), icon.getOriginY(), 0.0625F);
+	            render3DImage(tessellator, uMax, vMin, uMin, vMax, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
 
 				if (itemStack != null && itemStack.hasEffect(pass)) {
 					GL11.glDepthFunc(GL11.GL_EQUAL);
 					GL11.glDisable(GL11.GL_LIGHTING);
-					mc.renderEngine.func_110577_a(Textures.VANILLA_GLINT);
+					mc.renderEngine.bindTexture(Textures.VANILLA_GLINT);
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
 					float f7 = 0.76F;

@@ -1,17 +1,12 @@
 package chrisclark13.minecraft.artificing.client.gui.inventory.guidepages;
 
 import org.lwjgl.opengl.GL11;
-import org.omg.CORBA.OMGVMCID;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import chrisclark13.minecraft.artificing.client.gui.GuiContent;
-import chrisclark13.minecraft.artificing.client.gui.UnicodeFontRenderer;
 import chrisclark13.minecraft.artificing.core.helper.ResourceLocationHelper;
 import chrisclark13.minecraft.artificing.core.proxy.ClientProxy;
-import chrisclark13.minecraft.artificing.lib.Textures;
 
 public class GuiGuidePage extends GuiContent {
     
@@ -94,7 +89,7 @@ public class GuiGuidePage extends GuiContent {
         @Override
         protected void draw(Minecraft minecraft, int mouseX, int mouseY) {
             Tessellator tessellator = Tessellator.instance;
-            minecraft.renderEngine.func_110577_a(imageResource);
+            minecraft.renderEngine.bindTexture(imageResource);
 //            minecraft.renderEngine.bindTexture(Textures.GUI_PARTS);
 //            System.out.println(imagePath);
             

@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initRendering() {
         Minecraft mc = Minecraft.getMinecraft();
-        unicodeFontRenderer = new UnicodeFontRenderer(mc.gameSettings, new ResourceLocation("font/default.png"), mc.renderEngine, true);
+        unicodeFontRenderer = new UnicodeFontRenderer(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.renderEngine, true);
         
         RenderIds.researchTableRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderIds.disenchanterRenderId = RenderingRegistry.getNextAvailableRenderId();

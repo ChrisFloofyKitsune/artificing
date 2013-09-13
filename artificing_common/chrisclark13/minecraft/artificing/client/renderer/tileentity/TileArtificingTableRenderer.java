@@ -154,7 +154,7 @@ public class TileArtificingTableRenderer extends TileEntitySpecialRenderer {
                 GL11.glColor3f(r, g, b);
                 
                 //bind star texture
-                func_110628_a(Textures.STAR);
+                bindTexture(Textures.STAR);
                 RenderUtil.drawImage(0, 0, 1, 1);
                 
                 GL11.glEnable(GL11.GL_CULL_FACE);

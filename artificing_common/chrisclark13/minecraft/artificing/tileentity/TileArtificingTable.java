@@ -332,7 +332,7 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
     }
     
     public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
-        readFromNBT(packet.customParam1);
+        readFromNBT(packet.data);
     }
     
     public void setArtificingGridSize(int gridWidth, int gridHeight) {

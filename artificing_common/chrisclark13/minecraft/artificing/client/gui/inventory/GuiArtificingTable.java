@@ -178,7 +178,7 @@ public class GuiArtificingTable extends GuiMultiSlotItem {
         // draw your Gui here, only thing you need to change is the path
         // int texture = mc.renderEngine.getTexture("/gui/trap.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a(Textures.ARTIFICING_TABLE);
+        mc.renderEngine.bindTexture(Textures.ARTIFICING_TABLE);
         // this.mc.renderEngine.bindTexture(texture);
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         

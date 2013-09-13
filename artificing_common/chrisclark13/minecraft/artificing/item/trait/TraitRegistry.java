@@ -1,6 +1,5 @@
 package chrisclark13.minecraft.artificing.item.trait;
 
-import java.util.Collection;
 import java.util.Set;
 
 import net.minecraft.item.ItemStack;
@@ -21,7 +20,7 @@ public class TraitRegistry {
     }
     
     public static void addEntry(ItemStack itemStack, Trait trait) {
-        String entry = itemStack.getItemName();
+        String entry = itemStack.getUnlocalizedName();
         if (itemStack.getHasSubtypes() && !itemStack.getItem().isDamageable()) {
             entry += ":" + itemStack.getItemDamage();
         }
@@ -30,7 +29,7 @@ public class TraitRegistry {
     }
     
     public static Set<Trait> getEntries(ItemStack itemStack) {
-        String entry = itemStack.getItemName();
+        String entry = itemStack.getUnlocalizedName();
         if (itemStack.getHasSubtypes() && !itemStack.getItem().isDamageable()) {
             entry += ":" + itemStack.getItemDamage();
         }

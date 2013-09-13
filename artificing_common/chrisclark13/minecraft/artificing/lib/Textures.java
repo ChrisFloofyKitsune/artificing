@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class Textures {
 	
-	public static final ResourceLocation VANILLA_BLOCK_TEXTURE_SHEET = TextureMap.field_110575_b;
-    public static final ResourceLocation VANILLA_ITEM_TEXTURE_SHEET = TextureMap.field_110576_c;
+	public static final ResourceLocation VANILLA_BLOCK_TEXTURE_SHEET = TextureMap.locationBlocksTexture;
+    public static final ResourceLocation VANILLA_ITEM_TEXTURE_SHEET = TextureMap.locationItemsTexture;
 	public static final ResourceLocation VANILLA_GLINT	 		= new ResourceLocation("textures/misc/enchanted_item_glint.png");
     
     public static final String MSI_LOC							= "textures/items/multislot/";

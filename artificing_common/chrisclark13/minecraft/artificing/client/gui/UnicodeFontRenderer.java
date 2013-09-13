@@ -47,7 +47,7 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
      * drop shadows.
      */
     private int[] colorCode = new int[32];
-    private final ResourceLocation field_111273_g;
+    private final ResourceLocation locationFontTexture;
 
     /** The RenderEngine used to load and setup glyph textures. */
     private final TextureManager renderEngine;
@@ -104,10 +104,10 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
 
     public UnicodeFontRenderer(GameSettings par1GameSettings, ResourceLocation par2ResourceLocation, TextureManager par3TextureManager, boolean par4)
     {
-        this.field_111273_g = par2ResourceLocation;
+        this.locationFontTexture = par2ResourceLocation;
         this.renderEngine = par3TextureManager;
         this.unicodeFlag = true;
-        par3TextureManager.func_110577_a(this.field_111273_g);
+        par3TextureManager.bindTexture(this.locationFontTexture);
 
         for (int i = 0; i < 32; ++i)
         {
@@ -144,18 +144,18 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
         this.readGlyphSizes();
     }
 
-    public void func_110549_a(ResourceManager par1ResourceManager)
+    public void onResourceManagerReload(ResourceManager par1ResourceManager)
     {
-        this.func_111272_d();
+        this.readFontTexture();
     }
 
-    private void func_111272_d()
+    private void readFontTexture()
     {
         BufferedImage bufferedimage;
 
         try
         {
-            bufferedimage = ImageIO.read(Minecraft.getMinecraft().func_110442_L().func_110536_a(this.field_111273_g).func_110527_b());
+            bufferedimage = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(this.locationFontTexture).getInputStream());
         }
         catch (IOException ioexception)
         {
@@ -220,7 +220,7 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
     {
         try
         {
-            InputStream inputstream = Minecraft.getMinecraft().func_110442_L().func_110536_a(new ResourceLocation("font/glyph_sizes.bin")).func_110527_b();
+            InputStream inputstream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin")).getInputStream();
             inputstream.read(this.glyphWidth);
         }
         catch (IOException ioexception)
@@ -245,7 +245,7 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
         float f = (float)(par1 % 16 * 8);
         float f1 = (float)(par1 / 16 * 8);
         float f2 = par2 ? 1.0F : 0.0F;
-        this.renderEngine.func_110577_a(this.field_111273_g);
+        this.renderEngine.bindTexture(this.locationFontTexture);
         float f3 = (float)this.charWidth[par1] - 0.01F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         GL11.glTexCoord2f(f / 128.0F, f1 / 128.0F);
@@ -275,7 +275,7 @@ public class UnicodeFontRenderer implements ResourceManagerReloadListener
      */
     private void loadGlyphTexture(int par1)
     {
-        this.renderEngine.func_110577_a(this.func_111271_a(par1));
+        this.renderEngine.bindTexture(this.func_111271_a(par1));
     }
 
     /**

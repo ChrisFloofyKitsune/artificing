@@ -125,7 +125,7 @@ public class GuiContent extends Gui {
     }
     
     protected void drawBackgroundTexture(Minecraft minecraft) {
-        minecraft.renderEngine.func_110577_a(backgroundTexture);
+        minecraft.renderEngine.bindTexture(backgroundTexture);
         
         float r = ((backgroundColor >> 16) & 0xFF) / 255F;
         float g = ((backgroundColor >> 8) & 0xFF) / 255F;

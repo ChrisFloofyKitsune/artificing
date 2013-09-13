@@ -44,6 +44,7 @@ public class ModelDisenchanter {
         double centerPeriod2 = CENTER_PERIOD * 4 * (float) Reference.MILLS_PER_SECOND;
         double centerTimer2 = (((double) Minecraft.getSystemTime() % centerPeriod2) / centerPeriod);
         
+        //Used to make the center stop when fully extended and fully retracted.
         if (centerTimer2 >= 1 && centerTimer2 < 2) {
             centerTimer = 1f;
         } else if (centerTimer2 >= 2 && centerTimer2 < 3) {
@@ -65,7 +66,7 @@ public class ModelDisenchanter {
         {
             GL11.glTranslatef(0, 0, 1);
             GL11.glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-            FMLClientHandler.instance().getClient().renderEngine.func_110577_a(texturePath);
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(texturePath);
             modelDisenchanter.renderPart("Disenchanter");
             
             float height;

@@ -87,7 +87,7 @@ public class RuneRenderer {
      * @param color
      */
     public static void renderRune(char character, float x, float y, int color) {
-        mc.renderEngine.func_110577_a(Textures.RUNES);
+        mc.renderEngine.bindTexture(Textures.RUNES);
         
         if (character >= 'a' && character <= 'z') {
             
