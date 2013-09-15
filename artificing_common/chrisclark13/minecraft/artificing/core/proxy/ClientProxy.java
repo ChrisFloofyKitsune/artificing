@@ -3,12 +3,14 @@ package chrisclark13.minecraft.artificing.core.proxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import chrisclark13.minecraft.artificing.client.gui.UnicodeFontRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.item.ItemDisenchanterRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.item.ItemResearchTableRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.tileentity.TileArtificingTableRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.tileentity.TileDisenchanterRenderer;
 import chrisclark13.minecraft.artificing.client.renderer.tileentity.TileResearchTableRenderer;
+import chrisclark13.minecraft.artificing.core.handler.LivingEventHandler;
 import chrisclark13.minecraft.artificing.lib.BlockIds;
 import chrisclark13.minecraft.artificing.lib.RenderIds;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
@@ -41,5 +43,10 @@ public class ClientProxy extends CommonProxy {
         
         MinecraftForgeClient.registerItemRenderer(BlockIds.researchTableID, new ItemResearchTableRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockIds.disenchanterID, new ItemDisenchanterRenderer());
+    }
+    
+    @Override
+    public void registerEventHandlers() {
+    	
     }
 }

@@ -4,12 +4,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import chrisclark13.minecraft.artificing.block.ModBlocks;
 import chrisclark13.minecraft.artificing.core.handler.GuiHandler;
+import chrisclark13.minecraft.artificing.core.handler.LivingEventHandler;
 import chrisclark13.minecraft.artificing.core.handler.PlayerHandler;
 import chrisclark13.minecraft.artificing.core.helper.LocalizationHelper;
 import chrisclark13.minecraft.artificing.core.helper.LogHelper;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.core.proxy.CommonProxy;
 import chrisclark13.minecraft.artificing.creativetab.CreativeTabArtificing;
+import chrisclark13.minecraft.artificing.enchantment.ModEnchantments;
 import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.Reference;
 import chrisclark13.minecraft.artificing.network.PacketHandler;
@@ -29,7 +31,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @NetworkMod(channels = { Reference.CHANNEL}, packetHandler = PacketHandler.class, clientSideRequired = true, serverSideRequired = false)
 public class Artificing {
 
-    public static PlayerHandler playerTracker;
+    public static PlayerHandler playerHandler;
+    public static LivingEventHandler livingEventHandler;
     
     // The instance of your mod that Forge uses.
     @Instance(Reference.MOD_ID)
@@ -53,6 +56,8 @@ public class Artificing {
 
         ModItems.init();
 
+        ModEnchantments.init();
+        
         RuneHelper.init();
     }
 
@@ -65,9 +70,12 @@ public class Artificing {
         // Register TileEntities
         proxy.registerTileEntities();
         proxy.initRendering();
-        playerTracker = new PlayerHandler();
-        GameRegistry.registerPlayerTracker(playerTracker);
-        MinecraftForge.EVENT_BUS.register(playerTracker);
+        playerHandler = new PlayerHandler();
+        GameRegistry.registerPlayerTracker(playerHandler);
+        MinecraftForge.EVENT_BUS.register(playerHandler);
+        
+        livingEventHandler = new LivingEventHandler();
+        MinecraftForge.EVENT_BUS.register(livingEventHandler);
     }
 
     @EventHandler

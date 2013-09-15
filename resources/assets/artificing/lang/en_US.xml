@@ -24,4 +24,9 @@
     <entry key="artificing.error.exp">You don't have enough levels.</entry>
     <entry key="artificing.error.more">%s more...</entry>
     <entry key="artificing.error.none">No errors.</entry>
+    <entry key="enchantment.damage.human">Slayer</entry>
+    <entry key="enchantment.damage.animal">Hunter</entry>
+    <entry key="enchantment.damage.magical">Disruption</entry>
+    <entry key="enchantment.damage.aberration">Purge</entry>
+    <entry key="enchantment.blinkGuard">Blink Guard</entry>
 </properties>

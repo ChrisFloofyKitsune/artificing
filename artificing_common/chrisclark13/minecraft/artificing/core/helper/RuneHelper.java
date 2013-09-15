@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import chrisclark13.minecraft.artificing.enchantment.ModEnchantments;
 import chrisclark13.minecraft.artificing.item.ItemRune;
 import chrisclark13.minecraft.artificing.item.ModItems;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
@@ -36,28 +37,34 @@ public class RuneHelper {
 
 		// References ho!
 		setEnchantmentColor(ENCHANTMENT_DEFAULT, 0x00CC13);
-		setEnchantmentColor("enchantment.damage.all", Homestuck.GREY);
-		setEnchantmentColor("enchantment.damage.undead", Homestuck.GOLD);
-		setEnchantmentColor("enchantment.damage.arthropods", Homestuck.COBALT);
-		setEnchantmentColor("enchantment.knockback", Homestuck.BRONZE);
-		setEnchantmentColor("enchantment.fire", Homestuck.RED);
-		setEnchantmentColor("enchantment.protect.all", Homestuck.GREY);
-		setEnchantmentColor("enchantment.protect.fire", Homestuck.RED);
-		setEnchantmentColor("enchantment.protect.fall", Homestuck.BRONZE);
-		setEnchantmentColor("enchantment.protect.explosion", Homestuck.PURPLE);
-		setEnchantmentColor("enchantment.protect.projectile", Homestuck.INDIGO);
-		setEnchantmentColor("enchantment.oxygen", Homestuck.FUCHSIA);
-		setEnchantmentColor("enchantment.waterWorker", Homestuck.VIOLET);
-		setEnchantmentColor("enchantment.digging", Homestuck.OLIVE);
-		setEnchantmentColor("enchantment.untouching", Homestuck.COBALT);
-		setEnchantmentColor("enchantment.durability", Homestuck.GREY);
-		setEnchantmentColor("enchantment.lootBonus", Homestuck.TEAL);
-		setEnchantmentColor("enchantment.lootBonusDigger", Homestuck.TEAL);
-		setEnchantmentColor("enchantment.arrowDamage", Homestuck.GREY);
-		setEnchantmentColor("enchantment.arrowFire", Homestuck.RED);
-		setEnchantmentColor("enchantment.arrowKnockback", Homestuck.BRONZE);
-		setEnchantmentColor("enchantment.arrowInfinite", Homestuck.GOLD);
-		setEnchantmentColor("enchantment.thorns", Homestuck.JADE);
+		setEnchantmentColor(Enchantment.sharpness, Homestuck.GREY);
+		setEnchantmentColor(Enchantment.smite, Homestuck.GOLD);
+		setEnchantmentColor(Enchantment.baneOfArthropods, Homestuck.COBALT);
+		setEnchantmentColor(Enchantment.knockback, Homestuck.BRONZE);
+		setEnchantmentColor(Enchantment.fireAspect, Homestuck.RED);
+		setEnchantmentColor(Enchantment.protection, Homestuck.GREY);
+		setEnchantmentColor(Enchantment.fireProtection, Homestuck.RED);
+		setEnchantmentColor(Enchantment.featherFalling, Homestuck.BRONZE);
+		setEnchantmentColor(Enchantment.blastProtection, Homestuck.PURPLE);
+		setEnchantmentColor(Enchantment.projectileProtection, Homestuck.INDIGO);
+		setEnchantmentColor(Enchantment.respiration, Homestuck.FUCHSIA);
+		setEnchantmentColor(Enchantment.aquaAffinity, Homestuck.VIOLET);
+		setEnchantmentColor(Enchantment.efficiency, Homestuck.OLIVE);
+		setEnchantmentColor(Enchantment.silkTouch, Homestuck.COBALT);
+		setEnchantmentColor(Enchantment.unbreaking, Homestuck.GREY);
+		setEnchantmentColor(Enchantment.looting, Homestuck.TEAL);
+		setEnchantmentColor(Enchantment.fortune, Homestuck.TEAL);
+		setEnchantmentColor(Enchantment.power, Homestuck.GREY);
+		setEnchantmentColor(Enchantment.flame, Homestuck.RED);
+		setEnchantmentColor(Enchantment.punch, Homestuck.BRONZE);
+		setEnchantmentColor(Enchantment.infinity, Homestuck.GOLD);
+		setEnchantmentColor(Enchantment.thorns, Homestuck.JADE);
+		
+		//Artificing enchantments
+		setEnchantmentColor(ModEnchantments.slayer, Homestuck.RUST);
+		setEnchantmentColor(ModEnchantments.hunter, Homestuck.BRONZE);
+		setEnchantmentColor(ModEnchantments.disruption, Homestuck.VIOLET);
+		setEnchantmentColor(ModEnchantments.purge, Homestuck.LIME);
 
 		/*
 		 * setEnchantmentColor(ENCHANTMENT_DEFAULT, 0x00CC13);
