@@ -8,9 +8,8 @@ import net.minecraft.entity.EntityLivingBase;
 public class EnchantmentDamageArtificing extends EnchantmentDamage {
 	
 	public enum DamageType {
-		HUMAN(2, 7, 9, 20, 2.5f), ANIMAL(5, 5, 8, 20, 2.5f), MAGICAL(5, 7, 9, 20, 2.5f), ABERRATION(5, 5, 8, 20, 2.5f);
+		HUMAN(7, 9, 20, 2.5f), ANIMAL(5, 8, 20, 2.5f), MAGICAL(7, 9, 20, 2.5f), ABERRATION(5, 8, 20, 2.5f);
 		
-		private final int weight;
 		private final int baseEnchantability;
 		private final int levelEnchantability;
 		private final int thresholdEnchantability;
@@ -19,8 +18,7 @@ public class EnchantmentDamageArtificing extends EnchantmentDamage {
 		public HashSet<Class<? extends EntityLivingBase>> effectiveEntities = new HashSet<>();
 		public HashSet<Class<? extends EntityLivingBase>> excludedEntities = new HashSet<>();
 		
-		private DamageType(int weight, int baseEnchantability, int levelEnchantability, int thresholdEnchantability, float damageBonusModifier) {
-			this.weight = weight;
+		private DamageType(int baseEnchantability, int levelEnchantability, int thresholdEnchantability, float damageBonusModifier) {
 			this.baseEnchantability = baseEnchantability;
 			this.levelEnchantability = levelEnchantability;
 			this.thresholdEnchantability = thresholdEnchantability;
@@ -46,8 +44,8 @@ public class EnchantmentDamageArtificing extends EnchantmentDamage {
 	
 	public final DamageType damageType;
 	
-	public EnchantmentDamageArtificing(int id, DamageType damageType) {
-		super(id, damageType.weight, 0);
+	public EnchantmentDamageArtificing(int id, int weight, DamageType damageType) {
+		super(id, weight, 0);
 		this.damageType = damageType;
 	}
 	

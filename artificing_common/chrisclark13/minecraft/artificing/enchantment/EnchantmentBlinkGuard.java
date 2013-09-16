@@ -14,7 +14,7 @@ public class EnchantmentBlinkGuard extends Enchantment {
 
 	@Override
 	public int getMinEnchantability(int level) {
-		return 10 + 12 * (level - 1);
+		return 10 + 15 * (level - 1);
 	}
 	
 	@Override

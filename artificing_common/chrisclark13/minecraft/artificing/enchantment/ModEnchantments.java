@@ -25,31 +25,31 @@ public class ModEnchantments {
 	public static EnchantmentBlinkGuard blinkGuard;
 	
 	public static void init() {
-		slayer = new EnchantmentDamageArtificing(100, DamageType.HUMAN);
+		slayer = new EnchantmentDamageArtificing(100, 2, DamageType.HUMAN);
 		slayer.addEffectiveEntity(EntityPlayer.class);
 		slayer.addEffectiveEntity(EntityVillager.class);
 		slayer.addEffectiveEntity(EntityWitch.class);
 		Enchantment.addToBookList(slayer);
 		
-		hunter = new EnchantmentDamageArtificing(101, DamageType.ANIMAL);
+		hunter = new EnchantmentDamageArtificing(101, 5, DamageType.ANIMAL);
 		hunter.addEffectiveEntity(EntityAnimal.class);
 		hunter.addEffectiveEntity(EntityWaterMob.class);
 		hunter.addEffectiveEntity(EntityBat.class);
 		hunter.addEffectiveEntity(EntityDragon.class);
 		Enchantment.addToBookList(hunter);
 		
-		disruption = new EnchantmentDamageArtificing(102, DamageType.MAGICAL);
+		disruption = new EnchantmentDamageArtificing(102, 5, DamageType.MAGICAL);
 		disruption.addEffectiveEntity(EntityBlaze.class);
 		disruption.addEffectiveEntity(EntityEnderman.class);
 		Enchantment.addToBookList(disruption);
 		
-		purge = new EnchantmentDamageArtificing(103, DamageType.ABERRATION);
+		purge = new EnchantmentDamageArtificing(103, 5, DamageType.ABERRATION);
 		purge.addEffectiveEntity(EntityCreeper.class);
 		purge.addEffectiveEntity(EntitySlime.class);
 		purge.addEffectiveEntity(EntityGhast.class);
 		Enchantment.addToBookList(purge);
 		
-		blinkGuard = new EnchantmentBlinkGuard(104, 2);
+		blinkGuard = new EnchantmentBlinkGuard(104, 1);
 		Enchantment.addToBookList(blinkGuard);
 	}
 	
