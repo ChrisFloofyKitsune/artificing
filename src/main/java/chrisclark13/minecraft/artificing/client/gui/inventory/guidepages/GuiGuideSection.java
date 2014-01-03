@@ -17,7 +17,7 @@ public class GuiGuideSection {
         this.bookmarkColor = bookmarkColor;
         this.bookmark = null;
         
-        pages = new ArrayList<>();
+        pages = new ArrayList<GuiGuidePage>();
         startPageIndex = 0;
     }
     

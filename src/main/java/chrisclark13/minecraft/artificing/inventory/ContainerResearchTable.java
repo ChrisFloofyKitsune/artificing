@@ -1,19 +1,10 @@
 package chrisclark13.minecraft.artificing.inventory;
 
-import java.util.ArrayList;
-
-import com.google.common.collect.ObjectArrays;
-
-import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;
 import chrisclark13.minecraft.artificing.tileentity.TileResearchTable;
 import chrisclark13.minecraft.customslots.inventory.ContainerCustomSlots;
-import chrisclark13.minecraft.customslots.inventory.ContainerMultiSlotItem;
-import chrisclark13.minecraft.customslots.inventory.InventoryMultiSlotItemGrid;
 import chrisclark13.minecraft.customslots.inventory.SlotMultiSlotItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerMerchant;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 

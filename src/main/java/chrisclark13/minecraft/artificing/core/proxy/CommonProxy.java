@@ -1,6 +1,5 @@
 package chrisclark13.minecraft.artificing.core.proxy;
 
-import net.minecraftforge.common.MinecraftForge;
 import chrisclark13.minecraft.artificing.core.handler.LivingEventHandler;
 import chrisclark13.minecraft.artificing.lib.Strings;
 import chrisclark13.minecraft.artificing.tileentity.TileArtificingTable;

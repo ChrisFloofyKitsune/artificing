@@ -4,7 +4,6 @@ import java.util.List;
 
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.lib.BlockIds;
-import chrisclark13.minecraft.artificing.lib.ItemIds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;

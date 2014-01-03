@@ -3,14 +3,12 @@ package chrisclark13.minecraft.artificing.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import chrisclark13.minecraft.artificing.core.helper.RuneHelper;
 import chrisclark13.minecraft.artificing.inventory.InventoryArtificingGrid;
 import chrisclark13.minecraft.artificing.item.crafting.ArtificingCraftingManager;
 import chrisclark13.minecraft.artificing.lib.Homestuck;
-import chrisclark13.minecraft.artificing.network.packet.PacketATChargeUpdate;
 import chrisclark13.minecraft.customslots.helper.MultiSlotItemHelper;
 import chrisclark13.minecraft.customslots.inventory.GridSlot;
 import chrisclark13.minecraft.customslots.inventory.SlotSignature;
@@ -73,8 +71,8 @@ public class TileArtificingTable extends TileArtificingGeneral implements ISided
         // Desyncs the animations between multiple tile entities
         tickCount = RAND.nextInt(40);
         
-        colors = new ArrayList<>();
-        characters = new ArrayList<>();
+        colors = new ArrayList<Integer>();
+        characters = new ArrayList<Character>();
         
         manager = new ArtificingCraftingManager(grid);
     }

@@ -53,7 +53,7 @@ public class GuiContent extends Gui {
         
         this.show = true;
         this.drawOwnBackground = true;
-        this.children = new ArrayList<>();
+        this.children = new ArrayList<GuiContent>();
         
         this.backgroundTexture = DEFAULT_TEXTURE;
         this.backgroundColor = 0xFFFFFF;

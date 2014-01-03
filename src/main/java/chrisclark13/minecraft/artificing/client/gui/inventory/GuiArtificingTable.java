@@ -54,7 +54,7 @@ public class GuiArtificingTable extends GuiCustomSlots {
         
         super.initGui();
         
-        errorMessages = new LinkedList<>();
+        errorMessages = new LinkedList<String>();
         errorContent = new GuiContentErrorMessages(guiLeft + xSize, guiTop + 10, 80, ySize - 20);
         errorTab = new GuiTabSidebarContent(-1, guiLeft + xSize, guiTop + 10, "TEST",
                 TabSide.RIGHT, TabDrawType.FRONT, errorContent);

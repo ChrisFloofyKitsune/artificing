@@ -348,7 +348,7 @@ public class RuneHelper {
 	}
 
 	public static List<EnchantmentData> getEnchantments(ItemStack itemStack) {
-		LinkedList<EnchantmentData> list = new LinkedList<>();
+		LinkedList<EnchantmentData> list = new LinkedList<EnchantmentData>();
 
 		if (itemStack.itemID == Item.enchantedBook.itemID) {
 			NBTTagList tagList = ((ItemEnchantedBook) itemStack.getItem())

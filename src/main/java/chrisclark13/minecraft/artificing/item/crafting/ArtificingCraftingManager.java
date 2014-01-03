@@ -43,11 +43,11 @@ public class ArtificingCraftingManager {
         this.grid = grid;
         
         error = false;
-        errorMessages = new LinkedList<>();
+        errorMessages = new LinkedList<String>();
         
         result = null;
-        enchantments = new LinkedList<>();
-        previousEnchantments = new LinkedList<>();
+        enchantments = new LinkedList<EnchantmentData>();
+        previousEnchantments = new LinkedList<EnchantmentData>();
         levelsNeeded = 0;
     }
     

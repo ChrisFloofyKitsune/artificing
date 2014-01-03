@@ -52,7 +52,7 @@ public class GuiGuideBook extends GuiScreen {
         this.player = player;
         this.book = book;
         this.sections = XMLHandler.parseGuideBookXML(getXMLPathFromStack(book));
-        this.pages = new ArrayList<>();
+        this.pages = new ArrayList<GuiGuidePage>();
         
         this.currentPage = 0;
         

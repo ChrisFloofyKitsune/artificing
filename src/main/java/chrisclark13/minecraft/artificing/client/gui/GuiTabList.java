@@ -8,7 +8,7 @@ public class GuiTabList {
     public GuiTab prevActiveTab;
     
     public GuiTabList() {
-        tabs = new ArrayList<>();
+        tabs = new ArrayList<GuiTab>();
         activeTab = null;
     }
     

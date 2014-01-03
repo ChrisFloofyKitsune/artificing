@@ -15,8 +15,8 @@ public class EnchantmentDamageArtificing extends EnchantmentDamage {
 		private final int thresholdEnchantability;
 		private final float damageBonusModifier;
 		
-		public HashSet<Class<? extends EntityLivingBase>> effectiveEntities = new HashSet<>();
-		public HashSet<Class<? extends EntityLivingBase>> excludedEntities = new HashSet<>();
+		public HashSet<Class<? extends EntityLivingBase>> effectiveEntities = new HashSet<Class<? extends EntityLivingBase>>();
+		public HashSet<Class<? extends EntityLivingBase>> excludedEntities = new HashSet<Class<? extends EntityLivingBase>>();
 		
 		private DamageType(int baseEnchantability, int levelEnchantability, int thresholdEnchantability, float damageBonusModifier) {
 			this.baseEnchantability = baseEnchantability;
