@@ -1,0 +1,21 @@
+{
+  "modinfoversion": 2,
+  "modlist": [{
+    "modid": "Artificing",
+    "name": "Artificing",
+    "description": "Make enchanting fun again! Pick and choose what you want!",
+    "version": "0.0.4",
+    "mcversion": "1.5.2",
+    "url": "",
+    "updateUrl": "",
+    "authors": [ "ChrisClark13", "Cyntain" ],
+    "credits": "Code: ChrisClark13, Textures: Cyntain",
+    "logoFile": "/mods/Artificing/textures/logo/banner.png",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": [ "Forge", "MultiSlotItems" ],
+    "dependencies": [ "after:MultiSlotItems" ],
+    "dependants": [],
+    "useDependencyInformation": "true"
+  }]
+}
